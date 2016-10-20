@@ -1,0 +1,141 @@
+﻿@model ManageCaseFour.Models.OCRViewModel
+
+@{
+    ViewBag.Title = "Index";
+
+}
+
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.css">
+
+</head>
+<body>
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+    <div id="OCRfileupload">
+        <form id="inputFilenameForm" class="well" action="/OCRs/GetAllFilesText" method="POST">
+            <label>Enter the group of files that you would like to scan for OCR, </label><p style="font-style: italic">in the order in which you would like to view them.</p><label>  To select multiple files, hold down the CTRL or SHIFT key while selecting.</label>
+            <input type="text" id="allFilenames" name="allFilenames" multiple><br />
+            <input type="Submit" id="uploadFileButton">
+        </form>
+    </div>
+
+    @*<div id="searchForTerm">
+        <form id="inputSearchTermForm" class="well" action="/Records/Search" method="POST">
+            <label>Enter the term for which you would like to search.</label>
+            <p style="font-style:italic">When searching for a date, enter the date "mm/dd/yyyy".</p>
+            <input type="text" id="searchTerm" name="searchTerm"><br />
+            <input type="Submit" id="sendSearchTerm">
+        </form>
+    </div>*@
+
+<div>
+    <table id="happyTable" class="display"></table>
+</div>
+
+@*<table class="table" id="happyTable">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.documentId)
+        </th>
+        <th>
+            @Html.ActionLink("provider", "Index", new { sortOrder = ViewBag.NameSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("serviceDate", "Index", new { sortOrder = ViewBag.NameSortParm })
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.documentFilename)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.documentText)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model.oVModelList) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.documentId)
+        </td>
+        <th>
+            @Html.DisplayFor(model => item.provider)
+        </th>
+        <th>
+            @Html.DisplayFor(model => item.serviceDate)
+        </th>
+        <td>
+            @Html.DisplayFor(modelItem => item.documentFilename)
+        </td>
+        <td><p style="overflow-y:hidden; height: 40px">
+                @Html.DisplayFor(modelItem => item.documentText)+"..."</p>
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.documentId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.documentId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.documentId })
+        </td>
+    </tr>
+}
+
+</table>*@
+
+
+</body>
+</html>
+
+@section Scripts{
+<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
+<script>
+    $(document).ready(function ()
+    {
+        $.ajax(
+        $("#happyTable").DataTable({
+            data: @Html.Raw(Json.Encode(Model.oVModelList)),
+            rowHeight: 30,
+            autowidth: false,
+            columnDefs: [
+                { width: "20%", targets: 3 }, 
+                {targets: 4, render: function ( data, type, row ) {
+                    return data.substr( 0, 100 );
+                }
+                }],
+            columns: [
+                { data: "documentId",
+                title: "documentId"},
+                { data: "provider", 
+                title: "Provider"},
+                { data: "serviceDate",
+                    "render": function (data, type, row) {
+                        return ToJavaScriptDate(data);},
+                title: "Date of Service"},
+                { data: "documentFilename",
+                    title: "File Location",
+                    render: function ( data, type, full, meta ) {
+                        return '<a href="'+data+'">Open File</a>'}},
+                { data: "documentText",
+                title: "Text"}]
+
+        }))
+    })
+
+
+    function ToJavaScriptDate(value) {
+        var pattern = /Date\(([^)]+)\)/;
+        var results = pattern.exec(value);
+        var dt = new Date(parseFloat(results[1]));
+        return (dt.getMonth() + 1) + "/" + dt.getDate() + "/" + dt.getFullYear();
+    }
+
+</script>
+
+
+
+
+}

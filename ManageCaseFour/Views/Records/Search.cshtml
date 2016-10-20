@@ -1,0 +1,47 @@
+﻿@model IEnumerable<ManageCaseFour.Models.Record>
+
+@{
+    ViewBag.Title = "Search";
+}
+
+<h2>Search</h2>
+
+<div>
+    <h4>Search Results</h4>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.documentId)
+            </th>
+            <th>
+                @Html.ActionLink("serviceDate", "Index", new { sortOrder = ViewBag.NameSortParm })
+            </th>
+            <th>
+                @Html.ActionLink("provider", "Index", new { sortOrder = ViewBag.NameSortParm })
+            </th>
+
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.documentId)
+                </td>>
+                <th>
+                    @Html.DisplayFor(model => item.serviceDate)
+                </th>
+                <th>
+                    @Html.DisplayFor(model => item.provider)
+                </th>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.documentId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.documentId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.documentId })
+                </td>
+            </tr>
+        }</table>   
+    @Html.ActionLink("Back to List", "Index", "OCRs")     
+</div>
+

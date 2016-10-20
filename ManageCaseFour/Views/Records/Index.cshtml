@@ -1,0 +1,195 @@
+﻿@model IEnumerable<ManageCaseFour.Models.Record>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.internalCaseId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InternalCaseNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sourceId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DocumentSource)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.departmentId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Department)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.documentId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DocumentType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.facilityId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Facility)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.recordReferenceNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.pageNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.recordEntryDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.provider)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.memo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.serviceDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.noteSubjective)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.history)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.noteObjective)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.noteAssessment)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.notePlan)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.medications)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.age)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DOB)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.allergies)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.vitalSigns)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.diagnosis)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fileContent)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.internalCaseId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InternalCaseNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sourceId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DocumentSource)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.departmentId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Department)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.documentId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DocumentType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.facilityId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Facility)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.recordReferenceNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.pageNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.recordEntryDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.provider)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.memo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.serviceDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.noteSubjective)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.history)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.noteObjective)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.noteAssessment)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.notePlan)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.medications)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.age)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DOB)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.allergies)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.vitalSigns)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.diagnosis)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fileContent)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.recordId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.recordId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.recordId })
+        </td>
+    </tr>
+}
+
+</table>
