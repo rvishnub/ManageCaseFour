@@ -7,7 +7,6 @@ namespace ManageCaseFour.Models
 {
     public class OCRViewModel
     {
-        private OCR ocr;
         private Record record;
 
         public string documentId { get; set; }

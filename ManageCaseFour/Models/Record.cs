@@ -52,7 +52,6 @@ namespace ManageCaseFour.Models
         public string fileContent;
 
         ApplicationDbContext db = new ApplicationDbContext();
-        OCR ocr;
 
         public string GetFileContent(Record record)
         {

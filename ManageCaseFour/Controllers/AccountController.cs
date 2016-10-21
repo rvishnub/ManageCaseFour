@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ManageCaseFour.Models;
+using static ManageCaseFour.Controllers.AuditsController;
 
 namespace ManageCaseFour.Controllers
 {
@@ -147,6 +148,8 @@ namespace ManageCaseFour.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
+
+        [Audit]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
@@ -394,6 +397,15 @@ namespace ManageCaseFour.Controllers
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
         }
+
+        //public ActionResult TimeoutLogOff()
+        //{
+        //    Session["User"] = null; //it's my session variable
+        //    Session.Clear();
+        //    Session.Abandon();
+        //    AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+        //    return RedirectToAction("Login", "Account");
+        //}
 
         //
         // GET: /Account/ExternalLoginFailure

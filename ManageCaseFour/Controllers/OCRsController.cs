@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -20,6 +21,7 @@ namespace ManageCaseFour.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         OCRViewModel oVModel;
+        Crypt crypt;
 
 
         // GET: OCRs
@@ -144,6 +146,8 @@ namespace ManageCaseFour.Controllers
             base.Dispose(disposing);
         }
 
+
+        //crypt code from support.microsoft.com/en-us/kb/307010
         [Audit]
         public ActionResult GetAllFilesText(string allFilenames)
         {
@@ -151,8 +155,13 @@ namespace ManageCaseFour.Controllers
             string[] filenames = allFilenames.Split(',');
             for (int pageCount = 0; pageCount<filenames.Count(); pageCount++)
             {
-                string text = doOCR(filenames[pageCount]);
+                string ext = Path.GetExtension(filenames[pageCount]);
+                string decryptedFilename = "C:/Users/Renuka/Documents/GitHub/ManageCaseFour/DECRYPTED/temp"+ext;
+                Crypt.DecryptFile(filenames[pageCount], decryptedFilename, "Forest@123456789");
+                string text = doOCR(decryptedFilename);
                 pageText = pageText + " " + text;
+                Crypt.EncryptFile(decryptedFilename, filenames[pageCount], "Forest@123456789");
+                System.IO.File.Delete(decryptedFilename);
             }
             OCR ocr = new OCR();
             ocr.documentText = pageText;

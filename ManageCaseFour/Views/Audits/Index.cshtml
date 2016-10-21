@@ -5,45 +5,51 @@
 }
 
 <h2>Index</h2>
+@if (User.Identity.IsAuthenticated)
+{
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.UserName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IPAddress)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AreaAccessed)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TimeAccessed)
-        </th>
-        <th></th>
-    </tr>
+    <span>
+        <p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IPAddress)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AreaAccessed)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TimeAccessed)
+                </th>
+                <th></th>
+            </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IPAddress)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AreaAccessed)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TimeAccessed)
-        </td>
-        <td>
-            @Html.ActionLink("Details", "Details", new { id=item.AuditID }) |
-        </td>
-    </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IPAddress)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AreaAccessed)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TimeAccessed)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Details", "Details", new { id = item.AuditID }) |
+                    </td>
+                </tr>
+            }
+
+        </table>
+   </span>
 }
-
-</table>
