@@ -11,24 +11,31 @@ namespace ManageCaseFour.Models
 {
     public class Record
     {
-
         [Key]
         public int recordId { get; set; }
 
+        [ForeignKey("InternalCaseNumber")]
         public int internalCaseId { get; set; }//business associate
-        public string InternalCaseNumber { get; set; }
+        public InternalCaseNumber InternalCaseNumber { get; set; }
 
+        [ForeignKey("DocumentSource")]
         public int sourceId { get; set; }//plaintiff, defendant, insurance company, patient, provider
-        public string DocumentSource { get; set; }
+        public DocumentSource DocumentSource { get; set; }
 
+        [ForeignKey("Department")]
         public int departmentId { get; set; }//ER, RAD, etc
-        public string Department { get; set; }
+        public Department Department { get; set; }
+
+        [ForeignKey("DocumentType")]
+        public int typeId { get; set; }//note, report, letter
+        public DocumentType DocumentType { get; set; }
+
+        [ForeignKey("Facility")]
+        public int facilityId { get; set; }//maybe a dropdown
+        public Facility Facility { get; set; }
+
 
         public string documentId { get; set; } //provider plus date
-        public string DocumentType { get; set; }
-
-        public int facilityId { get; set; }//maybe a dropdown
-        public string Facility { get; set; }
         public string recordReferenceNumber { get; set; }//autofill
         public string pageNumber { get; set; }
         public DateTime recordEntryDate { get; set; }
@@ -46,10 +53,18 @@ namespace ManageCaseFour.Models
         public string DOB { get; set; }
         public string allergies { get; set; }
         public string vitalSigns { get; set; }
-
+        public string providerFirstName { get; set; }
+        public string providerLastName { get; set; }
+        public string fileContent { get; set; }
         public string diagnosis { get; set; }
 
-        public string fileContent;
+
+
+
+
+
+
+
 
         ApplicationDbContext db = new ApplicationDbContext();
 
@@ -77,6 +92,5 @@ namespace ManageCaseFour.Models
             }
             return recordResultList;
         }
-
     }
 }

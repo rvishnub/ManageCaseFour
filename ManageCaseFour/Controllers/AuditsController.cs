@@ -11,6 +11,7 @@ using static ManageCaseFour.Models.Audit;
 
 namespace ManageCaseFour.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AuditsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

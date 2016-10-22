@@ -172,11 +172,14 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AuditsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OCRsController.cs" />
     <Compile Include="Controllers\RecordsController.cs" />
+    <Compile Include="Controllers\RoleController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -228,15 +231,41 @@
     <Compile Include="Migrations\201610182244255_removed timestamp.Designer.cs">
       <DependentUpon>201610182244255_removed timestamp.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201610221653038_made changes to aspusers, identity.cs" />
+    <Compile Include="Migrations\201610221653038_made changes to aspusers, identity.Designer.cs">
+      <DependentUpon>201610221653038_made changes to aspusers, identity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610221927445_new models.cs" />
+    <Compile Include="Migrations\201610221927445_new models.Designer.cs">
+      <DependentUpon>201610221927445_new models.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610221935129_added user model.cs" />
+    <Compile Include="Migrations\201610221935129_added user model.Designer.cs">
+      <DependentUpon>201610221935129_added user model.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610221958089_added remaining models.cs" />
+    <Compile Include="Migrations\201610221958089_added remaining models.Designer.cs">
+      <DependentUpon>201610221958089_added remaining models.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Audit.cs" />
+    <Compile Include="Models\Case.cs" />
     <Compile Include="Models\Crypt.cs" />
+    <Compile Include="Models\Department.cs" />
+    <Compile Include="Models\DocumentSource.cs" />
+    <Compile Include="Models\DocumentType.cs" />
+    <Compile Include="Models\Facility.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\InternalCaseNumber.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\OCR.cs" />
     <Compile Include="Models\OCRViewModel.cs" />
+    <Compile Include="Models\Principal.cs" />
+    <Compile Include="Models\PrincipalCaseJunction.cs" />
     <Compile Include="Models\Record.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserCaseJunction.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
@@ -641,9 +670,13 @@
     <Content Include="Views\Audits\Edit.cshtml" />
     <Content Include="Views\Audits\Index.cshtml" />
     <Content Include="Views\Records\Search.cshtml" />
+    <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\Role\Index.cshtml" />
+    <Content Include="Views\Home\Admin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="obj\Debug\TempPE\" />
+    <Folder Include="Views\Admin\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -689,6 +722,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201610182244255_removed timestamp.resx">
       <DependentUpon>201610182244255_removed timestamp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610221653038_made changes to aspusers, identity.resx">
+      <DependentUpon>201610221653038_made changes to aspusers, identity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610221927445_new models.resx">
+      <DependentUpon>201610221927445_new models.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610221935129_added user model.resx">
+      <DependentUpon>201610221935129_added user model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610221958089_added remaining models.resx">
+      <DependentUpon>201610221958089_added remaining models.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="obj\Debug\ManageCaseFour.Migrations.initialmigrationofOCRclass.resources" />
   </ItemGroup>

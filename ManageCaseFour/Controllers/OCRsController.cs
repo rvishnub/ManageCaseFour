@@ -13,10 +13,12 @@ using System.Web.Script.Serialization;
 using System.Globalization;
 using static ManageCaseFour.Controllers.AuditsController;
 using System.Collections;
+using System.Text;
+using System.Xml;
 
 namespace ManageCaseFour.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Employee, Manager")]
     public class OCRsController : Controller, IEnumerable
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -30,13 +32,8 @@ namespace ManageCaseFour.Controllers
             oVModel = new OCRViewModel();
             List<OCR> ocrList = db.OCR.ToList();
             OCRViewModel[] oVModelList = oVModel.GetOCRViewModelList(ocrList).ToArray();
-            //ViewBag.DateSortParm = sortOrder == "provider" ? "name_asc" : "";
-            //ViewBag.DateSortParm = sortOrder == "serviceDate" ? "date_desc" : "date_asc";
-            //Sort(sortOrder, oVModelList);
             oVModel.oVModelList = oVModelList;
             return View(oVModel);
-            //var data = oVModelList;
-            //return View(oVModelList);
         }
 
         // GET: OCRs/Details/5
@@ -284,6 +281,22 @@ namespace ManageCaseFour.Controllers
             }
             return View(oVModelList);
         }
+
+        public StringBuilder DisplayXMLResults(XmlDocument data)
+        {
+
+            StringBuilder sb = new StringBuilder();
+            foreach (XmlNode node in data.ChildNodes)
+            {
+                sb.Append(char.ToUpper(node.Name[0]));
+                sb.Append(node.Name.Substring(1));
+                sb.Append(' ');
+                sb.AppendLine(node.InnerText);
+            }
+            Console.WriteLine(sb);
+            return sb;
+        }
+
 
         public IEnumerator GetEnumerator()
         {

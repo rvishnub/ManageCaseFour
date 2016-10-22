@@ -8,18 +8,36 @@ using System.Web;
 using System.Web.Mvc;
 using ManageCaseFour.Models;
 using static ManageCaseFour.Controllers.AuditsController;
+using System.Text;
+using System.Xml;
+using System.IO;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
+using System.Globalization;
+using System.Security.Claims;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
+using System.Xml.Linq;
 
 namespace ManageCaseFour.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Employee, Manager")]
     public class RecordsController : Controller
     {
+
         private ApplicationDbContext db = new ApplicationDbContext();
+        OCRViewModel oVModel;
 
         // GET: Records
         public ActionResult Index()
         {
-            return View(db.Record.ToList());
+            oVModel = new OCRViewModel();
+            List<OCR> ocrList = db.OCR.ToList();
+            OCRViewModel[] oVModelList = oVModel.GetOCRViewModelList(ocrList).ToArray();
+            oVModel.oVModelList = oVModelList;
+            return View(oVModel);
         }
 
         // GET: Records/Details/5
@@ -130,18 +148,33 @@ namespace ManageCaseFour.Controllers
             base.Dispose(disposing);
         }
 
-        public ActionResult Search(string searchTerm)
-        {
-            List<Record> recordResultList = SearchRecords(searchTerm);
-            return View(recordResultList);
-        }
+        //public ActionResult Search(string searchTerm)
+        //{
+        //    List<Record> recordResultList = SearchRecords(searchTerm);
+        //    return View(recordResultList);
+        //}
 
-        public List<Record> SearchRecords(string searchTerm)
+        //public List<Record> SearchRecords(string searchTerm)
+        //{
+        //    List<Record> recordResultList = new List<Record>();
+        //    Record record = new Record();
+        //    recordResultList = record.SearchFileContent(searchTerm);
+        //    return recordResultList;
+        //}
+
+        public StringBuilder DisplayXMLResults(XmlDocument data)
         {
-            List<Record> recordResultList = new List<Record>();
-            Record record = new Record();
-            recordResultList = record.SearchFileContent(searchTerm);
-            return recordResultList;
+
+            StringBuilder sb = new StringBuilder();
+            foreach (XmlNode node in data.ChildNodes)
+            {
+                sb.Append(char.ToUpper(node.Name[0]));
+                sb.Append(node.Name.Substring(1));
+                sb.Append(' ');
+                sb.AppendLine(node.InnerText);
+            }
+            Console.WriteLine(sb);
+            return sb;
         }
     }
 }

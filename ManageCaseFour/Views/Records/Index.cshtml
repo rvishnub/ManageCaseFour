@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ManageCaseFour.Models.Record>
+﻿@model ManageCaseFour.Models.OCRViewModel
 
 @{
     ViewBag.Title = "Index";
@@ -9,7 +9,7 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
+@*<table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.internalCaseId)
@@ -183,8 +183,8 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.fileContent)
-        </td>
-        <td>
+        </td>*@
+        @*<td>
             @Html.ActionLink("Edit", "Edit", new { id=item.recordId }) |
             @Html.ActionLink("Details", "Details", new { id=item.recordId }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.recordId })
@@ -192,4 +192,93 @@
     </tr>
 }
 
-</table>
+</table>*@
+
+<div>
+    <form id="medlineSearch" role="form">
+        <div class="form-group">
+            <label>Search Medline</label>
+            <input class="form-control" placeholder="Enter search terms" input type="text" id="term" value="" actions="/Records/PerformSearch" method="POST">
+        </div>
+
+        <button type="button" class="btn btn-default" onclick="PerformSearch()">Send</button>
+        <button type="reset" class="btn btn-default" onclick="ReloadPage()">Reset</button>
+    </form>
+</div>
+
+<div>
+    <table id="happyTable" class="display"></table>
+</div>
+
+@section Scripts{
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
+    <script>
+    $(document).ready(function ()
+    {
+        $.ajax(
+        $("#happyTable").DataTable({
+            data: @Html.Raw(Json.Encode(Model.oVModelList)),
+            rowHeight: 30,
+            autowidth: false,
+            columnDefs: [
+                { width: "20%", targets: 3 },
+                {targets: 4, render: function ( data, type, row ) {
+                    return data.substr( 0, 100 );
+                }
+                }],
+            columns: [
+                { data: "documentId",
+                title: "documentId"},
+                { data: "provider",
+                title: "Provider"},
+                { data: "serviceDate",
+                    "render": function (data, type, row) {
+                        return ToJavaScriptDate(data);},
+                title: "Date of Service"},
+                { data: "documentFilename",
+                    title: "File Location",
+                    render: function ( data, type, full, meta ) {
+                        return '<a href="'+data+'">Open File</a>'}},
+                { data: "documentText",
+                title: "Text"}]
+
+        }))
+    })
+
+
+    function ToJavaScriptDate(value) {
+        var pattern = /Date\(([^)]+)\)/;
+        var results = pattern.exec(value);
+        var dt = new Date(parseFloat(results[1]));
+        return (dt.getMonth() + 1) + "/" + dt.getDate() + "/" + dt.getFullYear();
+    }
+
+
+    function PerformSearch() {
+        var term = document.getElementById("term").value;
+        var medlineURL = "https://wsearch.nlm.nih.gov/ws/query?db=healthTopics&term=";
+        $.get("http://query.yahooapis.com/v1/public/yql",
+        {
+            q: "select * from xml where url=\"" + medlineURL + term  + "\"",
+            format: "xml"
+        },
+        function (xml) {
+            console.log(xml);
+
+            $.ajax({
+                url: "/Records/DisplayXMLResults/",
+                type: "POST",
+                processData: false,
+                contentType: "text/xml",
+                data: { data:xml }
+            });
+        })
+    }
+
+
+    </script>
+
+
+
+
+}

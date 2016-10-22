@@ -26,5 +26,14 @@ namespace ManageCaseFour.Controllers
 
             return View();
         }
+
+        [Authorize(Roles = "Admin")]
+        public ActionResult Admin()
+        {
+            string Uri = Url.HttpRouteUrl("Default", new { controller = "admin", });
+            ViewBag.Url = new Uri(Request.Url, Uri).AbsoluteUri.ToString();
+
+            return View();
+        }
     }
 }
