@@ -20,6 +20,7 @@ namespace ManageCaseFour.Controllers
             return View();
         }
 
+        [Authorize]
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
@@ -34,6 +35,14 @@ namespace ManageCaseFour.Controllers
             ViewBag.Url = new Uri(Request.Url, Uri).AbsoluteUri.ToString();
 
             return View();
+        }
+
+        public ActionResult Manager()
+        {
+            string Uri = Url.HttpRouteUrl("Default", new { controller = "manager", });
+            ViewBag.Url = new Uri(Request.Url, Uri).AbsoluteUri.ToString();
+            return View();
+
         }
     }
 }

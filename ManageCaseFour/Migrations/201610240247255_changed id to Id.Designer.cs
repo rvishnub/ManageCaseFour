@@ -7,13 +7,13 @@ namespace ManageCaseFour.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class addednoteDatepropertytorecords : IMigrationMetadata
+    public sealed partial class changedidtoId : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(addednoteDatepropertytorecords));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(changedidtoId));
         
         string IMigrationMetadata.Id
         {
-            get { return "201610182017426_added noteDate property to records"; }
+            get { return "201610240247255_changed id to Id"; }
         }
         
         string IMigrationMetadata.Source

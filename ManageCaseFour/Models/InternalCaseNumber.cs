@@ -16,5 +16,7 @@ namespace ManageCaseFour.Models
         [ForeignKey("Case")]
         public int caseId { get; set; }
         public Case Case { get; set; }
+
+        public DateTime caseEntryDate { get; set; }
     }
 }

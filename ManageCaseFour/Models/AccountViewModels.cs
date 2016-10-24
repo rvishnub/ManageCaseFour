@@ -49,6 +49,10 @@ namespace ManageCaseFour.Models
     public class LoginViewModel
     {
         [Required]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
+
+        [Required]
         [Display(Name = "UserName")]
         public string UserName { get; set; }
 
@@ -59,6 +63,10 @@ namespace ManageCaseFour.Models
 
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
+
+        //[Required]
+        //[Display(Name = "PIN")]
+        //public int PIN { get; set; }
     }
 
     public class RegisterViewModel

@@ -23,7 +23,6 @@ namespace ManageCaseFour.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         OCRViewModel oVModel;
-        Crypt crypt;
 
 
         // GET: OCRs
@@ -32,8 +31,13 @@ namespace ManageCaseFour.Controllers
             oVModel = new OCRViewModel();
             List<OCR> ocrList = db.OCR.ToList();
             OCRViewModel[] oVModelList = oVModel.GetOCRViewModelList(ocrList).ToArray();
+            //ViewBag.DateSortParm = sortOrder == "provider" ? "name_asc" : "";
+            //ViewBag.DateSortParm = sortOrder == "serviceDate" ? "date_desc" : "date_asc";
+            //Sort(sortOrder, oVModelList);
             oVModel.oVModelList = oVModelList;
             return View(oVModel);
+            //var data = oVModelList;
+            //return View(oVModelList);
         }
 
         // GET: OCRs/Details/5
@@ -143,22 +147,15 @@ namespace ManageCaseFour.Controllers
             base.Dispose(disposing);
         }
 
-
-        //crypt code from support.microsoft.com/en-us/kb/307010
         [Audit]
         public ActionResult GetAllFilesText(string allFilenames)
         {
             string pageText = "";
             string[] filenames = allFilenames.Split(',');
-            for (int pageCount = 0; pageCount<filenames.Count(); pageCount++)
+            for (int pageCount = 0; pageCount < filenames.Count(); pageCount++)
             {
-                string ext = Path.GetExtension(filenames[pageCount]);
-                string decryptedFilename = "C:/Users/Renuka/Documents/GitHub/ManageCaseFour/DECRYPTED/temp"+ext;
-                Crypt.DecryptFile(filenames[pageCount], decryptedFilename, "Forest@123456789");
-                string text = doOCR(decryptedFilename);
+                string text = doOCR(filenames[pageCount]);
                 pageText = pageText + " " + text;
-                Crypt.EncryptFile(decryptedFilename, filenames[pageCount], "Forest@123456789");
-                System.IO.File.Delete(decryptedFilename);
             }
             OCR ocr = new OCR();
             ocr.documentText = pageText;
@@ -185,11 +182,11 @@ namespace ManageCaseFour.Controllers
                     {
 
                         var text = page.GetText(); //Gets the image's content as plain text.
-                        //OCR ocr = new OCR();
-                        //ocr.documentId = ParseTextIntoSubjects(pageText);
-                        //ocr.documentFilename = filename;
-                        //db.OCR.Add(ocr);
-                        //db.SaveChanges();
+                                                    //OCR ocr = new OCR();
+                                                    //ocr.documentId = ParseTextIntoSubjects(pageText);
+                                                    //ocr.documentFilename = filename;
+                                                    //db.OCR.Add(ocr);
+                                                    //db.SaveChanges();
                         return text;
                     }
 
@@ -221,7 +218,6 @@ namespace ManageCaseFour.Controllers
             db.Record.Add(record);
             db.SaveChanges();
             return record.documentId;
-;
 
         }
 
@@ -238,7 +234,7 @@ namespace ManageCaseFour.Controllers
         public string[] SplitNoteIntoAllSections(string text)
         {
             string[] separatingStrings = { "Advanced Pain Management", "Date", "Provider", "Patient", "DOB", "Age", "Sex", "Chief Complaint",
-                "History of Present Illness", "Medication", "Allergies", "Vital Signs", "Assessment", "Diagnosis", "Plan" };
+            "History of Present Illness", "Medication", "Allergies", "Vital Signs", "Assessment", "Diagnosis", "Plan" };
             string[] documentSections;
             documentSections = text.Split(separatingStrings, StringSplitOptions.None);
             return documentSections;
@@ -251,7 +247,7 @@ namespace ManageCaseFour.Controllers
             {
                 date = date.Remove(0, 1);
                 formattedDate = Convert.ToDateTime(date);
-                
+
             }
             catch
             {

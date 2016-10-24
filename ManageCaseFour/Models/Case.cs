@@ -12,6 +12,7 @@ namespace ManageCaseFour.Models
         public int caseId { get; set; }
         public string caseName { get; set; }
         public string caseNumber { get; set; }
+        public string county { get; set; }
 
     }
 }

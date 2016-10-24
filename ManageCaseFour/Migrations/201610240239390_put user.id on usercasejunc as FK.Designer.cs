@@ -7,13 +7,13 @@ namespace ManageCaseFour.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class madechangestoaspusersidentity : IMigrationMetadata
+    public sealed partial class putuseridonusercasejuncasFK : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(madechangestoaspusersidentity));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(putuseridonusercasejuncasFK));
         
         string IMigrationMetadata.Id
         {
-            get { return "201610221653038_made changes to aspusers, identity"; }
+            get { return "201610240239390_put user.id on usercasejunc as FK"; }
         }
         
         string IMigrationMetadata.Source

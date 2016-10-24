@@ -7,13 +7,13 @@ namespace ManageCaseFour.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class addedusermodel : IMigrationMetadata
+    public sealed partial class initialmigration : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(addedusermodel));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(initialmigration));
         
         string IMigrationMetadata.Id
         {
-            get { return "201610221935129_added user model"; }
+            get { return "201610240218257_initial migration"; }
         }
         
         string IMigrationMetadata.Source

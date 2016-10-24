@@ -1,0 +1,79 @@
+﻿@model ManageCaseFour.Models.NewCaseViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+
+<div>
+    <form id="caseSearch" role="form">
+        <div class="form-group">
+            <label>Search for Cases</label>
+            <input class="form-control" placeholder="Enter search terms" input type="text" id="searchValue" name="searchValue" value="">
+            <input class="form-control" placeholder="Employee or Principal?" input type="text" id="param" name="param" value="">
+        </div>
+
+        <button type="button" class="btn btn-default" actions="/Case/Details" method="POST"></button>
+        <button type="reset" class="btn btn-default" onclick="ReloadPage()">Reset</button>
+    </form>
+</div>
+@*<div>
+    <table id="happyTable" class="display"></table>
+</div>*@
+
+
+<div>
+    <h4>Case</h4>
+    <hr />
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.Label("Case Id")
+            @*@Html.DisplayNameFor(model => model.pickup.Status)*@
+        </th>
+
+        <th>
+            @Html.Label("Case Name")
+            @*@Html.DisplayNameFor(model => model.pickup.PickupDate.Date)*@
+        </th>
+        <th>
+            @Html.Label("Case County")
+            @*@Html.DisplayNameFor(model => model.address.Street1)*@
+        </th>
+        <th>
+            @Html.Label("Case Number")
+            @*@Html.DisplayNameFor(model => model.address.City)*@
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var caseItem in Model.CaseLoad)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => caseItem.caseId)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => caseItem.caseName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => caseItem.county)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => caseItem.caseNumber)
+            </td>
+        </tr>
+
+    }
+
+</table>
+
+<p>
+    @*@Html.ActionLink("Edit", "Edit", new { id = Model.caseId }) |*@
+    @Html.ActionLink("Back to List", "Index")
+</p>

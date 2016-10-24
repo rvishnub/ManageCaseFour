@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -12,9 +13,10 @@ namespace ManageCaseFour.Models
         [Key]
         public int userCaseJunctionId { get; set; }
 
-        [ForeignKey("User")]
-        public int userId { get; set; }
-        public User User { get; set; }
+        [ForeignKey("ApplicationUser")]
+        public string Id { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
+
 
         [ForeignKey("Case")]
         public int caseId { get; set; }

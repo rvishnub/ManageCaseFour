@@ -32,7 +32,6 @@ namespace ManageCaseFour.Models
 
         public DbSet<OCR> OCR { get; set; }
         public DbSet<Record> Record { get; set; }
-        public DbSet<User> User { get; set; }
         public DbSet<Case> Case { get; set; }
         public DbSet<Department> Department { get; set; }
         public DbSet<DocumentSource> DocumentSource { get; set; }
@@ -42,7 +41,7 @@ namespace ManageCaseFour.Models
         public DbSet<Principal> Principal { get; set; }
         public DbSet<PrincipalCaseJunction> PrincipalCaseJunction { get; set; }
         public DbSet<UserCaseJunction> UserCaseJunction { get; set; }
-
+        
         public System.Data.Entity.DbSet<ManageCaseFour.Models.Audit> Audits { get; set; }
     }
 }
