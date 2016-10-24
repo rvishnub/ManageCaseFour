@@ -10,7 +10,7 @@
 {
     @Html.AntiForgeryToken()
     
-    <div class="form-horizontal">
+    @*<div class="form-horizontal">
         <h4>Case</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -56,8 +56,30 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Create" class="btn btn-default" action = "/Case/Create" method= "POST"/>
             </div>
+        </div>
+    </div>*@
+
+
+    <div id="createNewCaseForm">
+        <div><h3>Add new case</h3></div>
+        <div>
+            <form id="newCaseForm" class="well" action="/Case/Create" method="POST">
+                <label>Case Name</label>
+                <input type="text" id="newCaseName" name="caseName"><br />
+                <label>County</label>
+                <input type="text" id="newCaseCounty" name="county"><br />
+                <label>Case Number</label>
+                <input type="text" id="newCaseNumber" name="caseNumber"><br />
+                <label>Principal (Code)</label>
+                <input type="text" id="newCasePrincipal" name="principalCode"><br />
+                <label>Staff (User Name)</label>
+                <input type="text" id="newCaseStaff" name="UserName"><br />
+                <label>Internal Case Number</label>
+                <input type="text" id="newCaseIntCaseNumber" name="internalCaseNumber"><br />
+                <input type="Submit" id="submitButton">
+            </form>
         </div>
     </div>
 }

@@ -84,7 +84,17 @@ namespace ManageCaseFour.Controllers
             {
                 if (!await UserManager.IsEmailConfirmedAsync(user.Id))
                 {
-                    ViewBag.errorMessage = "You must have a valid email and user name to log on.";
+                    ViewBag.errorMessage = "You must have a valid email to log on.";
+                    return View("Error");
+                }
+            }
+            user = await UserManager.FindByNameAsync(model.UserName);
+            if (user != null)
+            {
+                var thisUser = db.Users.Find(user.Id);
+                if (thisUser.UserName != model.UserName)
+                {
+                    ViewBag.errorMessage = "You must have a valid user name to log on.";
                     return View("Error");
                 }
             }
@@ -94,6 +104,21 @@ namespace ManageCaseFour.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    if (user != null)
+                    {
+                        if (UserManager.IsInRole(user.Id, "Admin"))
+                        {
+                            returnUrl = ("/Home/Admin");
+                        }
+                        else if (UserManager.IsInRole(user.Id, "Manager"))
+                        {
+                            returnUrl = ("/Case/Index");
+                        }
+                        else if (UserManager.IsInRole(user.Id, "Employee"))
+                        {
+                            returnUrl = ("/Case/Details");
+                        }
+                    }
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");

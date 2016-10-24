@@ -60,6 +60,8 @@ namespace ManageCaseFour.Controllers
         [Audit]
         public ActionResult Create()
         {
+            ViewBag.caseName = db.Case.Select(x=>x.caseName).ToList();
+            //ViewBag.caseName = db.Case.ToList();
             return View();
         }
 
@@ -68,16 +70,42 @@ namespace ManageCaseFour.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "recordId,internalCaseId,InternalCaseNumber,sourceId,DocumentSource,departmentId,Department,documentId,DocumentType,facilityId,Facility,recordReferenceNumber,pageNumber,recordEntryDate,provider,memo,serviceDate,noteSubjective,history,noteObjective,noteAssessment,notePlan,medications,age,DOB,allergies,vitalSigns,diagnosis,fileContent")] Record record)
+        //public ActionResult Create(string caseName, string departmentCode, string documentCode, string facilityName, string provider, string memo, string serviceDate, string noteSubjective, string history, string noteObjective, string noteAssessment, string notePlan, string medications, string age, string DOB, string allergies, string vitalSigns, string diagnosis)
+        public ActionResult Create(CaseRecordViewModel nCRVModel)
         {
             if (ModelState.IsValid)
             {
+                Record record = new Record();
+                //Department department = new Department();
+                //DocumentType type = new DocumentType();
+                //Facility facility = new Facility();
+                record.departmentId = db.Department.Select(x => x).Where(y => y.departmentCode == nCRVModel.record.Department.departmentCode).First().departmentId;
+                record.typeId = db.DocumentType.Select(x => x).Where(y => y.documentCode == nCRVModel.record.DocumentType.documentCode).First().typeId;
+                record.facilityId = db.Facility.Select(x => x).Where(y => y.facilityName == nCRVModel.record.Facility.facilityName).First().facilityId;
+                record.recordEntryDate = DateTime.Now;
+                record.provider = nCRVModel.record.provider;
+                record.memo = nCRVModel.record.memo;
+                record.serviceDate = nCRVModel.record.serviceDate;
+                record.noteSubjective = nCRVModel.record.noteSubjective;
+                record.history = nCRVModel.record.history;
+                record.noteObjective = nCRVModel.record.noteObjective;
+                record.noteAssessment = nCRVModel.record.noteAssessment;
+                record.notePlan = nCRVModel.record.notePlan;
+                record.medications = nCRVModel.record.medications;
+                record.age = nCRVModel.record.age;
+                record.DOB = nCRVModel.record.DOB;
+                record.allergies = nCRVModel.record.allergies;
+                record.vitalSigns = nCRVModel.record.vitalSigns;
+                record.diagnosis = nCRVModel.record.diagnosis;
                 db.Record.Add(record);
+                db.SaveChanges();
+                var caseId = db.Case.Select(x => x).Where(y => y.caseName == nCRVModel.thisCase.caseName).First().caseId; 
+                record.internalCaseId = db.InternalCaseNumber.Select(x => x).Where(y=>y.caseId == caseId).First().internalCaseId;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(record);
+            return View();
         }
 
         // GET: Records/Edit/5

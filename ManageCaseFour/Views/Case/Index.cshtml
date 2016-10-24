@@ -4,12 +4,17 @@
     ViewBag.Title = "Index";
 }
 
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.css">
+</head>
+
 <h2>Index</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
+@*<table class="table">
     <tr>
         <th>
             Case ID
@@ -32,32 +37,80 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model.CaseLoad) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.newCase.caseId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.newCase.caseName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.newCase.county)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.newCase.caseNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.principal.principalCode)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.staff.UserName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.newCase.caseId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.newCase.caseId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.newCase.caseId })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model.CaseLoad)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.newCase.caseId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.newCase.caseName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.newCase.county)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.newCase.caseNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.principal.principalCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.staff.UserName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.newCase.caseId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.newCase.caseId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.newCase.caseId })
+            </td>
+        </tr>
+    }
 
-</table>
+</table>*@
+
+<div>
+    <table id="happyTable" class="display"></table>
+</div>
+
+</html>
+
+@section Scripts{
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
+    <script>
+    $(document).ready(function ()
+    {
+        $.ajax(
+        $("#happyTable").DataTable({
+            data: @Html.Raw(Json.Encode(Model.nCVModelList)),
+            rowHeight: 30,
+            autowidth: false,
+            columnDefs: [
+                { width: "20%", targets: 3 }],
+            columns: [
+                { data: "newCase.caseName",
+                title: "Case Name"},
+                { data: "newCase.county",
+                title: "County"},
+                { data: "newCase.caseNumber",
+                title: "Case Number"},
+                { data: "principal.principalCode",
+                    title: "Principal"},
+                { data: "staff.UserName",
+                    title: "Staff"}]
+        }))
+    })
+
+
+    function ToJavaScriptDate(value) {
+        var pattern = /Date\(([^)]+)\)/;
+        var results = pattern.exec(value);
+        var dt = new Date(parseFloat(results[1]));
+        return (dt.getMonth() + 1) + "/" + dt.getDate() + "/" + dt.getFullYear();
+    }
+
+    </script>
+
+
+
+
+}

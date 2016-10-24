@@ -24,8 +24,8 @@ namespace ManageCaseFour.Controllers
             for (int i = 0; i < CaseList.Count(); i++)
             {
                 Case newCase = CaseList[i];
-                var principalId = db.PrincipalCaseJunction.Select(x => x).Where(y => y.caseId == newCase.caseId).First();
-                Principal principal = db.Principal.Select(y => y).Where(x => x.principalId == principalId.principalId).First();
+                principalCode = db.PrincipalCaseJunction.Select(x => x).Where(y => y.caseId = newCase.caseId).principalId.db.Principal.Select(z => z).Where(g => g.princi)
+
                 var caseIdList = db.UserCaseJunction.Select(x => x).Where(y => y.caseId == newCase.caseId).ToList();
                 for (int j = 0; j < caseIdList.Count(); j++)
                 {
@@ -38,6 +38,8 @@ namespace ManageCaseFour.Controllers
                     oVModelList.Add(oVModel);
                 }
                 oVModel.CaseLoad = oVModelList;
+                NewCaseViewModel[] nCVModelList = oVModel.CaseLoad.ToArray();
+                oVModel.nCVModelList = nCVModelList;
             }
             return View(oVModel);
         }
@@ -118,16 +120,37 @@ namespace ManageCaseFour.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "caseId,caseName,caseNumber")] Case @case)
+        //public ActionResult Create([Bind(Include = "caseId,caseName,caseNumber, principalCode, UserName")] NewCaseViewModel oVModel)
+        public ActionResult Create(string caseName, string county, string caseNumber, string principalCode, string UserName, int internalCaseNumber)
         {
             if (ModelState.IsValid)
             {
-                db.Case.Add(@case);
+                Case newCase = new Case();
+                newCase.county = county;
+                newCase.caseNumber = caseNumber;
+                newCase.caseName = caseName;
+                db.Case.Add(newCase);
+                db.SaveChanges();
+                Principal principal = new Principal();
+                principal.principalCode = principalCode;
+                PrincipalCaseJunction pCJunc = new PrincipalCaseJunction();
+                pCJunc.caseId = newCase.caseId;
+                pCJunc.principalId = db.Principal.Select(x => x).Where(y => y.principalCode == principalCode).First().principalId;
+                UserCaseJunction uCJunc = new UserCaseJunction();
+                uCJunc.caseId = newCase.caseId;
+                uCJunc.Id = db.Users.Select(x => x).Where(y => y.UserName == UserName).First().Id;
+                InternalCaseNumber intCaseNumber = new InternalCaseNumber();
+                intCaseNumber.internalCaseNumber = internalCaseNumber;
+                intCaseNumber.caseId = newCase.caseId;
+                intCaseNumber.caseEntryDate = DateTime.Now;
+                db.InternalCaseNumber.Add(intCaseNumber);
+                db.PrincipalCaseJunction.Add(pCJunc);
+                db.UserCaseJunction.Add(uCJunc);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(@case);
+            return View();
         }
 
         // GET: Case/Edit/5
