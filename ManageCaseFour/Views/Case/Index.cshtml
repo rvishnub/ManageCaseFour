@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ManageCaseFour.Models.Case>
+﻿@model ManageCaseFour.Models.NewCaseViewModel
 
 @{
     ViewBag.Title = "Index";
@@ -23,28 +23,39 @@
         <th>
             Case Number
         </th>
-
+        <th>
+            Principal
+        </th>
+        <th>
+            Staff
+        </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model.CaseLoad) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.caseId)
+            @Html.DisplayFor(modelItem => item.newCase.caseId)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.caseName)
+            @Html.DisplayFor(modelItem => item.newCase.caseName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.county)
+            @Html.DisplayFor(modelItem => item.newCase.county)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.caseNumber)
+            @Html.DisplayFor(modelItem => item.newCase.caseNumber)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.caseId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.caseId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.caseId })
+            @Html.DisplayFor(modelItem => item.principal.principalCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.staff.UserName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.newCase.caseId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.newCase.caseId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.newCase.caseId })
         </td>
     </tr>
 }

@@ -14,38 +14,97 @@ namespace ManageCaseFour.Controllers
     public class CaseController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-
+        NewCaseViewModel oVModel = new NewCaseViewModel();
         // GET: Case
         public ActionResult Index()
         {
             List<Case> CaseList = db.Case.ToList();
-            return View(CaseList);
+            List<NewCaseViewModel> oVModelList = new List<NewCaseViewModel>();
+            List<NewCaseViewModel> CaseLoad = new List<NewCaseViewModel>();
+            for (int i = 0; i < CaseList.Count(); i++)
+            {
+                Case newCase = CaseList[i];
+                var principalId = db.PrincipalCaseJunction.Select(x => x).Where(y => y.caseId == newCase.caseId).First();
+                Principal principal = db.Principal.Select(y => y).Where(x => x.principalId == principalId.principalId).First();
+                var caseIdList = db.UserCaseJunction.Select(x => x).Where(y => y.caseId == newCase.caseId).ToList();
+                for (int j = 0; j < caseIdList.Count(); j++)
+                {
+                    NewCaseViewModel oVModel = new NewCaseViewModel();
+                    var usercaseId = caseIdList[j];
+                    ApplicationUser user = db.Users.Select(x => x).Where(y => y.Id == usercaseId.Id).First();
+                    oVModel.staff = user;
+                    oVModel.principal = principal;
+                    oVModel.newCase = newCase;
+                    oVModelList.Add(oVModel);
+                }
+                oVModel.CaseLoad = oVModelList;
+            }
+            return View(oVModel);
         }
 
+
+
         // GET: Case/Details/5
-        public ActionResult Details(string searchValue, string param)
+        public ActionResult Details(string someId, string param)
         {
-            NewCaseViewModel nCVModel = new NewCaseViewModel();
-            List<Case> CaseLoad = new List<Case>();
-            if (param == "Principal")
+            if (someId == "" || param == "")
             {
-                var principal = db.Principal.Select(v => v).Where(y => y.principalCode == searchValue).First();
-                var CaseJunctionList = db.PrincipalCaseJunction.Select(x => x).Where(y => y.principalId == principal.principalId).ToList();
+                oVModel.CaseLoad = new List<NewCaseViewModel>();
             }
             else if (param == "Employee")
             {
-
-                var employee = db.Users.Select(v => v).Where(y => y.UserName == searchValue).First();
-                var CaseJunctionList = db.UserCaseJunction.Select(x => x).Where(y => y.Id == employee.Id).ToList();
-                for (int i = 0; i < CaseJunctionList.Count(); i++)
+                List<Case> CaseList = db.Case.ToList();
+                for (int i = 0; i < CaseList.Count(); i++)
                 {
-                    var selectedCaseId = CaseJunctionList[i];
-                    var selectedCase = db.Case.Select(x => x).Where(y => y.caseId == selectedCaseId.caseId).First();
-                    CaseLoad.Add(selectedCase);
+                    List<NewCaseViewModel> oVModelList = new List<NewCaseViewModel>();
+                    Case newCase = CaseList[i];
+                    var principalId = db.PrincipalCaseJunction.Select(x => x).Where(y => y.caseId == newCase.caseId).First();
+                    Principal principal = db.Principal.Select(y => y).Where(x => x.principalId == principalId.principalId).First();
+                    var caseIdList = db.UserCaseJunction.Select(x => x).Where(y => y.caseId == newCase.caseId).ToList();
+                    for (int j = 0; j < caseIdList.Count(); j++)
+                    {
+                        NewCaseViewModel oVModel = new NewCaseViewModel();
+                        var usercaseId = caseIdList[j];
+                        ApplicationUser user = db.Users.Select(x => x).Where(y => y.Id == usercaseId.Id).First();
+                        oVModel.staff = user;
+                        oVModel.principal = principal;
+                        oVModel.newCase = newCase;
+                        oVModelList.Add(oVModel);
+                    }
+                    oVModel.oVModelList = oVModelList;
+                    List<NewCaseViewModel> CaseLoad = new List<NewCaseViewModel>();
+                    for (int k = 0; k < oVModelList.Count(); k++)
+                    {
+                        if (oVModelList[k].staff.UserName == someId)
+                        {
+                            CaseLoad.Add(oVModelList[k]);
+                        }
+                        oVModel.CaseLoad = CaseLoad;
+                    }
                 }
             }
-            nCVModel.CaseLoad = CaseLoad;
-            return View(nCVModel);
+            else if (param == "Principal")
+            {
+                List<NewCaseViewModel> oVModelList = new List<NewCaseViewModel>();
+                List<Case> CaseList = db.Case.ToList();
+                for (int i = 0; i < CaseList.Count(); i++)
+                {
+                    var eachCase = CaseList[i];
+                    var principalId = db.PrincipalCaseJunction.Select(x => x).Where(y => y.caseId == eachCase.caseId).First();
+                    Principal principal = db.Principal.Select(y => y).Where(x => x.principalId == principalId.principalId).First();
+                    if (principal.principalCode == someId)
+                    {
+                        NewCaseViewModel oVModel = new NewCaseViewModel();
+                        oVModel.principal = principal;
+                        oVModel.newCase = CaseList[i];
+                        oVModelList.Add(oVModel);
+                    }
+                    oVModel.CaseLoad = oVModelList;
+                }
+            }
+            NewCaseViewModel[] nCVModelList = oVModel.CaseLoad.ToArray();
+            oVModel.nCVModelList = nCVModelList;
+            return View(oVModel);
         }
 
         // GET: Case/Create

@@ -11,8 +11,8 @@
     <form id="caseSearch" role="form">
         <div class="form-group">
             <label>Search for Cases</label>
-            <input class="form-control" placeholder="Enter search terms" input type="text" id="searchValue" name="searchValue" value="">
-            <input class="form-control" placeholder="Employee or Principal?" input type="text" id="param" name="param" value="">
+            <input class="form-control" placeholder="Enter search terms" input type="text" id="UserName" name="UserName">
+            <input class="form-control" placeholder="Employee or Principal?" input type="text" id="param" name="param">
         </div>
 
         <button type="button" class="btn btn-default" actions="/Case/Details" method="POST"></button>
@@ -55,17 +55,17 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => caseItem.caseId)
+                @Html.DisplayFor(modelItem => caseItem.newCase.caseId)
             </td>
 
             <td>
-                @Html.DisplayFor(modelItem => caseItem.caseName)
+                @Html.DisplayFor(modelItem => caseItem.newCase.caseName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => caseItem.county)
+                @Html.DisplayFor(modelItem => caseItem.newCase.county)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => caseItem.caseNumber)
+                @Html.DisplayFor(modelItem => caseItem.newCase.caseNumber)
             </td>
         </tr>
 
@@ -74,6 +74,6 @@
 </table>
 
 <p>
-    @*@Html.ActionLink("Edit", "Edit", new { id = Model.caseId }) |*@
+    @*@Html.ActionLink("Edit", "Edit", new { id = Model.newCase.caseId }) |*@
     @Html.ActionLink("Back to List", "Index")
 </p>

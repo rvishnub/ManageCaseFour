@@ -12,6 +12,7 @@ using static ManageCaseFour.Models.Audit;
 namespace ManageCaseFour.Controllers
 {
     [Authorize(Roles = "Admin")]
+    [Audit]
     public class AuditsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -45,7 +46,6 @@ namespace ManageCaseFour.Controllers
         }
 
         // GET: Audits/Create
-        [Audit]
         public ActionResult Create()
         {
             return View();
@@ -56,14 +56,12 @@ namespace ManageCaseFour.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Audit]
         public ActionResult Create([Bind(Include = "AuditID,UserName,IPAddress,AreaAccessed,Timestamp")] Audit audit)
         {
             return RedirectToAction("Index");
         }
 
         // GET: Audits/Edit/5
-        [Audit]
         public ActionResult Edit(Guid? id)
         {
             return RedirectToAction("Index");
@@ -74,21 +72,18 @@ namespace ManageCaseFour.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Audit]
         public ActionResult Edit([Bind(Include = "AuditID,UserName,IPAddress,AreaAccessed,Timestamp")] Audit audit)
         {
             return RedirectToAction("Index");
         }
 
         // GET: Audits/Delete/5
-        [Audit]
         public ActionResult Delete(Guid? id)
         {
             return RedirectToAction("Index");
         }
 
         // POST: Audits/Delete/5
-        [Audit]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(Guid id)
@@ -104,7 +99,6 @@ namespace ManageCaseFour.Controllers
             }
             base.Dispose(disposing);
         }
-        [Audit]
         public class AuditAttribute : ActionFilterAttribute
         {
             public override void OnActionExecuting(ActionExecutingContext filterContext)
