@@ -40,18 +40,20 @@ namespace ManageCaseFour.Controllers
             for (int i = 0; i<RecordList.Count(); i++)
             {
                 Record thisRecord = RecordList[i];
-                InternalCaseNumber intCaseNumber = new Models.InternalCaseNumber();
-                rCVModel.intCaseNumber.internalCaseNumber = db.InternalCaseNumber.Select(x=>x).Where(y=>y.internalCaseId == thisRecord.internalCaseId).First().internalCaseNumber;
-                rCVModel.thisCase.caseId = db.InternalCaseNumber.Select(x => x).Where(y=>y.internalCaseId == thisRecord.internalCaseId).First().caseId;
-                rCVModel.thisCase.caseName = db.Case.Select(x => x).Where(y => y.caseId == rCVModel.thisCase.caseId).First().caseName;
+                //InternalCaseNumber intCaseNumber = new Models.InternalCaseNumber();
+                //rCVModel.intCaseNumber.internalCaseNumber = db.InternalCaseNumber.Select(x=>x).Where(y=>y.internalCaseId == thisRecord.internalCaseId).First().internalCaseNumber;
+                var caseId = db.InternalCaseNumber.Select(x => x).Where(y=>y.internalCaseId == thisRecord.internalCaseId).First().caseId;
+                var caseName = db.Case.Select(x => x).Where(y => y.caseId == caseId).First().caseName;
+                rCVModel.record = db.Record.Select(x=>x).Where(y=>y.recordId == thisRecord.recordId).First();
                 rCVModel.record.recordId = thisRecord.recordId;
-                rCVModel.department.departmentCode = db.Department.Select(x => x).Where(y => y.departmentId == thisRecord.departmentId).First().departmentCode;
+                rCVModel.department = db.Department.Select(x => x).Where(y => y.departmentId == thisRecord.departmentId).First();
                 rCVModel.record.serviceDate = thisRecord.serviceDate;
                 rCVModel.record.provider = thisRecord.provider;
-                rCVModel.facility.facilityName = db.Facility.Select(x => x).Where(y => y.facilityId == thisRecord.facilityId).First().facilityName;
+                rCVModel.facility = db.Facility.Select(x => x).Where(y => y.facilityId == thisRecord.facilityId).First();
+                rCVModel.thisCase = db.Case.Select(x => x).Where(y => y.caseId == caseId).First();
                 rCVModelList.Add(rCVModel);
             }
-            RecordViewModel[] rCVModelArray = rCVModelList.ToArray();
+            rCVModel.rCVModelArray = rCVModelList.ToArray();
             return View(rCVModel);
             
         }
@@ -117,7 +119,7 @@ namespace ManageCaseFour.Controllers
                 record.internalCaseId = db.InternalCaseNumber.Select(x => x).Where(y=>y.caseId == caseId).First().internalCaseId;
                 db.Record.Add(record);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","Home");
             }
 
             return View();

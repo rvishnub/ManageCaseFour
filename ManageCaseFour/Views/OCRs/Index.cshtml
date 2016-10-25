@@ -1,7 +1,7 @@
 ﻿@model ManageCaseFour.Models.OCRViewModel
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "OCR";
 
 }
 
@@ -12,14 +12,38 @@
 </head>
 <body>
 
-<h2>Index</h2>
+<h2>OCR</h2>
 
-<p>
+@*<p>
     @Html.ActionLink("Create New", "Create")
-</p>
+</p>*@
+
+    <p>CURRENT CASE LIST</p>
+    <div>
+        <table id="caseNameTable" class="display"></table>
+    </div>
+
+    @*@Html.DropDownList("caseName", null, htmlAttributes: new { @class = "form-control" })*@
+
+    @*<div class="form-group">
+        @Html.LabelFor(model => model.thisCase.caseName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.caseName, new SelectList(ViewBag.caseNameList, "caseName"), new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.thisCase.caseName, "", new { @class = "text-danger" })
+        </div>
+    </div>*@
 
     <div id="OCRfileupload">
         <form id="inputFilenameForm" class="well" action="/OCRs/GetAllFilesText" method="POST">
+            @*<div class="form-group">
+                @Html.LabelFor(model => model.caseName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.caseName, new SelectList(ViewBag.caseName, "caseName"), new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.caseName, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+            <label>For which case would you like to enter a record?  Enter the Case Name.</label>
+            <input type="text" id="caseName" name="caseName"><br />
             <label>Enter the group of files that you would like to scan for OCR, </label><p style="font-style: italic">in the order in which you would like to view them.</p><label>  To select multiple files, hold down the CTRL or SHIFT key while selecting.</label>
             <input type="text" id="allFilenames" name="allFilenames" multiple><br />
             <input type="Submit" id="uploadFileButton">
@@ -36,7 +60,7 @@
     </div>*@
 
 <div>
-    <table id="happyTable" class="display"></table>
+    <table id="happyTable" class="display" style=" = "align-text:center"></table>
 </div>
 
 @*<table class="table" id="happyTable">
@@ -95,6 +119,25 @@
 <script>
     $(document).ready(function ()
     {
+
+        $.ajax(
+$("#caseNameTable").DataTable({
+    data: @Html.Raw(Json.Encode(Model.caseNameListArray)),
+    rowHeight: 30,
+    autowidth: true,
+    //columnDefs: [],
+    columns: [
+        {data: "caseId",
+        title: "Case ID"},
+        { data: "caseName",
+        title: "Case Name"},
+        {data: "caseNumber",
+        title: "Case Number"},
+        {data: "county",
+            title: "County"}
+]
+}))
+        
         $.ajax(
         $("#happyTable").DataTable({
             data: @Html.Raw(Json.Encode(Model.oVModelList)),

@@ -10,17 +10,24 @@ namespace ManageCaseFour.Models
     public class OCRViewModel
     {
         private Record record;
+        public Case thisCase;
 
         public string documentId { get; set; }
         public string documentFilename { get; set; }
         public string documentText { get; set; }
         public DateTime serviceDate { get; set; }
         public string provider { get; set; }
+        public string caseName { get; set; }
+        public int caseId { get; set; }
+        public int internalCaseId { get; set; }
+        public int internalCaseNumber { get; set; }
 
         ApplicationDbContext db = new ApplicationDbContext();
         List<OCR> ocrList = new List<OCR>();
         List<OCRViewModel> ovModel = new List<OCRViewModel>();
         public OCRViewModel[] oVModelList = new OCRViewModel[] { };
+        public List<string> caseNameList = new List<string>();
+        public Case[] caseNameListArray = new Case[] { };
 
 
         public List<OCRViewModel> GetOCRViewModelList(List<OCR> ocrList)

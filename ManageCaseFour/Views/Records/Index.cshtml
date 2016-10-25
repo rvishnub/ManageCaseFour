@@ -215,21 +215,19 @@
             columnDefs: [
                 { width: "20%", targets: 3 }],
             columns: [
-                { data: "internalCaseId",
-                title: "Internal Case Id"},
-                { data: "caseName",
+                { data: "thisCase.caseName",
                     title: "Case Name"},
-                { data: "recordId",
+                { data: "record.recordId",
                 title: "Record Id"},
-                {data: "departmentCode",
+                {data: "department.departmentCode",
                     title: "Department Code"},
-                { data: "serviceDate",
+                { data: "record.serviceDate",
                     "render": function (data, type, row) {
                         return ToJavaScriptDate(data);},
                     title: "Date of Service"},
-                { data: "provider",
+                { data: "record.provider",
                 title: "Provider"},
-                {data: "facilityId",
+                {data: "facility.facilityId",
                     title: "Facility ID"}]
 
         }))

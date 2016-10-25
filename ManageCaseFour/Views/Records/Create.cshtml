@@ -64,6 +64,16 @@
             </div>
         </div>*@
 
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.internalCaseNumber.internalCaseNumber, "InternalCaseNumber", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.internalCaseNumber.internalCaseNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.internalCaseNumber.internalCaseNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+
+
         <div class="form-group">
             @Html.LabelFor(model => model.record.Department.departmentCode, "Department Code",  htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -250,10 +260,12 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" action="Create" class="btn btn-default" />
+                <input type="submit" action="Create" id ="recordFormSubmit" class="btn btn-default" />
             </div>
         </div>
     </div>
+
+    @*<form id = "medlineFormSubmit" method="get" action="https://www.nlm.nih.gov/search/medlineplus" title="MedlinePlus Search input" target="resultwindow"> <label for="medlineplus_new_window">Search <a href="https://medlineplus.gov/">MedlinePlus</a>: </label>    <input type="text" name="query" size="20" maxlength="250" id="medlineplus_new_window" /> <input type="image" src="https://medlineplus.gov/images/search.gif" align="absmiddle" width="57" height="24" border="0" title="Search" alt="Search" /> </form>*@
 
     <div>
         <form id="medlineSearch" role="form">

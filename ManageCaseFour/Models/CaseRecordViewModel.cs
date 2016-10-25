@@ -13,6 +13,8 @@ namespace ManageCaseFour.Models
         public Department department { get; set; }
         public DocumentType type { get; set; }
         public Facility facility { get; set; }
+        public InternalCaseNumber internalCaseNumber { get; set; }
+        
 
         ApplicationDbContext db = new ApplicationDbContext();
 

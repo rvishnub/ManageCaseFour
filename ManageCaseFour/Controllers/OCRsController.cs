@@ -34,6 +34,8 @@ namespace ManageCaseFour.Controllers
             //ViewBag.DateSortParm = sortOrder == "provider" ? "name_asc" : "";
             //ViewBag.DateSortParm = sortOrder == "serviceDate" ? "date_desc" : "date_asc";
             //Sort(sortOrder, oVModelList);
+            List<Case> caseNameList = db.Case.ToList();
+            oVModel.caseNameListArray = caseNameList.ToArray();
             oVModel.oVModelList = oVModelList;
             return View(oVModel);
             //var data = oVModelList;
@@ -148,7 +150,7 @@ namespace ManageCaseFour.Controllers
         }
 
         [Audit]
-        public ActionResult GetAllFilesText(string allFilenames)
+        public ActionResult GetAllFilesText(string allFilenames, string caseName)
         {
             string pageText = "";
             string[] filenames = allFilenames.Split(',');
@@ -159,7 +161,7 @@ namespace ManageCaseFour.Controllers
             }
             OCR ocr = new OCR();
             ocr.documentText = pageText;
-            ocr.documentId = ParseTextIntoSubjects(pageText);
+            ocr.documentId = ParseTextIntoSubjects(pageText, caseName);
             ocr.documentFilename = filenames[0];
             ocr.documentText = pageText;
             db.OCR.Add(ocr);
@@ -172,7 +174,7 @@ namespace ManageCaseFour.Controllers
         public string doOCR(string filename)
         {
             var testImagePath = filename;
-            var dataPath = "C:/Users/Renuka/Documents/Visual Studio 2015/Projects/ManageCaseFour/ManageCaseFour/tessdata";
+            var dataPath = "C:/Users/Renuka/Documents/GitHub/ManageCaseFour/ManageCaseFour/tessdata";
             //var dataPath = "./tessdata";
             using (var tEngine = new TesseractEngine(dataPath, "eng", EngineMode.Default)) //creating the tesseract OCR engine with English as the language
             {
@@ -195,13 +197,17 @@ namespace ManageCaseFour.Controllers
 
         }
 
-        public string ParseTextIntoSubjects(string pageText)
+        public string ParseTextIntoSubjects(string pageText, string caseName)
         {
+            Case thisCase = new Models.Case();
             pageText = pageText.Replace("/n", " ");
             string[] documentSubjects = SplitNoteIntoAllSections(pageText);
             Record record = new Record();
             string noteDate = documentSubjects[2];
             record.serviceDate = GetConvertedDate(noteDate);
+            record.departmentId = 1;
+            record.typeId = 1;
+            record.facilityId = 1;
             record.provider = documentSubjects[3];
             record.DOB = documentSubjects[4];
             record.age = documentSubjects[5];
@@ -215,6 +221,9 @@ namespace ManageCaseFour.Controllers
             record.notePlan = documentSubjects[14];
             record.recordEntryDate = DateTime.Now;
             record.documentId = record.provider + Convert.ToString(record.serviceDate);
+            var caseId = db.Case.Select(x => x).Where(y => y.caseName == caseName).First().caseId;
+            var internalCaseId = db.InternalCaseNumber.Select(x => x).Where(y => y.caseId == caseId).First().internalCaseId;
+            record.internalCaseId = internalCaseId;
             db.Record.Add(record);
             db.SaveChanges();
             return record.documentId;
