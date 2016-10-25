@@ -220,6 +220,10 @@
     <Compile Include="Migrations\201610240247255_changed id to Id.Designer.cs">
       <DependentUpon>201610240247255_changed id to Id.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201610250216497_removed document source.cs" />
+    <Compile Include="Migrations\201610250216497_removed document source.Designer.cs">
+      <DependentUpon>201610250216497_removed document source.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Audit.cs" />
@@ -227,7 +231,6 @@
     <Compile Include="Models\CaseRecordViewModel.cs" />
     <Compile Include="Models\Crypt.cs" />
     <Compile Include="Models\Department.cs" />
-    <Compile Include="Models\DocumentSource.cs" />
     <Compile Include="Models\DocumentType.cs" />
     <Compile Include="Models\Facility.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -239,6 +242,7 @@
     <Compile Include="Models\Principal.cs" />
     <Compile Include="Models\PrincipalCaseJunction.cs" />
     <Compile Include="Models\Record.cs" />
+    <Compile Include="Models\RecordViewModel.cs" />
     <Compile Include="Models\UserCaseJunction.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
@@ -694,6 +698,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201610240247255_changed id to Id.resx">
       <DependentUpon>201610240247255_changed id to Id.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610250216497_removed document source.resx">
+      <DependentUpon>201610250216497_removed document source.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="obj\Debug\ManageCaseFour.Migrations.initialmigrationofOCRclass.resources" />
   </ItemGroup>

@@ -24,8 +24,10 @@ namespace ManageCaseFour.Controllers
             for (int i = 0; i < CaseList.Count(); i++)
             {
                 Case newCase = CaseList[i];
-                principalCode = db.PrincipalCaseJunction.Select(x => x).Where(y => y.caseId = newCase.caseId).principalId.db.Principal.Select(z => z).Where(g => g.princi)
-
+                PrincipalCaseJunction pCJunc = new PrincipalCaseJunction();
+                pCJunc = db.PrincipalCaseJunction.Select(x => x).Where(y => y.caseId == newCase.caseId).First();
+                Principal principal = new Principal();
+                principal.principalCode = db.Principal.Select(x => x).Where(y => y.principalId == pCJunc.principalId).First().principalCode;
                 var caseIdList = db.UserCaseJunction.Select(x => x).Where(y => y.caseId == newCase.caseId).ToList();
                 for (int j = 0; j < caseIdList.Count(); j++)
                 {
@@ -33,7 +35,7 @@ namespace ManageCaseFour.Controllers
                     var usercaseId = caseIdList[j];
                     ApplicationUser user = db.Users.Select(x => x).Where(y => y.Id == usercaseId.Id).First();
                     oVModel.staff = user;
-                    oVModel.principal = principal;
+                    oVModel.principal.principalCode = principal.principalCode;
                     oVModel.newCase = newCase;
                     oVModelList.Add(oVModel);
                 }

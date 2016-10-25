@@ -18,10 +18,6 @@ namespace ManageCaseFour.Models
         public int internalCaseId { get; set; }//business associate
         public InternalCaseNumber InternalCaseNumber { get; set; }
 
-        [ForeignKey("DocumentSource")]
-        public int sourceId { get; set; }//plaintiff, defendant, insurance company, patient, provider
-        public DocumentSource DocumentSource { get; set; }
-
         [ForeignKey("Department")]
         public int departmentId { get; set; }//ER, RAD, etc
         public Department Department { get; set; }
@@ -57,6 +53,8 @@ namespace ManageCaseFour.Models
         public string providerLastName { get; set; }
         public string fileContent { get; set; }
         public string diagnosis { get; set; }
+
+        public List<Record> RecordList = new List<Record>();
 
 
 

@@ -1,4 +1,4 @@
-﻿@model ManageCaseFour.Models.OCRViewModel
+﻿@model ManageCaseFour.Models.RecordViewModel
 
 @{
     ViewBag.Title = "Index";
@@ -194,21 +194,13 @@
 
 </table>*@
 
-<div>
-    <form id="medlineSearch" role="form">
-        <div class="form-group">
-            <label>Search Medline</label>
-            <input class="form-control" placeholder="Enter search terms" input type="text" id="term" value="" actions="/Records/PerformSearch" method="POST">
-        </div>
 
-        <button type="button" class="btn btn-default" onclick="PerformSearch()">Send</button>
-        <button type="reset" class="btn btn-default" onclick="ReloadPage()">Reset</button>
-    </form>
-</div>
 
 <div>
     <table id="happyTable" class="display"></table>
 </div>
+
+<div id="demo"></div>
 
 @section Scripts{
     <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
@@ -217,30 +209,28 @@
     {
         $.ajax(
         $("#happyTable").DataTable({
-            data: @Html.Raw(Json.Encode(Model.oVModelList)),
+            data: @Html.Raw(Json.Encode(Model.rCVModelArray)),
             rowHeight: 30,
-            autowidth: false,
+            autowidth: true,
             columnDefs: [
-                { width: "20%", targets: 3 },
-                {targets: 4, render: function ( data, type, row ) {
-                    return data.substr( 0, 100 );
-                }
-                }],
+                { width: "20%", targets: 3 }],
             columns: [
-                { data: "documentId",
-                title: "documentId"},
-                { data: "provider",
-                title: "Provider"},
+                { data: "internalCaseId",
+                title: "Internal Case Id"},
+                { data: "caseName",
+                    title: "Case Name"},
+                { data: "recordId",
+                title: "Record Id"},
+                {data: "departmentCode",
+                    title: "Department Code"},
                 { data: "serviceDate",
                     "render": function (data, type, row) {
                         return ToJavaScriptDate(data);},
-                title: "Date of Service"},
-                { data: "documentFilename",
-                    title: "File Location",
-                    render: function ( data, type, full, meta ) {
-                        return '<a href="'+data+'">Open File</a>'}},
-                { data: "documentText",
-                title: "Text"}]
+                    title: "Date of Service"},
+                { data: "provider",
+                title: "Provider"},
+                {data: "facilityId",
+                    title: "Facility ID"}]
 
         }))
     })
@@ -264,17 +254,31 @@
         },
         function (xml) {
             console.log(xml);
-
-            $.ajax({
-                url: "/Records/DisplayXMLResults/",
-                type: "POST",
-                processData: false,
-                contentType: "text/xml",
-                data: { data:xml }
-            });
+            myFunction(xml);
+            //$.ajax({
+            //    url: "/Records/DisplayXMLResults/",
+            //    type: "POST",
+            //    processData: false,
+            //    contentType: "text/xml",
+            //    data: { data:xml }
+            //});
         })
     }
 
+    function myFunction(xml) {
+        var i;
+        var xmlDoc = xml.responseXML;
+        var table="<tr><th>Title</th><th>Snippet</th></tr>";
+        var x = xmlDoc.getElementsByTagName("document");
+        for (i = 0; i <10; i++) { 
+            table += "<tr><td>" +
+            x[i].getElementsByTagName("title")[0].childNodes[0].nodeValue +
+            "</td><td>" +
+            x[i].getElementsByTagName("snippet")[0].childNodes[0].nodeValue +
+            "</td></tr>";
+        }
+        document.getElementById("demo").innerHTML = table;
+    }
 
     </script>
 

@@ -56,14 +56,6 @@
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.record.DocumentSource, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.record.DocumentSource, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.record.DocumentSource, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
-
         @*<div class="form-group">
             @Html.LabelFor(model => model.record.recorddepartmentId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -262,6 +254,20 @@
             </div>
         </div>
     </div>
+
+    <div>
+        <form id="medlineSearch" role="form">
+            <div class="form-group">
+                <label>Search Medline</label>
+                <input class="form-control" placeholder="Enter search terms" input type="text" id="term" value="" actions="/Records/PerformSearch" method="POST">
+            </div>
+
+            <button type="button" class="btn btn-default" onclick="PerformSearch()">Send</button>
+            <button type="reset" class="btn btn-default" onclick="ReloadPage()">Reset</button>
+        </form>
+    </div>
+
+    <div id="demo"></div>
 }
 
 <div>
@@ -270,4 +276,46 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+<script>
+        function PerformSearch() {
+        var term = document.getElementById("term").value;
+        var medlineURL = "https://wsearch.nlm.nih.gov/ws/query?db=healthTopics&term=";
+        $.get("http://query.yahooapis.com/v1/public/yql",
+        {
+            q: "select * from xml where url=\"" + medlineURL + term  + "\"",
+            format: "xml"
+        },
+        function (xml) {
+            console.log(xml);
+            myFunction(xml);
+
+            //$.ajax({
+            //    url: "/Records/DisplayXMLResults/",
+            //    type: "POST",
+            //    processData: false,
+            //    contentType: "text/xml",
+            //    data: { data:xml }
+            //});
+        })
+        }
+
+        function myFunction(xml) {
+            var i;
+            var xmlDoc = xml.responseXML;
+            var table = "<tr><th>Title</th><th>Snippet</th></tr>";
+            var x = xmlDoc.getElementsByTagName("nlmSearchResult");
+            for (i = 0; i < 10; i++) {
+                table += "<tr><td>" +
+                x[i].getElementsByTagName("title")[0].childNodes[0].nodeValue +
+                "</td><td>" +
+                x[i].getElementsByTagName("snippet")[0].childNodes[0].nodeValue +
+                "</td></tr>";
+            }
+            document.getElementById("demo").innerHTML = table;
+        }
+
+
+</script>
+
 }

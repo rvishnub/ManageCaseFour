@@ -34,7 +34,6 @@ namespace ManageCaseFour.Models
         public DbSet<Record> Record { get; set; }
         public DbSet<Case> Case { get; set; }
         public DbSet<Department> Department { get; set; }
-        public DbSet<DocumentSource> DocumentSource { get; set; }
         public DbSet<DocumentType> DocumentType { get; set; }
         public DbSet<Facility> Facility { get; set; }
         public DbSet<InternalCaseNumber> InternalCaseNumber { get; set; }

@@ -29,15 +29,31 @@ namespace ManageCaseFour.Controllers
 
         private ApplicationDbContext db = new ApplicationDbContext();
         OCRViewModel oVModel;
+        CaseRecordViewModel cRVModel;
 
         // GET: Records
         public ActionResult Index()
         {
-            oVModel = new OCRViewModel();
-            List<OCR> ocrList = db.OCR.ToList();
-            OCRViewModel[] oVModelList = oVModel.GetOCRViewModelList(ocrList).ToArray();
-            oVModel.oVModelList = oVModelList;
-            return View(oVModel);
+            RecordViewModel rCVModel = new RecordViewModel();
+            List<RecordViewModel> rCVModelList = new List<RecordViewModel>();
+            List<Record> RecordList = db.Record.ToList();
+            for (int i = 0; i<RecordList.Count(); i++)
+            {
+                Record thisRecord = RecordList[i];
+                InternalCaseNumber intCaseNumber = new Models.InternalCaseNumber();
+                rCVModel.intCaseNumber.internalCaseNumber = db.InternalCaseNumber.Select(x=>x).Where(y=>y.internalCaseId == thisRecord.internalCaseId).First().internalCaseNumber;
+                rCVModel.thisCase.caseId = db.InternalCaseNumber.Select(x => x).Where(y=>y.internalCaseId == thisRecord.internalCaseId).First().caseId;
+                rCVModel.thisCase.caseName = db.Case.Select(x => x).Where(y => y.caseId == rCVModel.thisCase.caseId).First().caseName;
+                rCVModel.record.recordId = thisRecord.recordId;
+                rCVModel.department.departmentCode = db.Department.Select(x => x).Where(y => y.departmentId == thisRecord.departmentId).First().departmentCode;
+                rCVModel.record.serviceDate = thisRecord.serviceDate;
+                rCVModel.record.provider = thisRecord.provider;
+                rCVModel.facility.facilityName = db.Facility.Select(x => x).Where(y => y.facilityId == thisRecord.facilityId).First().facilityName;
+                rCVModelList.Add(rCVModel);
+            }
+            RecordViewModel[] rCVModelArray = rCVModelList.ToArray();
+            return View(rCVModel);
+            
         }
 
         // GET: Records/Details/5
@@ -97,10 +113,9 @@ namespace ManageCaseFour.Controllers
                 record.allergies = nCRVModel.record.allergies;
                 record.vitalSigns = nCRVModel.record.vitalSigns;
                 record.diagnosis = nCRVModel.record.diagnosis;
-                db.Record.Add(record);
-                db.SaveChanges();
                 var caseId = db.Case.Select(x => x).Where(y => y.caseName == nCRVModel.thisCase.caseName).First().caseId; 
                 record.internalCaseId = db.InternalCaseNumber.Select(x => x).Where(y=>y.caseId == caseId).First().internalCaseId;
+                db.Record.Add(record);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -201,7 +216,6 @@ namespace ManageCaseFour.Controllers
                 sb.Append(' ');
                 sb.AppendLine(node.InnerText);
             }
-            Console.WriteLine(sb);
             return sb;
         }
     }
