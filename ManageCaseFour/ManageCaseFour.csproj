@@ -231,7 +231,6 @@
     <Compile Include="Models\CaseRecordViewModel.cs" />
     <Compile Include="Models\Crypt.cs" />
     <Compile Include="Models\Department.cs" />
-    <Compile Include="Models\DocumentType.cs" />
     <Compile Include="Models\Facility.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\InternalCaseNumber.cs" />
