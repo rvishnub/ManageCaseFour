@@ -13,7 +13,6 @@ namespace ManageCaseFour.Models
         public InternalCaseNumber intCaseNumber {get; set;}
         public OCR ocr { get; set; }
         public Department department { get; set; }
-        public DocumentType type { get; set; }
         public Facility facility { get; set; }
         public List<RecordViewModel> rCVModelList = new List<RecordViewModel>();
         public RecordViewModel[] rCVModelArray = new RecordViewModel[] { };

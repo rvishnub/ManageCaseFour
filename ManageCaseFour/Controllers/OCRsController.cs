@@ -206,7 +206,6 @@ namespace ManageCaseFour.Controllers
             string noteDate = documentSubjects[2];
             record.serviceDate = GetConvertedDate(noteDate);
             record.departmentId = 1;
-            record.typeId = 1;
             record.facilityId = 1;
             record.provider = documentSubjects[3];
             record.DOB = documentSubjects[4];

@@ -224,11 +224,20 @@
     <Compile Include="Migrations\201610250216497_removed document source.Designer.cs">
       <DependentUpon>201610250216497_removed document source.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201610281938427_added Client class, PatientProfile class.cs" />
+    <Compile Include="Migrations\201610281938427_added Client class, PatientProfile class.Designer.cs">
+      <DependentUpon>201610281938427_added Client class, PatientProfile class.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610281940587_added PatientProfile class to Identity Model.cs" />
+    <Compile Include="Migrations\201610281940587_added PatientProfile class to Identity Model.Designer.cs">
+      <DependentUpon>201610281940587_added PatientProfile class to Identity Model.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Audit.cs" />
     <Compile Include="Models\Case.cs" />
     <Compile Include="Models\CaseRecordViewModel.cs" />
+    <Compile Include="Models\Client.cs" />
     <Compile Include="Models\Crypt.cs" />
     <Compile Include="Models\Department.cs" />
     <Compile Include="Models\Facility.cs" />
@@ -238,6 +247,7 @@
     <Compile Include="Models\NewCaseViewModel.cs" />
     <Compile Include="Models\OCR.cs" />
     <Compile Include="Models\OCRViewModel.cs" />
+    <Compile Include="Models\PatientProfile.cs" />
     <Compile Include="Models\Principal.cs" />
     <Compile Include="Models\PrincipalCaseJunction.cs" />
     <Compile Include="Models\Record.cs" />
@@ -700,6 +710,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201610250216497_removed document source.resx">
       <DependentUpon>201610250216497_removed document source.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610281938427_added Client class, PatientProfile class.resx">
+      <DependentUpon>201610281938427_added Client class, PatientProfile class.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610281940587_added PatientProfile class to Identity Model.resx">
+      <DependentUpon>201610281940587_added PatientProfile class to Identity Model.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="obj\Debug\ManageCaseFour.Migrations.initialmigrationofOCRclass.resources" />
   </ItemGroup>

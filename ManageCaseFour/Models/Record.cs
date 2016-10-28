@@ -22,14 +22,9 @@ namespace ManageCaseFour.Models
         public int departmentId { get; set; }//ER, RAD, etc
         public Department Department { get; set; }
 
-        [ForeignKey("DocumentType")]
-        public int typeId { get; set; }//note, report, letter
-        public DocumentType DocumentType { get; set; }
-
         [ForeignKey("Facility")]
         public int facilityId { get; set; }//maybe a dropdown
         public Facility Facility { get; set; }
-
 
         public string documentId { get; set; } //provider plus date
         public string recordReferenceNumber { get; set; }//autofill

@@ -95,10 +95,8 @@ namespace ManageCaseFour.Controllers
             {
                 Record record = new Record();
                 //Department department = new Department();
-                //DocumentType type = new DocumentType();
                 //Facility facility = new Facility();
                 record.departmentId = db.Department.Select(x => x).Where(y => y.departmentCode == nCRVModel.record.Department.departmentCode).First().departmentId;
-                record.typeId = db.DocumentType.Select(x => x).Where(y => y.documentCode == nCRVModel.record.DocumentType.documentCode).First().typeId;
                 record.facilityId = db.Facility.Select(x => x).Where(y => y.facilityName == nCRVModel.record.Facility.facilityName).First().facilityId;
                 record.recordEntryDate = DateTime.Now;
                 record.provider = nCRVModel.record.provider;

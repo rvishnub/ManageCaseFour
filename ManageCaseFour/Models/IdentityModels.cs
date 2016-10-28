@@ -33,10 +33,11 @@ namespace ManageCaseFour.Models
         public DbSet<OCR> OCR { get; set; }
         public DbSet<Record> Record { get; set; }
         public DbSet<Case> Case { get; set; }
+        public DbSet<Client> Client { get; set; }
         public DbSet<Department> Department { get; set; }
-        public DbSet<DocumentType> DocumentType { get; set; }
         public DbSet<Facility> Facility { get; set; }
         public DbSet<InternalCaseNumber> InternalCaseNumber { get; set; }
+        public DbSet<PatientProfile> PatientProfile { get; set; }
         public DbSet<Principal> Principal { get; set; }
         public DbSet<PrincipalCaseJunction> PrincipalCaseJunction { get; set; }
         public DbSet<UserCaseJunction> UserCaseJunction { get; set; }

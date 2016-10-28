@@ -11,7 +11,6 @@ namespace ManageCaseFour.Models
         public Case thisCase { get; set; }
         public OCR ocr { get; set; }
         public Department department { get; set; }
-        public DocumentType type { get; set; }
         public Facility facility { get; set; }
         public InternalCaseNumber internalCaseNumber { get; set; }
         
