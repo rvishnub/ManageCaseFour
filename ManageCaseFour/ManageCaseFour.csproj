@@ -238,7 +238,6 @@
     <Compile Include="Models\Case.cs" />
     <Compile Include="Models\CaseRecordViewModel.cs" />
     <Compile Include="Models\Client.cs" />
-    <Compile Include="Models\DESCryption.cs" />
     <Compile Include="Models\Department.cs" />
     <Compile Include="Models\Facility.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -252,7 +251,6 @@
     <Compile Include="Models\PrincipalCaseJunction.cs" />
     <Compile Include="Models\Record.cs" />
     <Compile Include="Models\RecordViewModel.cs" />
-    <Compile Include="Models\RijndaelHelper.cs" />
     <Compile Include="Models\UserCaseJunction.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />

@@ -4,11 +4,15 @@
     ViewBag.Title = "ViewAuditRecords";
 }
 
-<h2>Index</h2>
+<head>
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.css">
+    </head>
+
+<h2>AUDITS</h2>
 @if (User.Identity.IsAuthenticated)
 {
 
-    <span>
+    @*<span>
         <p>
             @Html.ActionLink("Create New", "Create")
         </p>
@@ -51,5 +55,55 @@
             }
 
         </table>
-   </span>
+   </span>*@
+
+<div>
+    <table id="auditTable" class="display" style ="align-text:center"></table>
+</div>
+}
+@section Scripts{
+
+<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
+
+<script>
+
+    $(document).ready(function ()
+    {
+
+        $.ajax(
+$("#auditTable").DataTable({
+    data: @Html.Raw(Json.Encode(Model)),
+    rowHeight: 30,
+    autowidth: true,
+    //columnDefs: [
+    //    { width: "25%", targets: 3 }],
+    columns: [
+        {data: "UserName",
+            title: "User"},
+        { data: "IPAddress",
+            title: "IP Address"},
+        {data: "AreaAccessed",
+            title: "Area Accessed"},
+        { data: "TimeAccessed",
+            "render": function (data, type, row) {
+                return ToJavaScriptDate(data);},
+            title: "Time Accessed"},
+    ]
+}))
+    })
+
+
+    function ToJavaScriptDate(value) {
+        var pattern = /Date\(([^)]+)\)/;
+        var results = pattern.exec(value);
+        var dt = new Date(parseFloat(results[1]));
+        return (dt.getMonth() + 1) + "/" + dt.getDate() + "/" + dt.getFullYear();
+    }
+
+
+</script>
+
+
+
+
 }

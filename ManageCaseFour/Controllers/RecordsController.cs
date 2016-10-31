@@ -40,19 +40,21 @@ namespace ManageCaseFour.Controllers
             for (int i = 0; i<RecordList.Count(); i++)
             {
                 Record thisRecord = RecordList[i];
+                RecordViewModel thisItem = new Models.RecordViewModel();
                 //InternalCaseNumber intCaseNumber = new Models.InternalCaseNumber();
                 //rCVModel.intCaseNumber.internalCaseNumber = db.InternalCaseNumber.Select(x=>x).Where(y=>y.internalCaseId == thisRecord.internalCaseId).First().internalCaseNumber;
                 var caseId = db.InternalCaseNumber.Select(x => x).Where(y=>y.internalCaseId == thisRecord.internalCaseId).First().caseId;
                 var caseName = db.Case.Select(x => x).Where(y => y.caseId == caseId).First().caseName;
-                rCVModel.record = db.Record.Select(x=>x).Where(y=>y.recordId == thisRecord.recordId).First();
-                rCVModel.record.recordId = thisRecord.recordId;
-                rCVModel.department = db.Department.Select(x => x).Where(y => y.departmentId == thisRecord.departmentId).First();
-                rCVModel.record.serviceDate = thisRecord.serviceDate;
-                rCVModel.record.provider = thisRecord.provider;
-                rCVModel.facility = db.Facility.Select(x => x).Where(y => y.facilityId == thisRecord.facilityId).First();
-                rCVModel.thisCase = db.Case.Select(x => x).Where(y => y.caseId == caseId).First();
-                rCVModelList.Add(rCVModel);
+                thisItem.record = db.Record.Select(x=>x).Where(y=>y.recordId == thisRecord.recordId).First();
+                thisItem.record.recordId = thisRecord.recordId;
+                thisItem.department = db.Department.Select(x => x).Where(y => y.departmentId == thisRecord.departmentId).First();
+                thisItem.record.serviceDate = thisRecord.serviceDate;
+                thisItem.record.provider = thisRecord.provider;
+                thisItem.facility = db.Facility.Select(x => x).Where(y => y.facilityId == thisRecord.facilityId).First();
+                thisItem.thisCase = db.Case.Select(x => x).Where(y => y.caseId == caseId).First();
+                rCVModelList.Add(thisItem);
             }
+            //rCVModel.rCVModelArray = rCVModelList.ToArray();
             rCVModel.rCVModelArray = rCVModelList.ToArray();
             return View(rCVModel);
             
