@@ -4,18 +4,19 @@ using System.Security;
 using System.Security.Cryptography;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Drawing;
 
 namespace ManageCaseFour.Models
 {
 
     //crypt code from support.microsoft.com/en-us/kb/307010
-    public class Crypt
+    public class DESCryption
     {
         string secretKey;
         string fileForEncryption;
         string fileForDecryption;
 
-        public Crypt()
+        public DESCryption()
         {
 
         }
@@ -23,6 +24,24 @@ namespace ManageCaseFour.Models
         [System.Runtime.InteropServices.DllImport("KERNEL32.DLL", EntryPoint = "RtlZeroMemory")]
 
         public static extern bool ZeroMemory(IntPtr Destination, int Length);
+
+        public byte[] ConvertImageToByteArray(Image img)
+        {
+            using (MemoryStream mStream = new MemoryStream())
+            {
+                img.Save(mStream, img.RawFormat);
+                return mStream.ToArray();
+            }
+        }
+        //convert bytearray to image
+        public void ConvertByteArrayToImage(byte[] byteArrayIn)
+        {
+            using (MemoryStream mStream = new MemoryStream(byteArrayIn))
+            {
+                Image img1 = Image.FromStream(mStream);
+                img1.Save("C:/Users/Renuka/Dropbox/WORK/devcodecamp/CAPSTONE/pages/06192013_20_debyted.tif", ImageFormat.Tiff);
+            }
+        }
 
         // Function to Generate a 64 bits Key.
         public static string GenerateKey()

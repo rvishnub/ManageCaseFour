@@ -90,14 +90,6 @@
             </div>
         </div>*@
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.record.DocumentType.documentCode, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.record.DocumentType.documentCode, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.record.DocumentType.documentCode, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
         @*<div class="form-group">
             @Html.LabelFor(model => model.record.facilityId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
