@@ -665,6 +665,7 @@
     <Content Include="Views\Case\Details.cshtml" />
     <Content Include="Views\Case\Index.cshtml" />
     <Content Include="Views\Shared\Info.cshtml" />
+    <Content Include="Views\Records\Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="obj\Debug\TempPE\" />

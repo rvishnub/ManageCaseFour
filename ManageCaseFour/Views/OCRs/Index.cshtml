@@ -23,96 +23,19 @@
         <table id="caseNameTable" class="display"></table>
     </div>
 
-    @*@Html.DropDownList("caseName", null, htmlAttributes: new { @class = "form-control" })*@
-
-    @*<div class="form-group">
-        @Html.LabelFor(model => model.thisCase.caseName, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(model => model.caseName, new SelectList(ViewBag.caseNameList, "caseName"), new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.thisCase.caseName, "", new { @class = "text-danger" })
-        </div>
-    </div>*@
-
     <div id="OCRfileupload">
         <form id="inputFilenameForm" class="well" action="/OCRs/GetAllFilesText" method="POST">
-            @*<div class="form-group">
-                @Html.LabelFor(model => model.caseName, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownListFor(model => model.caseName, new SelectList(ViewBag.caseName, "caseName"), new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.caseName, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
-            <label>For which case would you like to enter a record?  Enter the Case Name.</label>
-            <input type="text" id="caseName" name="caseName"><br />
-            <label>Enter the group of files that you would like to scan for OCR, </label><p style="font-style: italic">in the order in which you would like to view them.</p><label>  To select multiple files, hold down the CTRL or SHIFT key while selecting.</label>
-            <input type="text" id="allFilenames" name="allFilenames" multiple><br />
+
+            <label>For which case would you like to enter a record?  Enter the Case ID.</label>
+            <input type="text" id="caseID" name="caseID"><br />
+            <label>Enter the group of files that you would like to scan for OCR, </label><p style="font-style: italic">in the order in which you would like to compile the text.</p>
+            <input type="text" id="allFilenames" name="allFilenames" AllowMultiple="true"><br />
             <input type="Submit" id="uploadFileButton">
         </form>
-    </div>
-
-    @*<div id="searchForTerm">
-        <form id="inputSearchTermForm" class="well" action="/Records/Search" method="POST">
-            <label>Enter the term for which you would like to search.</label>
-            <p style="font-style:italic">When searching for a date, enter the date "mm/dd/yyyy".</p>
-            <input type="text" id="searchTerm" name="searchTerm"><br />
-            <input type="Submit" id="sendSearchTerm">
-        </form>
-    </div>*@
 
 <div>
     <table id="happyTable" class="display" ></table>
 </div>
-
-@*<table class="table" id="happyTable">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.documentId)
-        </th>
-        <th>
-            @Html.ActionLink("provider", "Index", new { sortOrder = ViewBag.NameSortParm })
-        </th>
-        <th>
-            @Html.ActionLink("serviceDate", "Index", new { sortOrder = ViewBag.NameSortParm })
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.documentFilename)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.documentText)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model.oVModelList) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.documentId)
-        </td>
-        <th>
-            @Html.DisplayFor(model => item.provider)
-        </th>
-        <th>
-            @Html.DisplayFor(model => item.serviceDate)
-        </th>
-        <td>
-            @Html.DisplayFor(modelItem => item.documentFilename)
-        </td>
-        <td><p style="overflow-y:hidden; height: 40px">
-                @Html.DisplayFor(modelItem => item.documentText)+"..."</p>
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.documentId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.documentId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.documentId })
-        </td>
-    </tr>
-}
-
-</table>*@
-
-
-</body>
-</html>
 
 @section Scripts{
 <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
@@ -150,8 +73,8 @@ $("#caseNameTable").DataTable({
                 }
                 }],
             columns: [
-                { data: "documentId",
-                title: "documentId"},
+                { data: "caseName",
+                    title: "Case Name"},
                 { data: "provider", 
                 title: "Provider"},
                 { data: "serviceDate",
@@ -175,6 +98,24 @@ $("#caseNameTable").DataTable({
         var dt = new Date(parseFloat(results[1]));
         return (dt.getMonth() + 1) + "/" + dt.getDate() + "/" + dt.getFullYear();
     }
+
+    function get_filename(obj) {
+        var file = obj.value;
+        var allFilenames = allFilenames+","+file;
+        alert(allFilenames);
+    }
+
+    $.ajax({
+        url:"/OCRs/GetAllFilesText",
+        data: allFilenames,
+    type: "POST",
+    success: function(data){
+        console.log("yay")
+    },
+    error: function(passParams){
+        console.log("nay")
+    }
+    });
 
 </script>
 

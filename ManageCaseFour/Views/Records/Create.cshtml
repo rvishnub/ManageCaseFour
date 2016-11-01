@@ -77,7 +77,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.record.Department.departmentCode, "Department Code",  htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.record.Department.departmentCode, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownListFor(model => model.department.departmentCode, new SelectList(ViewBag.departmentCode, "departmentCode"), new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.record.Department.departmentCode, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -101,7 +101,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.record.Facility.facilityName, "Facility Name", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.record.Facility.facilityName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownListFor(model => model.facility.facilityName, new SelectList(ViewBag.facilityName, "facilityName"), new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.record.Facility.facilityName, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -138,13 +138,13 @@
             </div>
         </div>
 
-        <div class="form-group">
+        @*<div class="form-group">
             @Html.LabelFor(model => model.record.memo, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.record.memo, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.record.memo, "", new { @class = "text-danger" })
             </div>
-        </div>
+        </div>*@
 
         <div class="form-group">
             @Html.LabelFor(model => model.record.serviceDate, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -202,7 +202,7 @@
             </div>
         </div>
 
-        <div class="form-group">
+        @*<div class="form-group">
             @Html.LabelFor(model => model.record.age, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.record.age, new { htmlAttributes = new { @class = "form-control" } })
@@ -216,15 +216,15 @@
                 @Html.EditorFor(model => model.record.DOB, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.record.DOB, "", new { @class = "text-danger" })
             </div>
-        </div>
+        </div>*@
 
-        <div class="form-group">
+        @*<div class="form-group">
             @Html.LabelFor(model => model.record.allergies, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.record.allergies, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.record.allergies, "", new { @class = "text-danger" })
             </div>
-        </div>
+        </div>*@
 
         <div class="form-group">
             @Html.LabelFor(model => model.record.vitalSigns, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -266,8 +266,8 @@
                 <input class="form-control" placeholder="Enter search terms" input type="text" id="term" value="" actions="/Records/PerformSearch" method="POST">
             </div>
 
-            <button type="button" class="btn btn-default" onclick="PerformSearch()">Send</button>
-            <button type="reset" class="btn btn-default" onclick="ReloadPage()">Reset</button>
+            <button type="button" id ="medlineButton" class="btn btn-default" onclick="PerformSearch()">Send</button>
+            <button type="reset" id ="medlineReset" class="btn btn-default" onclick="ReloadPage()">Reset</button>
         </form>
     </div>
 

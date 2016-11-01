@@ -150,7 +150,7 @@ namespace ManageCaseFour.Controllers
         }
 
         [Audit]
-        public ActionResult GetAllFilesText(string allFilenames, string caseName)
+        public ActionResult GetAllFilesText(string allFilenames, string caseID)
         {
             string pageText = "";
             string[] filenames = allFilenames.Split(',');
@@ -159,6 +159,8 @@ namespace ManageCaseFour.Controllers
                 string text = doOCR(filenames[pageCount]);
                 pageText = pageText + " " + text;
             }
+            int caseId = Convert.ToInt32(caseID);
+            string caseName = db.Case.Select(x => x).Where(y => y.caseId == caseId).First().caseName;
             OCR ocr = new OCR();
             ocr.documentText = pageText;
             ocr.documentId = ParseTextIntoSubjects(pageText, caseName);
@@ -223,6 +225,7 @@ namespace ManageCaseFour.Controllers
             var caseId = db.Case.Select(x => x).Where(y => y.caseName == caseName).First().caseId;
             var internalCaseId = db.InternalCaseNumber.Select(x => x).Where(y => y.caseId == caseId).First().internalCaseId;
             record.internalCaseId = internalCaseId;
+            thisCase.caseName = caseName;
             db.Record.Add(record);
             db.SaveChanges();
             return record.documentId;

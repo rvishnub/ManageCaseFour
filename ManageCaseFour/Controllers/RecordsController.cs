@@ -82,6 +82,9 @@ namespace ManageCaseFour.Controllers
         {
             ViewBag.caseName = db.Case.Select(x=>x.caseName).ToList();
             //ViewBag.caseName = db.Case.ToList();
+            ViewBag.departmentCode = db.Department.Select(x => x.departmentCode).ToList();
+            ViewBag.facilityName = db.Facility.Select(x => x.facilityName).ToList();
+
             return View();
         }
 
@@ -220,5 +223,45 @@ namespace ManageCaseFour.Controllers
             }
             return sb;
         }
+
+        public void AddDepartment(string code)
+        {
+            Department department = new Models.Department();
+            department.departmentCode = code;
+            List<string> codeList = db.Department.Select(x => x.departmentCode).ToList();
+            try
+            {
+                if (!codeList.Contains(code))
+                {
+                    db.Department.Add(department);
+                    db.SaveChanges();
+                }
+            }
+            catch
+            {
+                //alert(error);
+            }
+
+        }
+
+        public void AddFacility(string name)
+        {
+            Facility facility = new Facility();
+            facility.facilityName = name;
+            List<string> nameList = db.Facility.Select(x => x.facilityName).ToList();
+            try
+            {
+                if (!nameList.Contains(name))
+                {
+                    db.Facility.Add(facility);
+                    db.SaveChanges();
+                }
+            }
+            catch
+            {
+                //alert(error);
+            }
+        }
+
     }
 }
