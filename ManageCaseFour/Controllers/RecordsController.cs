@@ -30,10 +30,12 @@ namespace ManageCaseFour.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
         OCRViewModel oVModel;
         CaseRecordViewModel cRVModel;
+        ClassViewModel cVM;
 
         // GET: Records
         public ActionResult Index()
         {
+            ClassViewModel cVM = new ClassViewModel();
             RecordViewModel rCVModel = new RecordViewModel();
             List<RecordViewModel> rCVModelList = new List<RecordViewModel>();
             List<Record> RecordList = db.Record.ToList();
@@ -168,7 +170,12 @@ namespace ManageCaseFour.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Record record = db.Record.Find(id);
+            Record record = new Record();
+            record = db.Record.Select(x => x).Where(y => y.recordId == id).First();
+            ClassViewModel cVM = new ClassViewModel();
+            cVM.intCaseNumber.caseId = db.InternalCaseNumber.Select(x => x).Where(y => y.internalCaseId == record.internalCaseId).First().caseId;
+            cVM.thisCase.caseName = db.Case.Select(x => x).Where(y => y.caseId == cVM.intCaseNumber.caseId).First().caseName;
+            cVM.department.departmentCode = db.Department.Select(x => x).Where(y => y.departmentId == record.departmentId).First().departmentCode;
             if (record == null)
             {
                 return HttpNotFound();

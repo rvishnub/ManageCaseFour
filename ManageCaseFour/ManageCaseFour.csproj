@@ -237,6 +237,7 @@
     <Compile Include="Models\Audit.cs" />
     <Compile Include="Models\Case.cs" />
     <Compile Include="Models\CaseRecordViewModel.cs" />
+    <Compile Include="Models\ClassViewModel.cs" />
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\Department.cs" />
     <Compile Include="Models\Facility.cs" />

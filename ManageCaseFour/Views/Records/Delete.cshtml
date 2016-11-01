@@ -1,4 +1,4 @@
-﻿@model ManageCaseFour.Models.Record
+﻿@model ManageCaseFour.Models.ClassViewModel
 
 @{
     ViewBag.Title = "Delete";
@@ -10,229 +10,70 @@
 <div>
     <h4>Record</h4>
     <hr />
-    <dl class="dl-horizontal">
+    <dl class="dl-vertical">
         <dt>
-            @Html.DisplayNameFor(model => model.internalCaseId)
+            @Html.DisplayNameFor(model => model.thisCase.caseName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.internalCaseId)
+            @Html.DisplayFor(model => model.thisCase.caseName)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.InternalCaseNumber)
+            @Html.DisplayNameFor(model => model.record.InternalCaseNumber)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.InternalCaseNumber)
+            @Html.DisplayFor(model => model.record.InternalCaseNumber)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.record.recordId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.record.recordId)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.sourceId)
+            @Html.DisplayNameFor(model => model.department.departmentCode)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.sourceId)
+            @Html.DisplayFor(model => model.department.departmentCode)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.DocumentSource)
+            @Html.DisplayNameFor(model => model.facility.facilityName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.DocumentSource)
+            @Html.DisplayFor(model => model.facility.facilityName)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.departmentId)
+            @Html.DisplayNameFor(model => model.record.recordEntryDate)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.departmentId)
+            @Html.DisplayFor(model => model.record.recordEntryDate)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Department)
+            @Html.DisplayNameFor(model => model.record.provider)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Department)
+            @Html.DisplayFor(model => model.record.provider)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.documentId)
+            @Html.DisplayNameFor(model => model.record.serviceDate)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.documentId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DocumentType)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DocumentType)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.facilityId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.facilityId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Facility)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Facility)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.recordReferenceNumber)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.recordReferenceNumber)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.pageNumber)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.pageNumber)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.recordEntryDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.recordEntryDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.provider)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.provider)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.memo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.memo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.serviceDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.serviceDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.noteSubjective)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.noteSubjective)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.history)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.history)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.noteObjective)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.noteObjective)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.noteAssessment)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.noteAssessment)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.notePlan)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.notePlan)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.medications)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.medications)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.age)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.age)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DOB)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DOB)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.allergies)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.allergies)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.vitalSigns)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.vitalSigns)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.diagnosis)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.diagnosis)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.fileContent)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.fileContent)
+            @Html.DisplayFor(model => model.record.serviceDate)
         </dd>
 
     </dl>
