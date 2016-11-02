@@ -86,7 +86,13 @@ namespace ManageCaseFour.Controllers
         [Audit]
         public ActionResult Create()
         {
-            ViewBag.caseName = db.Case.Select(x=>x.caseName).ToList();
+            ApplicationUser myUser = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().
+                FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+            ApplicationUser thisUser = myUser;
+            List<int> CaseIdList = db.UserCaseJunction.Select(x => x).Where(y => y.Id == thisUser.Id).ToList().Select(w => w.caseId).ToList();
+            List<string> CaseNameList = db.Case.Where(x => CaseIdList.Any(y => y == x.caseId)).ToList().Select(w=>w.caseName).ToList();
+
+            ViewBag.caseName = CaseNameList;
             //ViewBag.caseName = db.Case.ToList();
             ViewBag.departmentCode = db.Department.Select(x => x.departmentCode).ToList();
             ViewBag.facilityName = db.Facility.Select(x => x.facilityName).ToList();
