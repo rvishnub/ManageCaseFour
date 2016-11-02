@@ -14,5 +14,6 @@ namespace ManageCaseFour.Models
         public string caseNumber { get; set; }
         public string county { get; set; }
 
+        public IEnumerable<ApplicationUser> thisUserList { get; set; }
     }
 }

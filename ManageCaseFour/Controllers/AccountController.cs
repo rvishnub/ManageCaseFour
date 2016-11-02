@@ -116,7 +116,7 @@ namespace ManageCaseFour.Controllers
                         }
                         else if (UserManager.IsInRole(user.Id, "Employee"))
                         {
-                            returnUrl = ("/Case/Details");
+                            returnUrl = ("/Records/Index");
                         }
                     }
                     return RedirectToLocal(returnUrl);

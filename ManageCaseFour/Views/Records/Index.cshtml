@@ -8,9 +8,14 @@
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.css">
 </head>
 
-<h2>ALL RECORDS</h2>
+<h2>YOUR CASES/RECORDS</h2>
 <div>
     @Html.ActionLink("Create New", "Create") |
+    <br />
+    <br />
+</div>
+<div>
+    @Html.ActionLink("Edit Record", "Edit") |
     <br />
     <br />
 </div>
@@ -18,6 +23,7 @@
     @Html.ActionLink("Create New Department or Facility", "Add") |
     <br />
     <br />
+</div>
 <div>
     <table id="happyTable" class="display"></table>
 </div>
