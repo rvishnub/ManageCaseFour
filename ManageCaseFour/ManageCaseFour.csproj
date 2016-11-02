@@ -332,6 +332,8 @@
     <Content Include="bin\x64\libtesseract304.dll" />
     <Content Include="bin\x86\liblept172.dll" />
     <Content Include="bin\x86\libtesseract304.dll" />
+    <Content Include="Content\agency.css" />
+    <Content Include="Content\agency.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\DataTables\css\autoFill.bootstrap.css" />
@@ -483,11 +485,23 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="img\books.jpg" />
+    <Content Include="img\books.tif" />
+    <Content Include="img\lawlibrary.jpg" />
+    <Content Include="img\stethoscope.jpg" />
+    <Content Include="img\stethoscope.tif" />
+    <Content Include="img\header-bg.jpg" />
+    <Content Include="img\header-bg2.jpg" />
+    <Content Include="img\Medical_Records_0.jpg" />
+    <Content Include="img\Medical_Records_0.png" />
     <Content Include="obj\Debug\ManageCaseFour.csproj.FileListAbsolute.txt" />
     <Content Include="obj\Debug\ManageCaseFour.dll" />
     <Content Include="obj\Debug\ManageCaseFour.pdb" />
+    <Content Include="Scripts\agency.js" />
+    <Content Include="Scripts\agency.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\contact_me.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.min.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap4.js" />
@@ -562,6 +576,7 @@
     <Content Include="Scripts\DataTables\responsive.jqueryui.min.js" />
     <Content Include="Scripts\DataTables\responsive.semanticui.js" />
     <Content Include="Scripts\DataTables\responsive.semanticui.min.js" />
+    <Content Include="Scripts\jqBootstrapValidation.js" />
     <Content Include="Views\Case\Edit.cshtml" />
     <Content Include="x64\liblept172.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

@@ -4,322 +4,250 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
-
-
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Record</h4>
-        <hr />
-        <p>For which case are you entering a record?</p>
-        @*@Html.DropDownList("caseName", null, htmlAttributes: new { @class = "form-control" })*@
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.thisCase.caseName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.thisCase.caseName, new SelectList(ViewBag.caseName, "caseName"), new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.thisCase.caseName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-
-
-
-
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.record.internalCaseId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.record.internalCaseId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.record.internalCaseId, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
-
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.record.InternalCaseNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.record.InternalCaseNumber, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.record.InternalCaseNumber, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.record.sourceId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.record.sourceId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.record.sourceId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.record.recorddepartmentId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.record.recorddepartmentId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.record.record.departmentId, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
-
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.internalCaseNumber.internalCaseNumber, "InternalCaseNumber", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.internalCaseNumber.internalCaseNumber, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.internalCaseNumber.internalCaseNumber, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
-
-
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.record.Department.departmentCode, "Department Code",  htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.department.departmentCode, new SelectList(ViewBag.departmentCode, "departmentCode"), new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.record.Department.departmentCode, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.record.documentId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.record.documentId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.record.documentId, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
-
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.record.facilityId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.record.facilityId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.record.facilityId, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.record.Facility.facilityName, "Facility Name", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.facility.facilityName, new SelectList(ViewBag.facilityName, "facilityName"), new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.record.Facility.facilityName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.record.recordReferenceNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.record.recordReferenceNumber, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.record.recordReferenceNumber, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.record.pageNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.record.pageNumber, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.record.pageNumber, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.record.recordEntryDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.record.recordEntryDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.record.recordEntryDate, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.record.provider, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.record.provider, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.record.provider, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.record.memo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.record.memo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.record.memo, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.record.serviceDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.record.serviceDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.record.serviceDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.record.noteSubjective, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.record.noteSubjective, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.record.noteSubjective, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.record.history, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.record.history, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.record.history, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.record.noteObjective, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.record.noteObjective, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.record.noteObjective, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.record.noteAssessment, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.record.noteAssessment, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.record.noteAssessment, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.record.notePlan, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.record.notePlan, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.record.notePlan, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.record.medications, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.record.medications, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.record.medications, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.record.age, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.record.age, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.record.age, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.record.DOB, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.record.DOB, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.record.DOB, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
-
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.record.allergies, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.record.allergies, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.record.allergies, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.record.vitalSigns, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.record.vitalSigns, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.record.vitalSigns, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.record.diagnosis, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.record.diagnosis, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.record.diagnosis, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.record.fileContent, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.record.recordfileContent, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.record.recordfileContent, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" action="Create" id ="recordFormSubmit" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-
-    @*<form id = "medlineFormSubmit" method="get" action="https://www.nlm.nih.gov/search/medlineplus" title="MedlinePlus Search input" target="resultwindow"> <label for="medlineplus_new_window">Search <a href="https://medlineplus.gov/">MedlinePlus</a>: </label>    <input type="text" name="query" size="20" maxlength="250" id="medlineplus_new_window" /> <input type="image" src="https://medlineplus.gov/images/search.gif" align="absmiddle" width="57" height="24" border="0" title="Search" alt="Search" /> </form>*@
-
-    <div>
-        <form id="medlineSearch" role="form">
-            <div class="form-group">
-                <label>Search Medline</label>
-                <input class="form-control" placeholder="Enter search terms" input type="text" id="term" value="" actions="/Records/PerformSearch" method="POST">
-            </div>
-
-            <button type="button" id ="medlineButton" class="btn btn-default" onclick="PerformSearch()">Send</button>
-            <button type="reset" id ="medlineReset" class="btn btn-default" onclick="ReloadPage()">Reset</button>
-        </form>
-    </div>
-
-    <div id="demo"></div>
-}
-
+<h2>Create New Record</h2>
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index") |
+    <br />
+    <br />
 </div>
+<div>
+    @Html.ActionLink("Create New Department or Facility", "Add") |
+    <br />
+    <br />
+    <div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
 
-<script>
-        function PerformSearch() {
-        var term = document.getElementById("term").value;
-        var medlineURL = "https://wsearch.nlm.nih.gov/ws/query?db=healthTopics&term=";
-        $.get("http://query.yahooapis.com/v1/public/yql",
+        @using (Html.BeginForm())
         {
-            q: "select * from xml where url=\"" + medlineURL + term  + "\"",
-            format: "xml"
-        },
-        function (xml) {
-            console.log(xml);
-            myFunction(xml);
+            @Html.AntiForgeryToken()
 
-            //$.ajax({
-            //    url: "/Records/DisplayXMLResults/",
-            //    type: "POST",
-            //    processData: false,
-            //    contentType: "text/xml",
-            //    data: { data:xml }
-            //});
-        })
+            <div class="form-horizontal">
+                <p>For which case are you entering a record?</p>
+                @*@Html.DropDownList("caseName", null, htmlAttributes: new { @class = "form-control" })*@
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.thisCase.caseName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.thisCase.caseName, new SelectList(ViewBag.caseName, "caseName"), new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.thisCase.caseName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+
+
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+                @*<div class="form-group">
+                        @Html.LabelFor(model => model.record.internalCaseId, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.record.internalCaseId, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.record.internalCaseId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>*@
+
+                @*<div class="form-group">
+                        @Html.LabelFor(model => model.record.InternalCaseNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.record.InternalCaseNumber, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.record.InternalCaseNumber, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.record.sourceId, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.record.sourceId, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.record.sourceId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    @*<div class="form-group">
+                        @Html.LabelFor(model => model.record.departmentId, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.record.departmentId, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.record.record.departmentId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>*@
+
+                @*<div class="form-group">
+                        @Html.LabelFor(model => model.internalCaseNumber.internalCaseNumber, "InternalCaseNumber", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.internalCaseNumber.internalCaseNumber, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.internalCaseNumber.internalCaseNumber, "", new { @class = "text-danger" })
+                        </div>
+                    </div>*@
+
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.record.Department.departmentCode, "Department Code", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.department.departmentCode, new SelectList(ViewBag.departmentCode, "departmentCode"), new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.record.Department.departmentCode, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.record.Facility.facilityName, "Facility Name", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.facility.facilityName, new SelectList(ViewBag.facilityName, "facilityName"), new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.record.Facility.facilityName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.record.pageNumber, "Page Number", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.record.pageNumber, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.record.pageNumber, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.record.provider, "Provider", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.record.provider, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.record.provider, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.record.serviceDate, "Date of Service", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.record.serviceDate, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.record.serviceDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.record.noteSubjective, "Subjective/Chief Complaint", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.record.noteSubjective, new { htmlAttributes = new {@class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.record.noteSubjective, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.record.history, "History", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.record.history, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.record.history, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.record.medications, "Medications", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.record.medications, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.record.medications, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.record.noteObjective, "Objective/Physical Exam", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.record.noteObjective, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.record.noteObjective, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.record.noteAssessment, "Assessment/Impression", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.record.noteAssessment, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.record.noteAssessment, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.record.notePlan, "Plan", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.record.notePlan, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.record.notePlan, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.record.diagnosis, "Diagnosis", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.record.diagnosis, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.record.diagnosis, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" action="Create" id="recordFormSubmit" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+
+            <form id="medlineFormSubmit" method="get" action="https://www.nlm.nih.gov/search/medlineplus" title="MedlinePlus Search input" target="resultwindow"> <label for="medlineplus_new_window">Search <a href="https://medlineplus.gov/">MedlinePlus</a>: </label>    <input type="text" name="query" size="20" maxlength="250" id="medlineplus_new_window" /> <input type="image" src="https://medlineplus.gov/images/search.gif" align="absmiddle" width="57" height="24" border="0" title="Search" alt="Search" /> </form>
+
+            @*<div>
+                    <form id="medlineSearch" role="form">
+                        <div class="form-group">
+                            <label>Search Medline</label>
+                            <input class="form-control" placeholder="Enter search terms" input type="text" id="term" value="" actions="/Records/PerformSearch" method="POST">
+                        </div>
+
+                        <button type="button" id ="medlineButton" class="btn btn-default" onclick="PerformSearch()">Send</button>
+                        <button type="reset" id ="medlineReset" class="btn btn-default" onclick="ReloadPage()">Reset</button>
+                    </form>
+                </div>
+
+                <div id="demo"></div>*@
         }
 
-        function myFunction(xml) {
-            var i;
-            var xmlDoc = xml.responseXML;
-            var table = "<tr><th>Title</th><th>Snippet</th></tr>";
-            var x = xmlDoc.getElementsByTagName("nlmSearchResult");
-            for (i = 0; i < 10; i++) {
-                table += "<tr><td>" +
-                x[i].getElementsByTagName("title")[0].childNodes[0].nodeValue +
-                "</td><td>" +
-                x[i].getElementsByTagName("snippet")[0].childNodes[0].nodeValue +
-                "</td></tr>";
-            }
-            document.getElementById("demo").innerHTML = table;
+        <div>
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+
+            <script>
+                function PerformSearch() {
+                    var term = document.getElementById("term").value;
+                    var medlineURL = "https://wsearch.nlm.nih.gov/ws/query?db=healthTopics&term=";
+                    $.get("http://query.yahooapis.com/v1/public/yql",
+                    {
+                        q: "select * from xml where url=\"" + medlineURL + term + "\"",
+                        format: "xml"
+                    },
+                    function (xml) {
+                        console.log(xml);
+                        myFunction(xml);
+
+                        //$.ajax({
+                        //    url: "/Records/DisplayXMLResults/",
+                        //    type: "POST",
+                        //    processData: false,
+                        //    contentType: "text/xml",
+                        //    data: { data:xml }
+                        //});
+                    })
+                }
+
+                function myFunction(xml) {
+                    var i;
+                    var xmlDoc = xml.responseXML;
+                    var table = "<tr><th>Title</th><th>Snippet</th></tr>";
+                    var x = xmlDoc.getElementsByTagName("nlmSearchResult");
+                    for (i = 0; i < 10; i++) {
+                        table += "<tr><td>" +
+                        x[i].getElementsByTagName("title")[0].childNodes[0].nodeValue +
+                        "</td><td>" +
+                        x[i].getElementsByTagName("snippet")[0].childNodes[0].nodeValue +
+                        "</td></tr>";
+                    }
+                    document.getElementById("demo").innerHTML = table;
+                }
+
+
+            </script>
+
         }
-
-
-</script>
-
-}

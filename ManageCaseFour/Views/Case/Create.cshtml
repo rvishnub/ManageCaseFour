@@ -4,86 +4,43 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+<h2>Add a New Case</h2>
+<div>
+    @Html.ActionLink("Back to List", "Index") |
+    <br />
+    <br />
+</div>
 
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
     
-    @*<div class="form-horizontal">
-        <h4>Case</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.newCase.caseName, "Case Name", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.newCase.caseName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.newCase.caseName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.newCase.county, "County", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.newCase.county, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.newCase.county, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.newCase.caseNumber, "Case Number", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.newCase.caseNumber, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.newCase.caseNumber, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.principal.principalCode, "Principal", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.principal.principalCode, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.principal.principalCode, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.staff.UserName, "Staff", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.staff.UserName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.staff.UserName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" action = "/Case/Create" method= "POST"/>
-            </div>
-        </div>
-    </div>*@
-
-
     <div id="createNewCaseForm">
-        <div><h3>Add new case</h3></div>
         <div>
             <form id="newCaseForm" class="well" action="/Case/Create" method="POST">
                 <label>Case Name</label>
                 <input type="text" id="newCaseName" name="caseName"><br />
+                <br />
+
                 <label>County</label>
                 <input type="text" id="newCaseCounty" name="county"><br />
+                <br />
                 <label>Case Number</label>
                 <input type="text" id="newCaseNumber" name="caseNumber"><br />
+                <br />
                 <label>Principal (Code)</label>
                 <input type="text" id="newCasePrincipal" name="principalCode"><br />
+                <br />
                 <label>Staff (User Name)</label>
                 <input type="text" id="newCaseStaff" name="UserName"><br />
+                <br />
                 <label>Internal Case Number</label>
                 <input type="text" id="newCaseIntCaseNumber" name="internalCaseNumber"><br />
+                <br />
                 <input type="Submit" id="submitButton">
             </form>
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+

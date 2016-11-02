@@ -3,7 +3,12 @@
     ViewBag.Title = "Register";
 }
 
-<h2>@ViewBag.Title.</h2>
+<h2>Register</h2>
+<div>
+    @Html.ActionLink("Return to Admin Page", "Admin", "Home") |
+    <br />
+    <br />
+</div>
 
 @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
