@@ -188,49 +188,9 @@
     <Compile Include="Migrations\201610172136391_initial migration of OCR class.Designer.cs">
       <DependentUpon>201610172136391_initial migration of OCR class.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201610181606492_added record class.cs" />
-    <Compile Include="Migrations\201610181606492_added record class.Designer.cs">
-      <DependentUpon>201610181606492_added record class.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610182140299_created audit class.cs" />
-    <Compile Include="Migrations\201610182140299_created audit class.Designer.cs">
-      <DependentUpon>201610182140299_created audit class.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610182145223_adjusted audit context.cs" />
-    <Compile Include="Migrations\201610182145223_adjusted audit context.Designer.cs">
-      <DependentUpon>201610182145223_adjusted audit context.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610182212232_added auditing context.cs" />
-    <Compile Include="Migrations\201610182212232_added auditing context.Designer.cs">
-      <DependentUpon>201610182212232_added auditing context.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610182244255_removed timestamp.cs" />
-    <Compile Include="Migrations\201610182244255_removed timestamp.Designer.cs">
-      <DependentUpon>201610182244255_removed timestamp.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610240218257_initial migration.cs" />
-    <Compile Include="Migrations\201610240218257_initial migration.Designer.cs">
-      <DependentUpon>201610240218257_initial migration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610240239390_put user.id on usercasejunc as FK.cs" />
-    <Compile Include="Migrations\201610240239390_put user.id on usercasejunc as FK.Designer.cs">
-      <DependentUpon>201610240239390_put user.id on usercasejunc as FK.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610240247255_changed id to Id.cs" />
-    <Compile Include="Migrations\201610240247255_changed id to Id.Designer.cs">
-      <DependentUpon>201610240247255_changed id to Id.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610250216497_removed document source.cs" />
-    <Compile Include="Migrations\201610250216497_removed document source.Designer.cs">
-      <DependentUpon>201610250216497_removed document source.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610281938427_added Client class, PatientProfile class.cs" />
-    <Compile Include="Migrations\201610281938427_added Client class, PatientProfile class.Designer.cs">
-      <DependentUpon>201610281938427_added Client class, PatientProfile class.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610281940587_added PatientProfile class to Identity Model.cs" />
-    <Compile Include="Migrations\201610281940587_added PatientProfile class to Identity Model.Designer.cs">
-      <DependentUpon>201610281940587_added PatientProfile class to Identity Model.cs</DependentUpon>
+    <Compile Include="Migrations\201611032138378_other classes.cs" />
+    <Compile Include="Migrations\201611032138378_other classes.Designer.cs">
+      <DependentUpon>201611032138378_other classes.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -748,38 +708,8 @@
     <EmbeddedResource Include="Migrations\201610172136391_initial migration of OCR class.resx">
       <DependentUpon>201610172136391_initial migration of OCR class.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610181606492_added record class.resx">
-      <DependentUpon>201610181606492_added record class.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610182140299_created audit class.resx">
-      <DependentUpon>201610182140299_created audit class.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610182145223_adjusted audit context.resx">
-      <DependentUpon>201610182145223_adjusted audit context.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610182212232_added auditing context.resx">
-      <DependentUpon>201610182212232_added auditing context.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610182244255_removed timestamp.resx">
-      <DependentUpon>201610182244255_removed timestamp.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610240218257_initial migration.resx">
-      <DependentUpon>201610240218257_initial migration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610240239390_put user.id on usercasejunc as FK.resx">
-      <DependentUpon>201610240239390_put user.id on usercasejunc as FK.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610240247255_changed id to Id.resx">
-      <DependentUpon>201610240247255_changed id to Id.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610250216497_removed document source.resx">
-      <DependentUpon>201610250216497_removed document source.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610281938427_added Client class, PatientProfile class.resx">
-      <DependentUpon>201610281938427_added Client class, PatientProfile class.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610281940587_added PatientProfile class to Identity Model.resx">
-      <DependentUpon>201610281940587_added PatientProfile class to Identity Model.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201611032138378_other classes.resx">
+      <DependentUpon>201611032138378_other classes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="obj\Debug\ManageCaseFour.Migrations.initialmigrationofOCRclass.resources" />
   </ItemGroup>

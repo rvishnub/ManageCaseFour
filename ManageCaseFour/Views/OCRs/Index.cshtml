@@ -12,24 +12,40 @@
 </head>
 <body>
 
-<h2>OCR</h2>
+<h2>SCAN NEW DOCUMENT</h2>
 
 @*<p>
     @Html.ActionLink("Create New", "Create")
 </p>*@
-
-    <p>CURRENT CASE LIST</p>
+    <br />
+    <h3>YOUR CURRENT CASE LIST</h3><br/>
+<div>
+    @Html.ActionLink("Back to Record List", "Index", "Records") |
+    <br />
+    <br />
+</div>
+<div>
+    @Html.ActionLink("Process New Document Image for OCR", "Index", "OCRs") |
+    <br />
+    <br />
+</div>
+<div>
+    @Html.ActionLink("Create New Department or Facility", "Add", "Records") |
+    <br />
+    <br />
+</div>
     <div>
         <table id="caseNameTable" class="display"></table>
     </div>
 
-    <div id="OCRfileupload">
+    <div id="msg" style="font-size:large">Loading. . . .</div>
+    <div id="OCRfileupload" style="display:none">
         <form id="inputFilenameForm" class="well" action="/OCRs/GetAllFilesText" method="POST">
 
             <label>For which case would you like to enter a record?  Enter the Case ID.</label>
             <input type="text" id="caseID" name="caseID"><br />
             <label>Enter the group of files that you would like to scan for OCR, </label><p style="font-style: italic">in the order in which you would like to compile the text.</p>
-            <input type="text" id="allFilenames" name="allFilenames" AllowMultiple="true"><br />
+            <input type="text" id="allFilenames" name="allFilenames" AllowMultiple="true"><br /><br/>
             <input type="Submit" id="uploadFileButton">
         </form>
 
@@ -42,11 +58,13 @@
 <script>
     $(document).ready(function ()
     {
-
+        $("#OCRfileupload").show();
+        $("#msg").hide();
         $.ajax(
 $("#caseNameTable").DataTable({
-    data: @Html.Raw(Json.Encode(Model.caseNameListArray)),
+    data: @Html.Raw(Json.Encode(Model.CaseListArray)),
     rowHeight: 30,
+    "pageLength": 50,
     autowidth: true,
     //columnDefs: [],
     columns: [
@@ -65,7 +83,8 @@ $("#caseNameTable").DataTable({
         $("#happyTable").DataTable({
             data: @Html.Raw(Json.Encode(Model.oVModelList)),
             rowHeight: 30,
-            autowidth: false,
+            autowidth: true,
+            "pageLength": 50,
             columnDefs: [
                 { width: "20%", targets: 3 }, 
                 {targets: 4, render: function ( data, type, row ) {
@@ -82,9 +101,7 @@ $("#caseNameTable").DataTable({
                         return ToJavaScriptDate(data);},
                 title: "Date of Service"},
                 { data: "documentFilename",
-                    title: "File Location",
-                    render: function ( data, type, full, meta ) {
-                        return '<a href="'+data+'">Open File</a>'}},
+                    title: "File Location"},
                 { data: "documentText",
                 title: "Text"}]
 

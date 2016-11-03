@@ -37,6 +37,7 @@ $("#auditTable").DataTable({
     data: @Html.Raw(Json.Encode(Model)),
     rowHeight: 30,
     autowidth: true,
+    "pageLength": 50,
     //columnDefs: [
     //    { width: "25%"}],
     columns: [

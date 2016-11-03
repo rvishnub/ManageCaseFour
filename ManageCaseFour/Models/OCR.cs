@@ -9,8 +9,7 @@ namespace ManageCaseFour.Models
     public class OCR
     {
         [Key]
-        public int id { get; set; }
-        public string documentId { get; set;}
+        public int ocrId { get; set; }
         public string documentFilename { get; set; }
         public string documentText { get; set; }
         public string documentSections { get; set; }

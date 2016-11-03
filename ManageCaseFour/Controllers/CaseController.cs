@@ -135,19 +135,22 @@ namespace ManageCaseFour.Controllers
                 db.SaveChanges();
                 Principal principal = new Principal();
                 principal.principalCode = principalCode;
+                db.Principal.Add(principal);
+                db.SaveChanges();
                 PrincipalCaseJunction pCJunc = new PrincipalCaseJunction();
                 pCJunc.caseId = newCase.caseId;
                 pCJunc.principalId = db.Principal.Select(x => x).Where(y => y.principalCode == principalCode).First().principalId;
+                db.PrincipalCaseJunction.Add(pCJunc);
                 UserCaseJunction uCJunc = new UserCaseJunction();
                 uCJunc.caseId = newCase.caseId;
                 uCJunc.Id = db.Users.Select(x => x).Where(y => y.UserName == UserName).First().Id;
+                db.UserCaseJunction.Add(uCJunc);
+                db.SaveChanges();
                 InternalCaseNumber intCaseNumber = new InternalCaseNumber();
                 intCaseNumber.internalCaseNumber = internalCaseNumber;
                 intCaseNumber.caseId = newCase.caseId;
                 intCaseNumber.caseEntryDate = DateTime.Now;
                 db.InternalCaseNumber.Add(intCaseNumber);
-                db.PrincipalCaseJunction.Add(pCJunc);
-                db.UserCaseJunction.Add(uCJunc);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

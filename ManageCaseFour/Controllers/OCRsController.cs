@@ -15,6 +15,8 @@ using static ManageCaseFour.Controllers.AuditsController;
 using System.Collections;
 using System.Text;
 using System.Xml;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.AspNet.Identity;
 
 namespace ManageCaseFour.Controllers
 {
@@ -30,16 +32,18 @@ namespace ManageCaseFour.Controllers
         {
             oVModel = new OCRViewModel();
             List<OCR> ocrList = db.OCR.ToList();
-            OCRViewModel[] oVModelList = oVModel.GetOCRViewModelList(ocrList).ToArray();
-            //ViewBag.DateSortParm = sortOrder == "provider" ? "name_asc" : "";
-            //ViewBag.DateSortParm = sortOrder == "serviceDate" ? "date_desc" : "date_asc";
-            //Sort(sortOrder, oVModelList);
-            List<Case> caseNameList = db.Case.ToList();
-            oVModel.caseNameListArray = caseNameList.ToArray();
+
+            ApplicationUser myUser = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().
+                FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+            ApplicationUser thisUser = myUser;
+            List<int> CaseIdList = db.UserCaseJunction.Select(x => x).Where(y => y.Id == thisUser.Id).ToList().Select(w => w.caseId).ToList();
+            List<Case> UserCaseList = db.Case.Where(x => CaseIdList.Any(y => y == x.caseId)).ToList();
+            List<string> UserCaseNameList = UserCaseList.Select(x => x.caseName).ToList();
+            oVModel.CaseListArray = UserCaseList.ToArray();
+            OCRViewModel[] oVModelList = oVModel.GetOCRViewModelList(ocrList).Where(x => UserCaseNameList.Any(z => z == x.caseName)).ToArray();
+
             oVModel.oVModelList = oVModelList;
             return View(oVModel);
-            //var data = oVModelList;
-            //return View(oVModelList);
         }
 
         // GET: OCRs/Details/5
@@ -163,7 +167,7 @@ namespace ManageCaseFour.Controllers
             string caseName = db.Case.Select(x => x).Where(y => y.caseId == caseId).First().caseName;
             OCR ocr = new OCR();
             ocr.documentText = pageText;
-            ocr.documentId = ParseTextIntoSubjects(pageText, caseName);
+            ocr.ocrId = ParseTextIntoSubjects(pageText, caseName);
             ocr.documentFilename = filenames[0];
             ocr.documentText = pageText;
             db.OCR.Add(ocr);
@@ -199,7 +203,7 @@ namespace ManageCaseFour.Controllers
 
         }
 
-        public string ParseTextIntoSubjects(string pageText, string caseName)
+        public int ParseTextIntoSubjects(string pageText, string caseName)
         {
             Case thisCase = new Models.Case();
             pageText = pageText.Replace("/n", " ");
@@ -207,45 +211,29 @@ namespace ManageCaseFour.Controllers
             Record record = new Record();
             string noteDate = documentSubjects[2];
             record.serviceDate = GetConvertedDate(noteDate);
-            record.departmentId = 1;
-            record.facilityId = 1;
             record.provider = documentSubjects[3];
-            record.DOB = documentSubjects[4];
-            record.age = documentSubjects[5];
-            record.noteSubjective = documentSubjects[7];
+            record.noteSubjective = documentSubjects[7]+" "+documentSubjects[11]+" "+documentSubjects[12];
             record.history = documentSubjects[8];
-            record.medications = documentSubjects[9];
-            record.allergies = documentSubjects[10];
+            record.medications = documentSubjects[14];
             record.noteObjective = documentSubjects[11];
             record.noteAssessment = documentSubjects[12];
             record.diagnosis = documentSubjects[13];
             record.notePlan = documentSubjects[14];
             record.recordEntryDate = DateTime.Now;
-            record.documentId = record.provider + Convert.ToString(record.serviceDate);
             var caseId = db.Case.Select(x => x).Where(y => y.caseName == caseName).First().caseId;
             var internalCaseId = db.InternalCaseNumber.Select(x => x).Where(y => y.caseId == caseId).First().internalCaseId;
             record.internalCaseId = internalCaseId;
             thisCase.caseName = caseName;
             db.Record.Add(record);
             db.SaveChanges();
-            return record.documentId;
+            return record.ocrId;
 
         }
-
-        public string SplitNoteToGetDocumentId(string text)
-        {
-            string[] separatingStrings = { "Advanced Pain Management", "Date", "Provider", "Patient", "DOB" };
-            string[] sections;
-            sections = text.Split(separatingStrings, StringSplitOptions.None);
-            string docId = sections[1] + sections[2];
-            return docId;
-        }
-
 
         public string[] SplitNoteIntoAllSections(string text)
         {
-            string[] separatingStrings = { "Advanced Pain Management", "Date", "Provider", "Patient", "DOB", "Age", "Sex", "Chief Complaint",
-            "History of Present Illness", "Medication", "Allergies", "Vital Signs", "Assessment", "Diagnosis", "Plan" };
+            string[] separatingStrings = { "Advanced Pain Management", "Date", "Provider", "Patient", "DOB","Age","Sex","Chief Complaint",
+            "History of Present Illness", "Medication", "Allergies", "Vital Signs", "Physical Exam","Assessment", "Diagnosis", "Plan" };
             string[] documentSections;
             documentSections = text.Split(separatingStrings, StringSplitOptions.None);
             return documentSections;
@@ -268,26 +256,6 @@ namespace ManageCaseFour.Controllers
         }
 
         //Sorting method from www.asp.net/mvc/overview/getting-started/getting-started-with-ef-using-mvc/sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-application
-        public ActionResult Sort(string sortOrder, List<OCRViewModel> oVModelList)
-
-        {
-            switch (sortOrder)
-            {
-                case "date_asc":
-                    oVModelList = oVModelList.OrderBy(s => s.serviceDate).ToList();
-                    break;
-                case "date_desc":
-                    oVModelList = oVModelList.OrderByDescending(s => s.serviceDate).ToList();
-                    break;
-                case "name_asc":
-                    oVModelList = oVModelList.OrderBy(s => s.provider).ToList();
-                    break;
-                default:
-                    oVModelList = oVModelList.OrderBy(s => s.serviceDate).ToList();
-                    break;
-            }
-            return View(oVModelList);
-        }
 
         public StringBuilder DisplayXMLResults(XmlDocument data)
         {

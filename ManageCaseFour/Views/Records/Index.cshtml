@@ -8,14 +8,11 @@
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.css">
 </head>
 
-<h2>YOUR CASES/RECORDS</h2>
+<h2>CASE RECORDS</h2>
+<br />
+<h3>YOUR CURRENT CASE RECORDS</h3>
 <div>
-    @Html.ActionLink("Create New", "Create") |
-    <br />
-    <br />
-</div>
-<div>
-    @Html.ActionLink("Edit Record", "Edit") |
+    @Html.ActionLink("Create New Entry", "Create") |
     <br />
     <br />
 </div>
@@ -28,87 +25,101 @@
     <table id="happyTable" class="display"></table>
 </div>
 
-<div id="demo"></div>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
 
-@section Scripts{
-    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
-    <script>
-    $(document).ready(function ()
-    {
-        $.ajax(
-        $("#happyTable").DataTable({
-            data: @Html.Raw(Json.Encode(Model.rCVModelArray)),
-            rowHeight: 30,
-            autowidth: true,
-            //columnDefs: [
-            //    { width: "30%", targets: 3 }],
-            columns: [
-                { data: "thisCase.caseName",
-                    title: "Case Name"},
-                { data: "record.recordId",
-                title: "Record Id"},
-                {data: "department.departmentCode",
-                    title: "Department Code"},
-                { data: "record.serviceDate",
-                    "render": function (data, type, row) {
-                        return ToJavaScriptDate(data);},
-                    title: "Date of Service"},
-                { data: "record.provider",
-                title: "Provider"},
-                {data: "facility.facilityId",
-                    title: "Facility ID"}]
-
-        }))
-    })
-
-
-    function ToJavaScriptDate(value) {
-        var pattern = /Date\(([^)]+)\)/;
-        var results = pattern.exec(value);
-        var dt = new Date(parseFloat(results[1]));
-        return (dt.getMonth() + 1) + "/" + dt.getDate() + "/" + dt.getFullYear();
-    }
-
-
-    function PerformSearch() {
-        var term = document.getElementById("term").value;
-        var medlineURL = "https://wsearch.nlm.nih.gov/ws/query?db=healthTopics&term=";
-        $.get("http://query.yahooapis.com/v1/public/yql",
-        {
-            q: "select * from xml where url=\"" + medlineURL + term  + "\"",
-            format: "xml"
-        },
-        function (xml) {
-            console.log(xml);
-            myFunction(xml);
-            //$.ajax({
-            //    url: "/Records/DisplayXMLResults/",
-            //    type: "POST",
-            //    processData: false,
-            //    contentType: "text/xml",
-            //    data: { data:xml }
-            //});
-        })
-    }
-
-    function myFunction(xml) {
-        var i;
-        var xmlDoc = xml.responseXML;
-        var table="<tr><th>Title</th><th>Snippet</th></tr>";
-        var x = xmlDoc.getElementsByTagName("document");
-        for (i = 0; i <10; i++) { 
-            table += "<tr><td>" +
-            x[i].getElementsByTagName("title")[0].childNodes[0].nodeValue +
-            "</td><td>" +
-            x[i].getElementsByTagName("snippet")[0].childNodes[0].nodeValue +
-            "</td></tr>";
-        }
-        document.getElementById("demo").innerHTML = table;
-    }
-
-    </script>
-
-
-
-
+<div id="recordEditForm" style="display:none">
+    <form id="inputFilenameForm" class="well" action="/Records/Edit" method="POST">
+        <label>Which record would you like to edit?  Enter the Record ID.</label>
+        <input type="text" id="id" name="id"><br />
+        <input type="Submit" id="getRecordButton">
+    </form>
+    </div>
 }
+
+    <div id="demo"></div>
+
+    @section Scripts{
+        <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
+        <script>
+            $(document).ready(function ()
+            {
+                $("#recordEditForm").show();
+                $.ajax(
+                $("#happyTable").DataTable({
+                    data: @Html.Raw(Json.Encode(Model.rCVModelArray)),
+                    rowHeight: 30,
+                    autowidth: true,
+                    //columnDefs: [
+                    //    { width: "30%", targets: 3 }],
+                    columns: [
+                        { data: "thisCase.caseName",
+                            title: "Case Name"},
+                        { data: "record.recordId",
+                            title: "Record Id"},
+                        {data: "department.departmentCode",
+                            title: "Department Code"},
+                        { data: "record.serviceDate",
+                            "render": function (data, type, row) {
+                                return ToJavaScriptDate(data);},
+                            title: "Date of Service"},
+                        { data: "record.provider",
+                            title: "Provider"},
+                        {data: "facility.facilityId",
+                            title: "Facility ID"}]
+
+                }))
+            })
+
+
+            function ToJavaScriptDate(value) {
+                var pattern = /Date\(([^)]+)\)/;
+                var results = pattern.exec(value);
+                var dt = new Date(parseFloat(results[1]));
+                return (dt.getMonth() + 1) + "/" + dt.getDate() + "/" + dt.getFullYear();
+            }
+
+
+            function PerformSearch() {
+                var term = document.getElementById("term").value;
+                var medlineURL = "https://wsearch.nlm.nih.gov/ws/query?db=healthTopics&term=";
+                $.get("http://query.yahooapis.com/v1/public/yql",
+                {
+                    q: "select * from xml where url=\"" + medlineURL + term  + "\"",
+                    format: "xml"
+                },
+                function (xml) {
+                    console.log(xml);
+                    myFunction(xml);
+                    //$.ajax({
+                    //    url: "/Records/DisplayXMLResults/",
+                    //    type: "POST",
+                    //    processData: false,
+                    //    contentType: "text/xml",
+                    //    data: { data:xml }
+                    //});
+                })
+            }
+
+            function myFunction(xml) {
+                var i;
+                var xmlDoc = xml.responseXML;
+                var table="<tr><th>Title</th><th>Snippet</th></tr>";
+                var x = xmlDoc.getElementsByTagName("document");
+                for (i = 0; i <10; i++) {
+                    table += "<tr><td>" +
+                    x[i].getElementsByTagName("title")[0].childNodes[0].nodeValue +
+                    "</td><td>" +
+                    x[i].getElementsByTagName("snippet")[0].childNodes[0].nodeValue +
+                    "</td></tr>";
+                }
+                document.getElementById("demo").innerHTML = table;
+            }
+
+        </script>
+
+
+
+
+    }

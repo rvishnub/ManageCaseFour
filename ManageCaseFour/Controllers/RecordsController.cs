@@ -144,16 +144,27 @@ namespace ManageCaseFour.Controllers
         [Audit]
         public ActionResult Edit(int? id)
         {
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            RecordViewModel rVModel = new RecordViewModel();
             Record record = db.Record.Find(id);
+            InternalCaseNumber intCaseNumber = db.InternalCaseNumber.Find(record.internalCaseId);
+            Case thisCase = db.Case.Find(intCaseNumber.internalCaseId);
+            Department department = db.Department.Find(record.departmentId);
+            Facility facility = db.Facility.Find(record.facilityId);
+            rVModel.record = record;
+            rVModel.thisCase = thisCase;
+            rVModel.department = department;
+            rVModel.facility = facility;
+
             if (record == null)
             {
                 return HttpNotFound();
             }
-            return View(record);
+            return View(rVModel);
         }
 
         // POST: Records/Edit/5
@@ -161,15 +172,66 @@ namespace ManageCaseFour.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "recordId,internalCaseId,InternalCaseNumber,sourceId,DocumentSource,departmentId,Department,documentId,DocumentType,facilityId,Facility,recordReferenceNumber,pageNumber,recordEntryDate,provider,memo,serviceDate,noteSubjective,history,noteObjective,noteAssessment,notePlan,medications,age,DOB,allergies,vitalSigns,diagnosis,fileContent")] Record record)
+        public ActionResult Edit([Bind(Include = "recordId,internalCaseId,InternalCaseNumber,sourceId,DocumentSource,departmentId,Department,documentId,DocumentType,facilityId,Facility,recordReferenceNumber,pageNumber,recordEntryDate,provider,memo,serviceDate,noteSubjective,history,noteObjective,noteAssessment,notePlan,medications,age,DOB,allergies,vitalSigns,diagnosis,fileContent")] RecordViewModel rVModel)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(record).State = EntityState.Modified;
+                db.Entry(rVModel.record).State = EntityState.Modified;
+                db.Entry(rVModel.thisCase).State = EntityState.Modified;
+                db.Entry(rVModel.department).State = EntityState.Modified;
+                db.Entry(rVModel.facility).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(record);
+
+            return View(rVModel);
+        }
+
+
+
+
+        public ActionResult Add(string departmentCode, string facilityName)
+        {
+            RecordViewModel rCVModel = new RecordViewModel();
+            List<string> DeptCodes = db.Department.Select(x => x.departmentCode).ToList();
+            List<string> FacNames = db.Facility.Select(x => x.facilityName).ToList();
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    if (departmentCode != null)
+                    {
+                        if (DeptCodes.Contains(departmentCode))
+                        {
+                            ViewBag.error("", "that department already exists.");
+                            return View(ViewBag);
+                        }
+                        rCVModel.department.departmentCode = departmentCode;
+                        db.Department.Add(rCVModel.department);
+                    }
+
+                    if (facilityName != null)
+                    {
+                        if (FacNames.Contains(facilityName))
+                        {
+                            ViewBag.error("", "that facility already exists.");
+                            return View(ViewBag);
+
+                        }
+                        rCVModel.facility.facilityName = facilityName;
+                        db.Facility.Add(rCVModel.facility);
+                    }
+                    db.SaveChanges();
+                    return RedirectToAction("Index", "Home");
+                }
+                ViewBag.error("", "that department already exists.");
+                return View(ViewBag);
+            }
+            catch
+            {
+                ViewBag.error("", "error");
+                return View(ViewBag);
+            }
         }
 
         // GET: Records/Delete/5

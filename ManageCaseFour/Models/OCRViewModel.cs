@@ -9,10 +9,10 @@ namespace ManageCaseFour.Models
 {
     public class OCRViewModel
     {
-        private Record record;
+        public Record record;
         public Case thisCase;
+        public InternalCaseNumber intCaseNumber;
 
-        public string documentId { get; set; }
         public string documentFilename { get; set; }
         public string documentText { get; set; }
         public DateTime serviceDate { get; set; }
@@ -26,8 +26,8 @@ namespace ManageCaseFour.Models
         List<OCR> ocrList = new List<OCR>();
         List<OCRViewModel> ovModel = new List<OCRViewModel>();
         public OCRViewModel[] oVModelList = new OCRViewModel[] { };
-        public List<string> caseNameList = new List<string>();
-        public Case[] caseNameListArray = new Case[] { };
+        public List<string> CaseNameList = new List<string>();
+        public Case[] CaseListArray = new Case[] { };
 
 
         public List<OCRViewModel> GetOCRViewModelList(List<OCR> ocrList)
@@ -35,9 +35,12 @@ namespace ManageCaseFour.Models
             for (int i = 0; i < ocrList.Count(); i++)
             {
                 OCRViewModel modelItem = new OCRViewModel();
-                modelItem.documentId = ocrList[i].documentId;
-                record = db.Record.Where(t => t.documentId == modelItem.documentId).FirstOrDefault();
+                int ocrId = ocrList[i].ocrId;
+                record = db.Record.Where(t => t.ocrId == ocrId).FirstOrDefault();
                 modelItem.serviceDate = record.serviceDate;
+                modelItem.internalCaseId = record.internalCaseId;
+                modelItem.caseId = db.InternalCaseNumber.Select(x => x).Where(y => y.internalCaseId == modelItem.internalCaseId).First().caseId;
+                modelItem.caseName = db.Case.Select(x=>x).Where(y=>y.caseId == modelItem.caseId).First().caseName;
                 modelItem.provider = record.provider;
                 modelItem.documentText = ocrList[i].documentText;
                 modelItem.documentFilename = ocrList[i].documentFilename;

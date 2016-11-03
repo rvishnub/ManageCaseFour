@@ -26,7 +26,10 @@ namespace ManageCaseFour.Models
         public int facilityId { get; set; }//maybe a dropdown
         public Facility Facility { get; set; }
 
-        public string documentId { get; set; } //provider plus date
+        [ForeignKey("OCR")]
+        public int ocrId { get; set; }
+        public OCR OCR { get; set; }
+
         public string recordReferenceNumber { get; set; }//autofill
         public string pageNumber { get; set; }
         public DateTime recordEntryDate { get; set; }
@@ -64,8 +67,8 @@ namespace ManageCaseFour.Models
         public string GetFileContent(Record record)
         {
             //fileContent = record.documentId + "; " + record.noteSubjective + "; " + record.noteObjective + "; " + record.noteAssessment + "; " + record.diagnosis + "; " + record.notePlan;
-            string documentId = record.documentId;
-            OCR ocr = db.OCR.Where(x => x.documentId == documentId).FirstOrDefault();
+            int ocrId = record.ocrId;
+            OCR ocr = db.OCR.Where(x => x.ocrId == ocrId).FirstOrDefault();
             record.fileContent = ocr.documentText;
             return record.fileContent;
         }
