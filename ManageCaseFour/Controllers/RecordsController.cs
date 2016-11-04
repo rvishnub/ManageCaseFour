@@ -111,10 +111,10 @@ namespace ManageCaseFour.Controllers
             if (ModelState.IsValid)
             {
                 Record record = new Record();
-                //Department department = new Department();
-                //Facility facility = new Facility();
-                record.departmentId = db.Department.Select(x => x).Where(y => y.departmentCode == nCRVModel.record.Department.departmentCode).First().departmentId;
-                record.facilityId = db.Facility.Select(x => x).Where(y => y.facilityName == nCRVModel.record.Facility.facilityName).First().facilityId;
+                Department department = new Department();
+                Facility facility = new Facility();
+                record.departmentId = db.Department.Select(x => x).Where(y => y.departmentCode == nCRVModel.department.departmentCode).First().departmentId;
+                record.facilityId = db.Facility.Select(x => x).Where(y => y.facilityName == nCRVModel.facility.facilityName).First().facilityId;
                 record.recordEntryDate = DateTime.Now;
                 record.provider = nCRVModel.record.provider;
                 record.memo = nCRVModel.record.memo;
@@ -134,7 +134,7 @@ namespace ManageCaseFour.Controllers
                 record.internalCaseId = db.InternalCaseNumber.Select(x => x).Where(y=>y.caseId == caseId).First().internalCaseId;
                 db.Record.Add(record);
                 db.SaveChanges();
-                return RedirectToAction("Index","Home");
+                return RedirectToAction("Index","Records");
             }
 
             return View();
@@ -176,6 +176,10 @@ namespace ManageCaseFour.Controllers
         {
             if (ModelState.IsValid)
             {
+                //Record record = rVModel.record;
+                //Case thisCase = rVModel.thisCase;
+                //Department department = rVModel.department;
+                //Facility facility = rVModel.facility;
                 db.Entry(rVModel.record).State = EntityState.Modified;
                 db.Entry(rVModel.thisCase).State = EntityState.Modified;
                 db.Entry(rVModel.department).State = EntityState.Modified;
@@ -187,51 +191,9 @@ namespace ManageCaseFour.Controllers
             return View(rVModel);
         }
 
-
-
-
-        public ActionResult Add(string departmentCode, string facilityName)
+        public ActionResult Add()
         {
-            RecordViewModel rCVModel = new RecordViewModel();
-            List<string> DeptCodes = db.Department.Select(x => x.departmentCode).ToList();
-            List<string> FacNames = db.Facility.Select(x => x.facilityName).ToList();
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    if (departmentCode != null)
-                    {
-                        if (DeptCodes.Contains(departmentCode))
-                        {
-                            ViewBag.error("", "that department already exists.");
-                            return View(ViewBag);
-                        }
-                        rCVModel.department.departmentCode = departmentCode;
-                        db.Department.Add(rCVModel.department);
-                    }
-
-                    if (facilityName != null)
-                    {
-                        if (FacNames.Contains(facilityName))
-                        {
-                            ViewBag.error("", "that facility already exists.");
-                            return View(ViewBag);
-
-                        }
-                        rCVModel.facility.facilityName = facilityName;
-                        db.Facility.Add(rCVModel.facility);
-                    }
-                    db.SaveChanges();
-                    return RedirectToAction("Index", "Home");
-                }
-                ViewBag.error("", "that department already exists.");
-                return View(ViewBag);
-            }
-            catch
-            {
-                ViewBag.error("", "error");
-                return View(ViewBag);
-            }
+            return View();
         }
 
         // GET: Records/Delete/5
@@ -288,6 +250,50 @@ namespace ManageCaseFour.Controllers
         //    recordResultList = record.SearchFileContent(searchTerm);
         //    return recordResultList;
         //}
+
+        public ActionResult AddDeptFacility(string departmentCode, string facilityName)
+        {
+            RecordViewModel rCVModel = new RecordViewModel();
+            List<string> DeptCodes = db.Department.Select(x => x.departmentCode).ToList();
+            List<string> FacNames = db.Facility.Select(x => x.facilityName).ToList();
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    if (departmentCode != null)
+                    {
+                        if (DeptCodes.Contains(departmentCode))
+                        {
+                            ViewBag.error("", "that department already exists.");
+                            return View(ViewBag);
+                        }
+                        rCVModel.department.departmentCode = departmentCode;
+                        db.Department.Add(rCVModel.department);
+                    }
+
+                    if (facilityName != null)
+                    {
+                        if (FacNames.Contains(facilityName))
+                        {
+                            ViewBag.error("", "that facility already exists.");
+                            return View(ViewBag);
+
+                        }
+                        rCVModel.facility.facilityName = facilityName;
+                        db.Facility.Add(rCVModel.facility);
+                    }
+                    db.SaveChanges();
+                    return RedirectToAction("Index", "Home");
+                }
+                ViewBag.error("", "that department already exists.");
+                return View(ViewBag);
+            }
+            catch
+            {
+                ViewBag.error("", "error");
+                return View(ViewBag);
+            }
+        }
 
         public StringBuilder DisplayXMLResults(XmlDocument data)
         {

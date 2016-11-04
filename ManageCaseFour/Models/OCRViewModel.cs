@@ -35,8 +35,9 @@ namespace ManageCaseFour.Models
             for (int i = 0; i < ocrList.Count(); i++)
             {
                 OCRViewModel modelItem = new OCRViewModel();
-                int ocrId = ocrList[i].ocrId;
-                record = db.Record.Where(t => t.ocrId == ocrId).FirstOrDefault();
+                OCR ocr = ocrList[i];
+                int ocrId = ocr.ocrId;
+                Record record = db.Record.Where(t => t.recordId == ocr.recordId).FirstOrDefault();
                 modelItem.serviceDate = record.serviceDate;
                 modelItem.internalCaseId = record.internalCaseId;
                 modelItem.caseId = db.InternalCaseNumber.Select(x => x).Where(y => y.internalCaseId == modelItem.internalCaseId).First().caseId;

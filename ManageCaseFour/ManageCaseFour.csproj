@@ -192,6 +192,14 @@
     <Compile Include="Migrations\201611032138378_other classes.Designer.cs">
       <DependentUpon>201611032138378_other classes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611040333388_removed ocrId as foreign key from Records.cs" />
+    <Compile Include="Migrations\201611040333388_removed ocrId as foreign key from Records.Designer.cs">
+      <DependentUpon>201611040333388_removed ocrId as foreign key from Records.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611040336332_added recordId as foreign key to OCR.cs" />
+    <Compile Include="Migrations\201611040336332_added recordId as foreign key to OCR.Designer.cs">
+      <DependentUpon>201611040336332_added recordId as foreign key to OCR.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Audit.cs" />
@@ -710,6 +718,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611032138378_other classes.resx">
       <DependentUpon>201611032138378_other classes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611040333388_removed ocrId as foreign key from Records.resx">
+      <DependentUpon>201611040333388_removed ocrId as foreign key from Records.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611040336332_added recordId as foreign key to OCR.resx">
+      <DependentUpon>201611040336332_added recordId as foreign key to OCR.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="obj\Debug\ManageCaseFour.Migrations.initialmigrationofOCRclass.resources" />
   </ItemGroup>

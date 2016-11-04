@@ -17,7 +17,7 @@
     <br />
 </div>
 <div>
-    @Html.ActionLink("Create New Department or Facility", "Add") |
+    @Html.ActionLink("Create New Department or Facility", "Add", "Records") |
     <br />
     <br />
 </div>
@@ -30,7 +30,7 @@
     @Html.AntiForgeryToken()
 
 <div id="recordEditForm" style="display:none">
-    <form id="inputFilenameForm" class="well" action="/Records/Edit" method="POST">
+    <form id="inputFilenameForm" class="well" action="Records/Edit" method="POST">
         <label>Which record would you like to edit?  Enter the Record ID.</label>
         <input type="text" id="id" name="id"><br />
         <input type="Submit" id="getRecordButton">

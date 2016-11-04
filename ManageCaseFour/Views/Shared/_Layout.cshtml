@@ -6,9 +6,16 @@
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
+    <link href="https://fonts.googleapis.com/css?family=Acme|Architects+Daughter|Armata|Economica|Kaushan+Script|Permanent+Marker|Trirong" rel="stylesheet">
 </head>
 <body>
+    @*font-family: 'Trirong', serif;
+    font-family: 'Architects Daughter', cursive;
+    font-family: 'Acme', sans-serif;
+    font-family: 'Kaushan Script', cursive;
+    font-family: 'Permanent Marker', cursive;
+    font-family: 'Economica', sans-serif;
+    font-family: 'Armata', san-serif;*@
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -17,14 +24,14 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("ManageCase", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("ManageCase", "Index", "Home", new { area = "" }, new { @class = "navbar-brand", @style = "color:#ffc04d; font-family:Armata, san-serif; font-size:30px" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("New Case", "Create", "Case")</li>
-                    <li>@Html.ActionLink("View Records", "Index", "Records")</li>
-                    <li>@Html.ActionLink("Admin", "Admin", "Home")</li>
+                    <li>@Html.ActionLink("Home", "Index", "Home", new { @style = "color:white; font-family:Economica, sans-serif; font-size:20px" })</li>
+                    <li>@Html.ActionLink("New Case", "Create", "Case", new { @style = "color:white;font-family:Economica, sans-serif; font-size:20px" })</li>
+                    <li>@Html.ActionLink("View Records", "Index", "Records", new { @style = "color:white;font-family:Economica, sans-serif; font-size:20px" })</li>
+                    <li>@Html.ActionLink("Admin", "Admin", "Home", new { @style = "color:white;font-family:Economica, sans-serif; font-size:20px" })</li>
 
                 </ul>
                 @Html.Partial("_LoginPartial")
@@ -37,8 +44,8 @@
 
      
 
-        <footer>
-            <p>&copy; @DateTime.Now.Year Renuka Vishnubhakta</p>
+        <footer style="margin-top:100vh; bottom:0">
+            <p style="color:#ffc04d">&copy; @DateTime.Now.Year Renuka Vishnubhakta</p>
         </footer>
     </div>
 

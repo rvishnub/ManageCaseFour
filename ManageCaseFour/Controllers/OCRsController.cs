@@ -167,7 +167,7 @@ namespace ManageCaseFour.Controllers
             string caseName = db.Case.Select(x => x).Where(y => y.caseId == caseId).First().caseName;
             OCR ocr = new OCR();
             ocr.documentText = pageText;
-            ocr.ocrId = ParseTextIntoSubjects(pageText, caseName);
+            ocr.recordId = ParseTextIntoSubjects(pageText, caseName);
             ocr.documentFilename = filenames[0];
             ocr.documentText = pageText;
             db.OCR.Add(ocr);
@@ -212,27 +212,29 @@ namespace ManageCaseFour.Controllers
             string noteDate = documentSubjects[2];
             record.serviceDate = GetConvertedDate(noteDate);
             record.provider = documentSubjects[3];
-            record.noteSubjective = documentSubjects[7]+" "+documentSubjects[11]+" "+documentSubjects[12];
+            record.noteSubjective = documentSubjects[6]+" "+documentSubjects[7]+" "+documentSubjects[8];
             record.history = documentSubjects[8];
-            record.medications = documentSubjects[14];
-            record.noteObjective = documentSubjects[11];
-            record.noteAssessment = documentSubjects[12];
-            record.diagnosis = documentSubjects[13];
+            record.medications = documentSubjects[9];
+            record.noteObjective = documentSubjects[11] +" " + documentSubjects[12];
+            record.noteAssessment = documentSubjects[13];
+            record.diagnosis = documentSubjects[14];
             record.notePlan = documentSubjects[14];
             record.recordEntryDate = DateTime.Now;
-            var caseId = db.Case.Select(x => x).Where(y => y.caseName == caseName).First().caseId;
-            var internalCaseId = db.InternalCaseNumber.Select(x => x).Where(y => y.caseId == caseId).First().internalCaseId;
+            thisCase.caseId = db.Case.Select(x => x).Where(y => y.caseName == caseName).First().caseId;
+            int internalCaseId = db.InternalCaseNumber.Select(x => x).Where(y => y.caseId == thisCase.caseId).First().internalCaseId;
             record.internalCaseId = internalCaseId;
             thisCase.caseName = caseName;
+            record.departmentId = 1;
+            record.facilityId = 1;
             db.Record.Add(record);
             db.SaveChanges();
-            return record.ocrId;
+            return record.recordId; //fix this, was ocrId, has to be something else now
 
         }
 
         public string[] SplitNoteIntoAllSections(string text)
         {
-            string[] separatingStrings = { "Advanced Pain Management", "Date", "Provider", "Patient", "DOB","Age","Sex","Chief Complaint",
+            string[] separatingStrings = { "Advanced Pain Management", "Date", "Provider", "DOB","Age","Sex","Chief Complaint",
             "History of Present Illness", "Medication", "Allergies", "Vital Signs", "Physical Exam","Assessment", "Diagnosis", "Plan" };
             string[] documentSections;
             documentSections = text.Split(separatingStrings, StringSplitOptions.None);

@@ -26,10 +26,6 @@ namespace ManageCaseFour.Models
         public int facilityId { get; set; }//maybe a dropdown
         public Facility Facility { get; set; }
 
-        [ForeignKey("OCR")]
-        public int ocrId { get; set; }
-        public OCR OCR { get; set; }
-
         public string recordReferenceNumber { get; set; }//autofill
         public string pageNumber { get; set; }
         public DateTime recordEntryDate { get; set; }
@@ -66,11 +62,11 @@ namespace ManageCaseFour.Models
 
         public string GetFileContent(Record record)
         {
-            //fileContent = record.documentId + "; " + record.noteSubjective + "; " + record.noteObjective + "; " + record.noteAssessment + "; " + record.diagnosis + "; " + record.notePlan;
-            int ocrId = record.ocrId;
-            OCR ocr = db.OCR.Where(x => x.ocrId == ocrId).FirstOrDefault();
-            record.fileContent = ocr.documentText;
-            return record.fileContent;
+            ////fileContent = record.documentId + "; " + record.noteSubjective + "; " + record.noteObjective + "; " + record.noteAssessment + "; " + record.diagnosis + "; " + record.notePlan;
+            //int ocrId = record.recordId;
+            //OCR ocr = db.OCR.Where(x => x.ocrId == ocrId).FirstOrDefault();
+            //record.fileContent = ocr.documentText;
+            return record.fileContent; //fix this whole method
         }
 
         public List<Record> SearchFileContent(string searchTerm)
