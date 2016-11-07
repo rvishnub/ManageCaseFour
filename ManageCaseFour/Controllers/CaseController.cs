@@ -10,7 +10,7 @@ using ManageCaseFour.Models;
 
 namespace ManageCaseFour.Controllers
 {
-    [Authorize(Roles = "Admin, Manager")]
+    [Authorize(Roles = "Manager")]
     public class CaseController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

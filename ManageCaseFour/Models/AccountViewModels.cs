@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
+
 namespace ManageCaseFour.Models
 {
     public class ExternalLoginConfirmationViewModel
@@ -124,4 +125,7 @@ namespace ManageCaseFour.Models
         [Display(Name = "Email")]
         public string Email { get; set; }
     }
+
 }
+
+

@@ -462,6 +462,11 @@ namespace ManageCaseFour.Controllers
             return View();
         }
 
+        public ActionResult Denied()
+        {
+            return View();
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -518,6 +523,7 @@ namespace ManageCaseFour.Controllers
             {
             }
 
+
             public ChallengeResult(string provider, string redirectUri, string userId)
             {
                 LoginProvider = provider;
@@ -541,4 +547,6 @@ namespace ManageCaseFour.Controllers
         }
         #endregion
     }
+
+
 }
