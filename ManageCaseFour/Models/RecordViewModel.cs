@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -7,6 +8,7 @@ namespace ManageCaseFour.Models
 {
     public class RecordViewModel
     {
+        [DataType(DataType.MultilineText)]
 
         public Record record { get; set; }
         public Case thisCase { get; set; }

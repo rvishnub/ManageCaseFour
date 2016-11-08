@@ -67,18 +67,25 @@ namespace ManageCaseFour.Controllers
         }
 
         // GET: Records/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int? recordID)
         {
-            if (id == null)
+            if (recordID == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Record record = db.Record.Find(id);
+            Record record = db.Record.Find(recordID);
+            RecordViewModel rVModel = new RecordViewModel();
+            rVModel.record = record;
+            rVModel.intCaseNumber = db.InternalCaseNumber.Select(x=>x).Where(y=>y.internalCaseId == record.internalCaseId).First();
+            rVModel.thisCase = db.Case.Select(x=>x).Where(y=>y.caseId == rVModel.intCaseNumber.caseId).First();
+            rVModel.department = db.Department.Select(x=>x).Where(y=>y.departmentId == record.departmentId).First();
+            rVModel.facility = db.Facility.Select(x=>x).Where(y=>y.facilityId == record.facilityId).First();
+
             if (record == null)
             {
                 return HttpNotFound();
             }
-            return View(record);
+            return View(rVModel);
         }
 
         // GET: Records/Create
@@ -142,19 +149,22 @@ namespace ManageCaseFour.Controllers
 
         // GET: Records/Edit/5
         [Audit]
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int? recordID)
         {
 
-            if (id == null)
+            if (recordID == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
+            int id = Convert.ToInt32(recordID);
             RecordViewModel rVModel = new RecordViewModel();
             Record record = db.Record.Find(id);
             InternalCaseNumber intCaseNumber = db.InternalCaseNumber.Find(record.internalCaseId);
-            Case thisCase = db.Case.Find(intCaseNumber.internalCaseId);
+            Case thisCase = db.Case.Find(intCaseNumber.caseId);
             Department department = db.Department.Find(record.departmentId);
             Facility facility = db.Facility.Find(record.facilityId);
+            rVModel.intCaseNumber = intCaseNumber;
             rVModel.record = record;
             rVModel.thisCase = thisCase;
             rVModel.department = department;
@@ -172,18 +182,16 @@ namespace ManageCaseFour.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "recordId,internalCaseId,InternalCaseNumber,sourceId,DocumentSource,departmentId,Department,documentId,DocumentType,facilityId,Facility,recordReferenceNumber,pageNumber,recordEntryDate,provider,memo,serviceDate,noteSubjective,history,noteObjective,noteAssessment,notePlan,medications,age,DOB,allergies,vitalSigns,diagnosis,fileContent")] RecordViewModel rVModel)
+        public ActionResult EditRecord([Bind(Include = "recordId,Record, internalCaseId,InternalCaseNumber,Case, sourceId,DocumentSource,departmentId,Department,documentId,DocumentType,facilityId,Facility,recordReferenceNumber,pageNumber,recordEntryDate,provider,memo,serviceDate,noteSubjective,history,noteObjective,noteAssessment,notePlan,medications,age,DOB,allergies,vitalSigns,diagnosis,fileContent")] RecordViewModel rVModel)
         {
             if (ModelState.IsValid)
             {
-                //Record record = rVModel.record;
-                //Case thisCase = rVModel.thisCase;
-                //Department department = rVModel.department;
-                //Facility facility = rVModel.facility;
+                //InternalCaseNumber intCaseNumber = rVModel.intCaseNumber;
+                //Case thisCase = db.Case.Find(intCaseNumber.caseId);
+                rVModel.record.departmentId = db.Department.Select(x=>x).Where(y=>y.departmentCode == rVModel.department.departmentCode).First().departmentId;
+                rVModel.record.facilityId = db.Facility.Select(x => x).Where(y => y.facilityName == rVModel.facility.facilityName).First().facilityId;
                 db.Entry(rVModel.record).State = EntityState.Modified;
-                db.Entry(rVModel.thisCase).State = EntityState.Modified;
-                db.Entry(rVModel.department).State = EntityState.Modified;
-                db.Entry(rVModel.facility).State = EntityState.Modified;
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

@@ -1,242 +1,146 @@
-﻿@model ManageCaseFour.Models.Record
+﻿@model ManageCaseFour.Models.RecordViewModel
 
 @{
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>DETAILS</h2>
+<h4>View Record</h4>
+<br />
+
+@*<div>
+    @Html.DisplayForModel("Record #", recordId)
+</div>*@
+    <div>
+        @Html.ActionLink("Edit this Record", "Edit", new { recordID = Model.recordId }) |
+        <br />
+        <br />
+    </div>
+    <div>
+        @Html.ActionLink("Back to Record List", "Index") |
+        <br />
+        <br />
+    </div>
 
 <div>
-    <h4>Record</h4>
-    <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.internalCaseId)
+            Internal Case Id        
         </dt>
-
         <dd>
-            @Html.DisplayFor(model => model.internalCaseId)
+            @Html.DisplayFor(model => model.record.internalCaseId)
         </dd>
-
+        <br />
         <dt>
-            @Html.DisplayNameFor(model => model.InternalCaseNumber)
+            Department Code
         </dt>
-
+        <br />
         <dd>
-            @Html.DisplayFor(model => model.InternalCaseNumber)
+            @Html.DisplayFor(model => model.department.departmentCode)
         </dd>
-
+        <br />
         <dt>
-            @Html.DisplayNameFor(model => model.sourceId)
+            Facility Name
         </dt>
-
+        <br />
         <dd>
-            @Html.DisplayFor(model => model.sourceId)
+            @Html.DisplayFor(model => model.facility.facilityName)
         </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DocumentSource)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DocumentSource)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.departmentId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.departmentId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Department)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Department)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.documentId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.documentId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DocumentType)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DocumentType)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.facilityId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.facilityId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Facility)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Facility)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.recordReferenceNumber)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.recordReferenceNumber)
-        </dd>
-
+        <br />
         <dt>
             @Html.DisplayNameFor(model => model.pageNumber)
         </dt>
-
+        <br />
         <dd>
             @Html.DisplayFor(model => model.pageNumber)
         </dd>
-
+        <br />
         <dt>
-            @Html.DisplayNameFor(model => model.recordEntryDate)
+            Provider
         </dt>
-
+        <br />
         <dd>
-            @Html.DisplayFor(model => model.recordEntryDate)
+            @Html.DisplayFor(model => model.record.provider)
         </dd>
-
+        <br />
         <dt>
-            @Html.DisplayNameFor(model => model.provider)
+            Memo
         </dt>
-
+        <br />
         <dd>
-            @Html.DisplayFor(model => model.provider)
+            @Html.DisplayFor(model => model.record.memo)
         </dd>
-
+        <br />
         <dt>
-            @Html.DisplayNameFor(model => model.memo)
+            Date of Service
         </dt>
-
+        <br />
         <dd>
-            @Html.DisplayFor(model => model.memo)
+            @Html.DisplayFor(model => model.record.serviceDate)
         </dd>
-
+        <br />
         <dt>
-            @Html.DisplayNameFor(model => model.serviceDate)
+            Subjective
         </dt>
-
+        <br />
         <dd>
-            @Html.DisplayFor(model => model.serviceDate)
+            @Html.DisplayFor(model => model.record.noteSubjective)
         </dd>
-
+        <br />
         <dt>
-            @Html.DisplayNameFor(model => model.noteSubjective)
+            History
         </dt>
-
+        <br />
         <dd>
-            @Html.DisplayFor(model => model.noteSubjective)
+            @Html.DisplayFor(model => model.record.history)
         </dd>
-
+        <br />
         <dt>
-            @Html.DisplayNameFor(model => model.history)
+            Objective
         </dt>
-
+        <br />
         <dd>
-            @Html.DisplayFor(model => model.history)
+            @Html.DisplayFor(model => model.record.noteObjective)
         </dd>
-
+        <br />
         <dt>
-            @Html.DisplayNameFor(model => model.noteObjective)
+            Assessment
         </dt>
-
+        <br />
         <dd>
-            @Html.DisplayFor(model => model.noteObjective)
+            @Html.DisplayFor(model => model.record.noteAssessment)
         </dd>
-
+        <br />
         <dt>
-            @Html.DisplayNameFor(model => model.noteAssessment)
+            Plan
         </dt>
-
+        <br />
         <dd>
-            @Html.DisplayFor(model => model.noteAssessment)
+            @Html.DisplayFor(model => model.record.notePlan)
         </dd>
-
+        <br />
         <dt>
-            @Html.DisplayNameFor(model => model.notePlan)
+            Medications
         </dt>
-
+        <br />
         <dd>
-            @Html.DisplayFor(model => model.notePlan)
+            @Html.DisplayFor(model => model.record.medications)
         </dd>
-
+        <br />
         <dt>
-            @Html.DisplayNameFor(model => model.medications)
+            Vital Signs
         </dt>
-
+        <br />
         <dd>
-            @Html.DisplayFor(model => model.medications)
+            @Html.DisplayFor(model => model.record.vitalSigns)
         </dd>
-
+        <br />
         <dt>
-            @Html.DisplayNameFor(model => model.age)
+            Diagnosis
         </dt>
-
+        <br />
         <dd>
-            @Html.DisplayFor(model => model.age)
+            @Html.DisplayFor(model => model.record.diagnosis)
         </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DOB)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DOB)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.allergies)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.allergies)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.vitalSigns)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.vitalSigns)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.diagnosis)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.diagnosis)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.fileContent)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.fileContent)
-        </dd>
-
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.recordId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

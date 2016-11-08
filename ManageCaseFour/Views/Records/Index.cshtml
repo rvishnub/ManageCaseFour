@@ -4,13 +4,20 @@
     ViewBag.Title = "Index";
 }
 
+
 <head>
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.css">
 </head>
 
+@*@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()*@
+
+
 <h2>CASE RECORDS</h2>
+
+<h4>Your current case records</h4>
 <br />
-<h3>YOUR CURRENT CASE RECORDS</h3>
 <div>
     @Html.ActionLink("Create New Entry", "Create") |
     <br />
@@ -21,21 +28,31 @@
     <br />
     <br />
 </div>
+
+
+<div id="recordEditForm">
+    <form id="editRecordForm" class="well" action="/Records/Edit" method="POST">
+        <label>Which record would you like to edit?  Enter the Record ID.</label>
+        <input type="text" id="recordID" name="recordID"><br />
+        <br />
+        <input type="Submit" id="submitButton" onclick=("Edit","Records")>
+    </form>
+</div>
+
+<div id="recordViewForm">
+    <form id="viewRecordForm" class="well" action="/Records/Details" method="POST">
+        <label>Which record would you like to view?  Enter the Record ID.</label>
+        <input type="text" id="recordID" name="recordID"><br />
+        <br />
+        <input type="Submit" id="submitButton" onclick=("Details","Records")>
+    </form>
+</div>
+
+
 <div>
     <table id="happyTable" class="display"></table>
 </div>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-
-<div id="recordEditForm" style="display:none">
-    <form id="inputFilenameForm" class="well" action="Records/Edit" method="POST">
-        <label>Which record would you like to edit?  Enter the Record ID.</label>
-        <input type="text" id="id" name="id"><br />
-        <input type="Submit" id="getRecordButton">
-    </form>
-    </div>
 }
 
     <div id="demo"></div>
