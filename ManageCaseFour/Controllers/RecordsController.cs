@@ -40,26 +40,26 @@ namespace ManageCaseFour.Controllers
             ApplicationUser myUser = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().
                 FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
             ApplicationUser thisUser = myUser;
-            List<int> CaseIdList = db.UserCaseJunction.Select(x => x).Where(y => y.Id == thisUser.Id).ToList().Select(w=> w.caseId).ToList();
-            List<int> InternalCaseIdList = db.InternalCaseNumber.Where(x => CaseIdList.Any(y => y == x.caseId)).ToList().Select(w=>w.internalCaseId).ToList();
-            List<Record> RecordList = db.Record.Where(y => InternalCaseIdList.Any(z => z == y.internalCaseId)).ToList();
-            for (int i = 0; i<RecordList.Count(); i++)
-            {
-                Record thisRecord = RecordList[i];
-                RecordViewModel thisItem = new Models.RecordViewModel();
-                //InternalCaseNumber intCaseNumber = new Models.InternalCaseNumber();
-                //rCVModel.intCaseNumber.internalCaseNumber = db.InternalCaseNumber.Select(x=>x).Where(y=>y.internalCaseId == thisRecord.internalCaseId).First().internalCaseNumber;
-                var caseId = db.InternalCaseNumber.Select(x => x).Where(y=>y.internalCaseId == thisRecord.internalCaseId).First().caseId;
-                //thisItem.thisCase.caseName = db.Case.Select(x => x).Where(y => y.caseId == caseId).First().caseName;
-                thisItem.record = db.Record.Select(x=>x).Where(y=>y.recordId == thisRecord.recordId).First();
-                thisItem.record.recordId = thisRecord.recordId;
-                thisItem.department = db.Department.Select(x => x).Where(y => y.departmentId == thisRecord.departmentId).First();
-                thisItem.record.serviceDate = thisRecord.serviceDate;
-                thisItem.record.provider = thisRecord.provider;
-                thisItem.facility = db.Facility.Select(x => x).Where(y => y.facilityId == thisRecord.facilityId).First();
-                thisItem.thisCase = db.Case.Select(x => x).Where(y => y.caseId == caseId).First();
-                rVModelList.Add(thisItem);
-            }
+            //List<int> CaseIdList = db.UserCaseJunction.Select(x => x).Where(y => y.Id == thisUser.Id).ToList().Select(w=> w.caseId).ToList();
+            //List<int> InternalCaseIdList = db.InternalCaseNumber.Where(x => CaseIdList.Any(y => y == x.caseId)).ToList().Select(w=>w.internalCaseId).ToList();
+            //List<Record> RecordList = db.Record.Where(y => InternalCaseIdList.Any(z => z == y.internalCaseId)).ToList();
+            //for (int i = 0; i<RecordList.Count(); i++)
+            //{
+            //    Record thisRecord = RecordList[i];
+            //    RecordViewModel thisItem = new Models.RecordViewModel();
+            //    //InternalCaseNumber intCaseNumber = new Models.InternalCaseNumber();
+            //    //rCVModel.intCaseNumber.internalCaseNumber = db.InternalCaseNumber.Select(x=>x).Where(y=>y.internalCaseId == thisRecord.internalCaseId).First().internalCaseNumber;
+            //    var caseId = db.InternalCaseNumber.Select(x => x).Where(y=>y.internalCaseId == thisRecord.internalCaseId).First().caseId;
+            //    //thisItem.thisCase.caseName = db.Case.Select(x => x).Where(y => y.caseId == caseId).First().caseName;
+            //    thisItem.record = db.Record.Select(x=>x).Where(y=>y.recordId == thisRecord.recordId).First();
+            //    thisItem.record.recordId = thisRecord.recordId;
+            //    thisItem.department = db.Department.Select(x => x).Where(y => y.departmentId == thisRecord.departmentId).First();
+            //    thisItem.record.serviceDate = thisRecord.serviceDate;
+            //    thisItem.record.provider = thisRecord.provider;
+            //    thisItem.facility = db.Facility.Select(x => x).Where(y => y.facilityId == thisRecord.facilityId).First();
+            //    thisItem.thisCase = db.Case.Select(x => x).Where(y => y.caseId == caseId).First();
+            //    rVModelList.Add(thisItem);
+            //}
             //rCVModel.rCVModelArray = rCVModelList.ToArray();
             rVModel.rCVModelArray = rVModelList.ToArray();
             return View(rVModel);
@@ -96,13 +96,13 @@ namespace ManageCaseFour.Controllers
             ApplicationUser myUser = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().
                 FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
             ApplicationUser thisUser = myUser;
-            List<int> CaseIdList = db.UserCaseJunction.Select(x => x).Where(y => y.Id == thisUser.Id).ToList().Select(w => w.caseId).ToList();
-            List<string> CaseNameList = db.Case.Where(x => CaseIdList.Any(y => y == x.caseId)).ToList().Select(w=>w.caseName).ToList();
+            //List<int> CaseIdList = db.UserCaseJunction.Select(x => x).Where(y => y.Id == thisUser.Id).ToList().Select(w => w.caseId).ToList();
+            //List<string> CaseNameList = db.Case.Where(x => CaseIdList.Any(y => y == x.caseId)).ToList().Select(w=>w.caseName).ToList();
 
-            ViewBag.caseName = CaseNameList;
-            //ViewBag.caseName = db.Case.ToList();
-            ViewBag.departmentCode = db.Department.Select(x => x.departmentCode).ToList();
-            ViewBag.facilityName = db.Facility.Select(x => x.facilityName).ToList();
+            //ViewBag.caseName = CaseNameList;
+            ////ViewBag.caseName = db.Case.ToList();
+            //ViewBag.departmentCode = db.Department.Select(x => x.departmentCode).ToList();
+            //ViewBag.facilityName = db.Facility.Select(x => x.facilityName).ToList();
 
             return View();
         }

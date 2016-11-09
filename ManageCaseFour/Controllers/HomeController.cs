@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -9,6 +10,8 @@ namespace ManageCaseFour.Controllers
 {
     public class HomeController : Controller
     {
+
+        ApplicationDbContext db = new ApplicationDbContext();
         public ActionResult Index()
         {
             return View();
@@ -34,7 +37,9 @@ namespace ManageCaseFour.Controllers
             string Uri = Url.HttpRouteUrl("Default", new { controller = "admin", });
             ViewBag.Url = new Uri(Request.Url, Uri).AbsoluteUri.ToString();
 
-            return View();
+            List<Case> usersCasesList = db.Case.Include(x => x.Users).ToList();
+            thisCase.usersCases = usersCasesList.ToArray();
+            return View(thisCase);
         }
 
         public ActionResult Manager()

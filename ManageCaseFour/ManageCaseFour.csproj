@@ -200,6 +200,22 @@
     <Compile Include="Migrations\201611040336332_added recordId as foreign key to OCR.Designer.cs">
       <DependentUpon>201611040336332_added recordId as foreign key to OCR.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611092128527_removed usercasejunction.cs" />
+    <Compile Include="Migrations\201611092128527_removed usercasejunction.Designer.cs">
+      <DependentUpon>201611092128527_removed usercasejunction.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611092132280_added user case many to many relation.cs" />
+    <Compile Include="Migrations\201611092132280_added user case many to many relation.Designer.cs">
+      <DependentUpon>201611092132280_added user case many to many relation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611092139330_added user case many to many relation for real.cs" />
+    <Compile Include="Migrations\201611092139330_added user case many to many relation for real.Designer.cs">
+      <DependentUpon>201611092139330_added user case many to many relation for real.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611092328354_replaced usercasejunction table.cs" />
+    <Compile Include="Migrations\201611092328354_replaced usercasejunction table.Designer.cs">
+      <DependentUpon>201611092328354_replaced usercasejunction table.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Audit.cs" />
@@ -221,6 +237,7 @@
     <Compile Include="Models\Record.cs" />
     <Compile Include="Models\RecordViewModel.cs" />
     <Compile Include="Models\UserCaseJunction.cs" />
+    <Compile Include="Models\UserCaseViewModel.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
@@ -725,6 +742,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611040336332_added recordId as foreign key to OCR.resx">
       <DependentUpon>201611040336332_added recordId as foreign key to OCR.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611092128527_removed usercasejunction.resx">
+      <DependentUpon>201611092128527_removed usercasejunction.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611092132280_added user case many to many relation.resx">
+      <DependentUpon>201611092132280_added user case many to many relation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611092139330_added user case many to many relation for real.resx">
+      <DependentUpon>201611092139330_added user case many to many relation for real.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611092328354_replaced usercasejunction table.resx">
+      <DependentUpon>201611092328354_replaced usercasejunction table.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="obj\Debug\ManageCaseFour.Migrations.initialmigrationofOCRclass.resources" />
   </ItemGroup>

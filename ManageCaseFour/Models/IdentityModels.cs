@@ -18,7 +18,7 @@ namespace ManageCaseFour.Models
             return userIdentity;
         }
 
-        public IEnumerable<Case> UserCaseList { get; set; }
+        public ICollection<Case> Cases { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -44,7 +44,6 @@ namespace ManageCaseFour.Models
         public DbSet<Principal> Principal { get; set; }
         public DbSet<PrincipalCaseJunction> PrincipalCaseJunction { get; set; }
         public DbSet<UserCaseJunction> UserCaseJunction { get; set; }
-        
         public System.Data.Entity.DbSet<ManageCaseFour.Models.Audit> Audits { get; set; }
     }
 }

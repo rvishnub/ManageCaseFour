@@ -8,8 +8,6 @@ namespace ManageCaseFour.Models
 {
     public class RecordViewModel
     {
-        [DataType(DataType.MultilineText)]
-
         public Record record { get; set; }
         public Case thisCase { get; set; }
         public InternalCaseNumber intCaseNumber {get; set;}

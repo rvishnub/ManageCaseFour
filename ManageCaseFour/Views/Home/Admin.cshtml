@@ -1,7 +1,12 @@
-﻿
+﻿@model ManageCaseFour.Models.Case
+
 @{
     ViewBag.Title = "Admin";
 }
+
+<head>
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.css">
+</head>
 
 <h2>ManageCase Administration</h2>
 
@@ -19,3 +24,95 @@
 <div>
     @Html.ActionLink("View Audits", "Index", "Audits") |
 </div>
+
+USERLIST
+
+@*<table class="table">
+    <tr>
+        <th>
+            @Html.Label("Case Id")
+        </th>
+        <th>
+            @Html.Label("Case Name")
+        </th>
+        <th>
+            @Html.Label("Case County")
+        </th>
+        <th>
+            @Html.Label("Case Number")
+        </th>
+        <th>
+            @Html.Label("User Name")
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var caseItem in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => caseItem.caseId)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => caseItem.caseName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => caseItem.county)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => caseItem.caseNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => caseItem.Users)
+            </td>
+        </tr>
+
+    }*@
+
+
+    <div>
+        <table id="adminTable" class="display"></table>
+    </div>
+
+@section Scripts{
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
+    
+    <script>
+    $(document).ready(function ()
+    {
+        $.ajax(
+        $("#adminTable").DataTable({
+            data: @Html.Raw(Json.Encode(Model.usersCases)),
+            rowHeight: 30,
+            autowidth: false,
+            columnDefs: [
+                { width: "20%", targets: 3 }],
+            columns: [
+                { data: "caseId",
+                    title: "Case ID"},
+                { data: "caseName",
+                    title: "Case Name"},
+                { data: "county",
+                    title: "County"},
+                { data: "caseNumber",
+                    title: "Case Number"},
+                { data: "Users",
+                    title: "Staff"},]
+        }))
+    })
+
+
+    function ToJavaScriptDate(value) {
+        var pattern = /Date\(([^)]+)\)/;
+        var results = pattern.exec(value);
+        var dt = new Date(parseFloat(results[1]));
+        return (dt.getMonth() + 1) + "/" + dt.getDate() + "/" + dt.getFullYear();
+    }
+
+    </script>
+
+
+
+
+}
