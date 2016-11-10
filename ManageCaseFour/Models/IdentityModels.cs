@@ -19,6 +19,7 @@ namespace ManageCaseFour.Models
         }
 
         public ICollection<Case> Cases { get; set; }
+        public string Name { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>

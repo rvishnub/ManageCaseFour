@@ -16,7 +16,7 @@
     <br />
 </div>
 <div>
-    @Html.ActionLink("Create New Department or Facility", "Add") |
+    @Html.ActionLink("Create New Department or Facility", "Add", "Record") |
     <br />
     <br />
 </div>
@@ -191,9 +191,9 @@
                 </div>
             </div>
 
-            <form id="medlineFormSubmit" method="get" action="https://www.nlm.nih.gov/search/medlineplus" title="MedlinePlus Search input" target="resultwindow"> <label for="medlineplus_new_window">Search <a href="https://medlineplus.gov/">MedlinePlus</a>: </label>    <input type="text" name="query" size="20" maxlength="250" id="medlineplus_new_window" /> <input type="image" src="https://medlineplus.gov/images/search.gif" align="absmiddle" width="57" height="24" border="0" title="Search" alt="Search" /> </form>
+            @*<form id="medlineFormSubmit" method="get" action="https://www.nlm.nih.gov/search/medlineplus" title="MedlinePlus Search input" target="resultwindow"> <label for="medlineplus_new_window">Search <a href="https://medlineplus.gov/">MedlinePlus</a>: </label>    <input type="text" name="query" size="20" maxlength="250" id="medlineplus_new_window" /> <input type="image" src="https://medlineplus.gov/images/search.gif" align="absmiddle" width="57" height="24" border="0" title="Search" alt="Search" /> </form>*@
 
-            @*<div>
+            <div>
                     <form id="medlineSearch" role="form">
                         <div class="form-group">
                             <label>Search Medline</label>
@@ -205,7 +205,7 @@
                     </form>
                 </div>
 
-                <div id="demo"></div>*@
+                <div id="demo"></div>
         }
 
         <div>

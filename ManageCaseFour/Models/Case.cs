@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Web;
 
 namespace ManageCaseFour.Models
 {
-    public class Case
+    public class Case:IEnumerable
     {
         [Key]
         public int caseId { get; set; }
@@ -17,5 +18,10 @@ namespace ManageCaseFour.Models
         public Case[] usersCases;
 
         public ICollection<ApplicationUser> Users { get; set; }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

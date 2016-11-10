@@ -144,7 +144,7 @@ namespace ManageCaseFour.Controllers
                 UserCaseJunction uCJunc = new UserCaseJunction();
                 uCJunc.caseId = newCase.caseId;
                 uCJunc.Id = db.Users.Select(x => x).Where(y => y.UserName == UserName).First().Id;
-                //db.UserCaseJunction.Add(uCJunc);
+                db.UserCaseJunction.Add(uCJunc);
                 db.SaveChanges();
                 InternalCaseNumber intCaseNumber = new InternalCaseNumber();
                 intCaseNumber.internalCaseNumber = internalCaseNumber;
@@ -174,14 +174,14 @@ namespace ManageCaseFour.Controllers
             var caseJunc = db.PrincipalCaseJunction.Select(x => x).Where(y => y.caseId == selectedCase.caseId).First();
             List<Principal> CaseTeam = db.Principal.Select(x => x).Where(y => y.principalId == caseJunc.principalId).ToList();
 
-            //var userCaseJunc = db.UserCaseJunction.Select(x => x).Where(y => y.caseId == selectedCase.caseId).First();
-            //var CaseStaffMembers = db.Users.Select(x => x).Where(y => y.Id == userCaseJunc.Id).ToList();
+            var userCaseJunc = db.UserCaseJunction.Select(x => x).Where(y => y.caseId == selectedCase.caseId).First();
+            var CaseStaffMembers = db.Users.Select(x => x).Where(y => y.Id == userCaseJunc.Id).ToList();
 
             InternalCaseNumber intCaseNumber = db.InternalCaseNumber.Select(x => x).Where(y => y.caseId == selectedCase.caseId).First();
 
             nCVModel.newCase = selectedCase;
             nCVModel.CaseTeam = CaseTeam;
-            //nCVModel.CaseStaffMembers = CaseStaffMembers;
+            nCVModel.CaseStaffMembers = CaseStaffMembers;
             nCVModel.intCaseNumber = intCaseNumber;
             return View(nCVModel);
         }

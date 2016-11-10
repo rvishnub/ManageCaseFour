@@ -37,9 +37,12 @@ namespace ManageCaseFour.Controllers
             string Uri = Url.HttpRouteUrl("Default", new { controller = "admin", });
             ViewBag.Url = new Uri(Request.Url, Uri).AbsoluteUri.ToString();
 
-            List<Case> usersCasesList = db.Case.Include(x => x.Users).ToList();
-            thisCase.usersCases = usersCasesList.ToArray();
-            return View(thisCase);
+            ApplicationUser thisUser = new ApplicationUser();
+            List<ApplicationUser> users = new List<ApplicationUser>();
+            users = db.Users.ToList();
+            return View(users);
+
+
         }
 
         public ActionResult Manager()

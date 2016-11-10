@@ -201,6 +201,8 @@ namespace ManageCaseFour.Controllers
 
         public ActionResult Add()
         {
+            ViewBag.departmentCode = db.Department.Select(x => x.departmentCode).ToList();
+            ViewBag.facilityName = db.Facility.Select(y => y.facilityName).ToList();
             return View();
         }
 
@@ -245,62 +247,40 @@ namespace ManageCaseFour.Controllers
             base.Dispose(disposing);
         }
 
-        //public ActionResult Search(string searchTerm)
-        //{
-        //    List<Record> recordResultList = SearchRecords(searchTerm);
-        //    return View(recordResultList);
-        //}
-
-        //public List<Record> SearchRecords(string searchTerm)
-        //{
-        //    List<Record> recordResultList = new List<Record>();
-        //    Record record = new Record();
-        //    recordResultList = record.SearchFileContent(searchTerm);
-        //    return recordResultList;
-        //}
 
         public ActionResult AddDeptFacility(string departmentCode, string facilityName)
         {
             RecordViewModel rCVModel = new RecordViewModel();
+            Department department = new Department();
+            Facility facility = new Facility();
             List<string> DeptCodes = db.Department.Select(x => x.departmentCode).ToList();
             List<string> FacNames = db.Facility.Select(x => x.facilityName).ToList();
-            try
+
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
+                if (departmentCode != null && departmentCode != "")
                 {
-                    if (departmentCode != null)
+                    if (DeptCodes.Contains(departmentCode))
                     {
-                        if (DeptCodes.Contains(departmentCode))
-                        {
-                            ViewBag.error("", "that department already exists.");
-                            return View(ViewBag);
-                        }
-                        rCVModel.department.departmentCode = departmentCode;
-                        db.Department.Add(rCVModel.department);
+                        return RedirectToAction("Error");
                     }
-
-                    if (facilityName != null)
-                    {
-                        if (FacNames.Contains(facilityName))
-                        {
-                            ViewBag.error("", "that facility already exists.");
-                            return View(ViewBag);
-
-                        }
-                        rCVModel.facility.facilityName = facilityName;
-                        db.Facility.Add(rCVModel.facility);
-                    }
-                    db.SaveChanges();
-                    return RedirectToAction("Index", "Home");
+                    department.departmentCode = departmentCode;
+                    db.Department.Add(department);
                 }
-                ViewBag.error("", "that department already exists.");
-                return View(ViewBag);
+
+                if (facilityName != null && facilityName != "")
+                {
+                    if (FacNames.Contains(facilityName))
+                    {
+                        return RedirectToAction("Error");
+
+                    }
+                    facility.facilityName = facilityName;
+                    db.Facility.Add(facility);
+                }
+                db.SaveChanges();
             }
-            catch
-            {
-                ViewBag.error("", "error");
-                return View(ViewBag);
-            }
+            return RedirectToAction("Index", "Case");
         }
 
         public StringBuilder DisplayXMLResults(XmlDocument data)

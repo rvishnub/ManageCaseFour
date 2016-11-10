@@ -1,4 +1,4 @@
-﻿@model ManageCaseFour.Models.Case
+﻿@model IEnumerable<ManageCaseFour.Models.ApplicationUser>
 
 @{
     ViewBag.Title = "Admin";
@@ -16,55 +16,42 @@
 <div>
     @Html.ActionLink("Create a new User", "Register", "Account") |
 </div>
-<p/>
-<p/>
-<p/>
+<br />
+<br />
 @* send to Register page /Account/Register *@
 
 <div>
     @Html.ActionLink("View Audits", "Index", "Audits") |
 </div>
-
-USERLIST
-
+<br />
+<br />
+<h4>USER LIST</h4>
+<br />
 @*<table class="table">
     <tr>
         <th>
-            @Html.Label("Case Id")
-        </th>
-        <th>
-            @Html.Label("Case Name")
-        </th>
-        <th>
-            @Html.Label("Case County")
-        </th>
-        <th>
-            @Html.Label("Case Number")
+            @Html.Label("User Id")
         </th>
         <th>
             @Html.Label("User Name")
         </th>
-        <th></th>
+        <th>
+            @Html.Label("User Email")
+        </th>
     </tr>
 
-    @foreach (var caseItem in Model)
+    @foreach (var userItem in Model)
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => caseItem.caseId)
+                @Html.DisplayFor(modelItem => userItem.Id)
             </td>
 
             <td>
-                @Html.DisplayFor(modelItem => caseItem.caseName)
+                @Html.DisplayFor(modelItem => userItem.UserName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => caseItem.county)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => caseItem.caseNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => caseItem.Users)
+                @Html.DisplayFor(modelItem => userItem.Email)
             </td>
         </tr>
 
@@ -83,23 +70,19 @@ USERLIST
     {
         $.ajax(
         $("#adminTable").DataTable({
-            data: @Html.Raw(Json.Encode(Model.usersCases)),
+            data: @Html.Raw(Json.Encode(Model)),
             rowHeight: 30,
             autowidth: false,
             columnDefs: [
-                { width: "20%", targets: 3 }],
+                { width: "20%", targets: 2 }],
             columns: [
-                { data: "caseId",
-                    title: "Case ID"},
-                { data: "caseName",
-                    title: "Case Name"},
-                { data: "county",
-                    title: "County"},
-                { data: "caseNumber",
-                    title: "Case Number"},
-                { data: "Users",
-                    title: "Staff"},]
-        }))
+                { data: "Id",
+                    title: "User ID"},
+                { data: "UserName",
+                    title: "User Name"},
+                { data: "Email",
+                    title: "Email"},
+        ]}))
     })
 
 
