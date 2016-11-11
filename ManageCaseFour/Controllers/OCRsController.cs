@@ -36,13 +36,13 @@ namespace ManageCaseFour.Controllers
             ApplicationUser myUser = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().
                 FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
             ApplicationUser thisUser = myUser;
-            //List<int> CaseIdList = db.UserCaseJunction.Select(x => x).Where(y => y.Id == thisUser.Id).ToList().Select(w => w.caseId).ToList();
-            //List<Case> UserCaseList = db.Case.Where(x => CaseIdList.Any(y => y == x.caseId)).ToList();
-            //List<string> UserCaseNameList = UserCaseList.Select(x => x.caseName).ToList();
-            //oVModel.CaseListArray = UserCaseList.ToArray();
-            //OCRViewModel[] oVModelList = oVModel.GetOCRViewModelList(ocrList).Where(x => UserCaseNameList.Any(z => z == x.caseName)).ToArray();
+            List<int> CaseIdList = db.UserCaseJunction.Select(x => x).Where(y => y.Id == thisUser.Id).ToList().Select(w => w.caseId).ToList();
+            List<Case> UserCaseList = db.Case.Where(x => CaseIdList.Any(y => y == x.caseId)).ToList();
+            List<string> UserCaseNameList = UserCaseList.Select(x => x.caseName).ToList();
+            oVModel.CaseListArray = UserCaseList.ToArray();
+            OCRViewModel[] oVModelList = oVModel.GetOCRViewModelList(ocrList).Where(x => UserCaseNameList.Any(z => z == x.caseName)).ToArray();
 
-            //oVModel.oVModelList = oVModelList;
+            oVModel.oVModelList = oVModelList;
             return View(oVModel);
         }
 

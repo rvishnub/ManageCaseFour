@@ -24,6 +24,9 @@ namespace ManageCaseFour
             // Configure the sign in cookie
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
+                //ExpireTimeSpan = TimeSpan.FromMinutes(5),
+                //AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
+                //LoginPath = new PathString("/Account/Login"),
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
                 LoginPath = new PathString("/Account/Denied"),
                 Provider = new CookieAuthenticationProvider

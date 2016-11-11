@@ -267,7 +267,7 @@ namespace ManageCaseFour.Controllers
                 {
                     if (DeptCodes.Contains(departmentCode))
                     {
-                        return RedirectToAction("Error");
+                        return RedirectToAction("Error", "Records");
                     }
                     department.departmentCode = departmentCode;
                     db.Department.Add(department);
@@ -277,7 +277,7 @@ namespace ManageCaseFour.Controllers
                 {
                     if (FacNames.Contains(facilityName))
                     {
-                        return RedirectToAction("Error");
+                        return RedirectToAction("Error", "Records");
 
                     }
                     facility.facilityName = facilityName;
