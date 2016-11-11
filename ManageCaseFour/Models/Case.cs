@@ -7,7 +7,7 @@ using System.Web;
 
 namespace ManageCaseFour.Models
 {
-    public class Case:IEnumerable
+    public class Case
     {
         [Key]
         public int caseId { get; set; }
@@ -19,9 +19,6 @@ namespace ManageCaseFour.Models
 
         public ICollection<ApplicationUser> Users { get; set; }
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            throw new NotImplementedException();
-        }
+
     }
 }

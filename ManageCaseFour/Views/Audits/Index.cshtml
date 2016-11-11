@@ -12,10 +12,12 @@
 
 <div>
     @Html.ActionLink("Return to Admin Page", "Admin", "Home") |
-    <br/>
-    <br/>
-</div>
 
+</div>
+<br />
+<br />
+<br />
+<br />
 @if (User.Identity.IsAuthenticated)
 {
 
@@ -38,19 +40,24 @@ $("#auditTable").DataTable({
     rowHeight: 30,
     autowidth: true,
     "pageLength": 50,
-    //columnDefs: [
-    //    { width: "25%"}],
+    columnDefs: [
+        { width: "25%", targets: 3 }, 
+        {targets: 3, render: function ( data, type, row ) {
+            return data.substr( 0, 50 );
+        }
+        }],
+
     columns: [
+        { data: "TimeAccessed",
+            "render": function (data, type, row) {
+                return ToJavaScriptDate(data);},
+            title: "Time Accessed"},
         {data: "UserName",
             title: "User"},
         { data: "IPAddress",
             title: "IP Address"},
         {data: "AreaAccessed",
             title: "Area Accessed"},
-        { data: "TimeAccessed",
-            "render": function (data, type, row) {
-                return ToJavaScriptDate(data);},
-            title: "Time Accessed"},
     ]
 }))
     })

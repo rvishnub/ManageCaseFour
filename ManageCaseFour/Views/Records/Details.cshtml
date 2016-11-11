@@ -12,7 +12,7 @@
     @Html.DisplayForModel("Record #", recordId)
 </div>*@
     <div>
-        @Html.ActionLink("Edit this Record", "Edit", new { recordID = Model.recordId }) |
+        @Html.ActionLink("Edit this Record", "Edit", new { recordID = Model.record.recordId }) |
         <br />
         <br />
     </div>
@@ -34,7 +34,6 @@
         <dt>
             Department Code
         </dt>
-        <br />
         <dd>
             @Html.DisplayFor(model => model.department.departmentCode)
         </dd>
@@ -42,23 +41,20 @@
         <dt>
             Facility Name
         </dt>
-        <br />
         <dd>
             @Html.DisplayFor(model => model.facility.facilityName)
         </dd>
         <br />
         <dt>
-            @Html.DisplayNameFor(model => model.pageNumber)
+            @Html.DisplayNameFor(model => model.record.pageNumber)
         </dt>
-        <br />
         <dd>
-            @Html.DisplayFor(model => model.pageNumber)
+            @Html.DisplayFor(model => model.record.pageNumber)
         </dd>
         <br />
         <dt>
             Provider
         </dt>
-        <br />
         <dd>
             @Html.DisplayFor(model => model.record.provider)
         </dd>
@@ -66,7 +62,6 @@
         <dt>
             Memo
         </dt>
-        <br />
         <dd>
             @Html.DisplayFor(model => model.record.memo)
         </dd>
@@ -74,7 +69,6 @@
         <dt>
             Date of Service
         </dt>
-        <br />
         <dd>
             @Html.DisplayFor(model => model.record.serviceDate)
         </dd>
@@ -82,7 +76,6 @@
         <dt>
             Subjective
         </dt>
-        <br />
         <dd>
             @Html.DisplayFor(model => model.record.noteSubjective)
         </dd>
@@ -90,7 +83,6 @@
         <dt>
             History
         </dt>
-        <br />
         <dd>
             @Html.DisplayFor(model => model.record.history)
         </dd>
@@ -98,7 +90,6 @@
         <dt>
             Objective
         </dt>
-        <br />
         <dd>
             @Html.DisplayFor(model => model.record.noteObjective)
         </dd>
@@ -106,7 +97,6 @@
         <dt>
             Assessment
         </dt>
-        <br />
         <dd>
             @Html.DisplayFor(model => model.record.noteAssessment)
         </dd>
@@ -114,7 +104,6 @@
         <dt>
             Plan
         </dt>
-        <br />
         <dd>
             @Html.DisplayFor(model => model.record.notePlan)
         </dd>
@@ -122,7 +111,6 @@
         <dt>
             Medications
         </dt>
-        <br />
         <dd>
             @Html.DisplayFor(model => model.record.medications)
         </dd>
@@ -130,7 +118,6 @@
         <dt>
             Vital Signs
         </dt>
-        <br />
         <dd>
             @Html.DisplayFor(model => model.record.vitalSigns)
         </dd>
@@ -138,7 +125,6 @@
         <dt>
             Diagnosis
         </dt>
-        <br />
         <dd>
             @Html.DisplayFor(model => model.record.diagnosis)
         </dd>

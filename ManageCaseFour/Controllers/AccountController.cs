@@ -11,6 +11,7 @@ using Microsoft.Owin.Security;
 using ManageCaseFour.Models;
 using static ManageCaseFour.Controllers.AuditsController;
 using System.Xml.Linq;
+using System.Collections.Generic;
 
 namespace ManageCaseFour.Controllers
 {
@@ -181,7 +182,11 @@ namespace ManageCaseFour.Controllers
         [Audit]
         public ActionResult Register()
         {
-            ViewBag.Name = new SelectList(db.Roles.Where(u=>!u.Name.Contains("Admin")).ToList(), "Name", "Name");
+            List<string> roles = new List<string>();
+            roles.Add("");
+            roles.Add("Employee");
+            roles.Add("Manager");
+            ViewBag.roles = roles;
             return View();
         }
 
@@ -196,7 +201,7 @@ namespace ManageCaseFour.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email};
+                var user = new ApplicationUser { Name = model.Name, UserName = model.UserName, Email = model.Email};
                 var result = await UserManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)

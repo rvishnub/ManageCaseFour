@@ -77,6 +77,10 @@ namespace ManageCaseFour.Models
         public string UserRoles { get; set; }
 
         [Required]
+        [Display(Name = "Name")]
+        public string Name { get; set; }
+
+        [Required]
         [Display(Name = "UserName")]
         public string UserName { get; set; }
 

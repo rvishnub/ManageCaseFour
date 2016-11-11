@@ -1,4 +1,4 @@
-﻿@model ManageCaseFour.Models.ClassViewModel
+﻿@model ManageCaseFour.Models.RecordViewModel
 
 @{
     ViewBag.Title = "Delete";
@@ -8,75 +8,67 @@
 
 <h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>Record</h4>
-    <hr />
-    <dl class="dl-vertical">
-        <dt>
-            @Html.DisplayNameFor(model => model.thisCase.caseName)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.thisCase.caseName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.record.InternalCaseNumber)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.record.InternalCaseNumber)
-        </dd>
-
-
-        <dt>
-            @Html.DisplayNameFor(model => model.record.recordId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.record.recordId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.department.departmentCode)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.department.departmentCode)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.facility.facilityName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.facility.facilityName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.record.recordEntryDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.record.recordEntryDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.record.provider)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.record.provider)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.record.serviceDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.record.serviceDate)
-        </dd>
-
-    </dl>
+    <div>
+        <dl class="dl-horizontal">
+            <dt>
+                Record Id
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.record.recordId)
+            </dd>
+            <br />
+            <dt>
+                Internal Case Id
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.record.internalCaseId)
+            </dd>
+            <br />
+            <dt>
+                Department Code
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.department.departmentCode)
+            </dd>
+            <br />
+            <dt>
+                Facility Name
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.facility.facilityName)
+            </dd>
+            <br />
+            <dt>
+                Page Number
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.record.pageNumber)
+            </dd>
+            <br />
+            <dt>
+                Provider
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.record.provider)
+            </dd>
+            <br />
+            <dt>
+                Memo
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.record.memo)
+            </dd>
+            <br />
+            <dt>
+                Date of Service
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.record.serviceDate)
+            </dd>
+            <br />
+        </dl>
+    </div>
 
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
@@ -87,3 +79,6 @@
         </div>
     }
 </div>
+
+
+
