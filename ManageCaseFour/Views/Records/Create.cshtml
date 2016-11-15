@@ -193,21 +193,22 @@
 
             @*<form id="medlineFormSubmit" method="get" action="https://www.nlm.nih.gov/search/medlineplus" title="MedlinePlus Search input" target="resultwindow"> <label for="medlineplus_new_window">Search <a href="https://medlineplus.gov/">MedlinePlus</a>: </label>    <input type="text" name="query" size="20" maxlength="250" id="medlineplus_new_window" /> <input type="image" src="https://medlineplus.gov/images/search.gif" align="absmiddle" width="57" height="24" border="0" title="Search" alt="Search" /> </form>*@
 
-            @*<div>
-                    <form id="medlineSearch" role="form">
-                        <div class="form-group">
-                            <label>Search Medline</label>
-                            @*<input class="form-control" placeholder="Enter search terms" input type="text" id="term" value="" actions="/Records/PerformSearch" method="POST">*@
-                            @*<input class="form-control" placeholder="Enter search terms" input type="text" id="term" value="">
+            <div>
+                <form id="medlineSearch" role="form">
+                    <div class="form-group">
+                        <label>Search Medline</label>
+                        @*<input class="form-control" placeholder="Enter search terms" input type="text" id="term" value="" actions="/Records/PerformSearch" method="POST">*@
+                        <input class="form-control" placeholder="Enter search terms" input type="text" id="term" value="">
 
-                        </div>
+                    </div>
 
-                        <button type="button" id ="medlineButton" class="btn btn-default" onclick="PerformSearch()">Send</button>
-                        <button type="reset" id ="medlineReset" class="btn btn-default" onclick="ReloadPage()">Reset</button>
-                    </form>
-                </div>
-
-                <div id="demo"></div>*@
+                    <button type="button" id="medlineButton" class="btn btn-default" onclick="PerformSearch()">Send</button>
+                    <button type="reset" id="medlineReset" class="btn btn-default" onclick="ReloadPage()">Reset</button>
+                </form>
+            </div>
+            <br />
+            <br />
+                <div id="demo"></div>
         }
 
         <div>
@@ -218,6 +219,29 @@
             @Scripts.Render("~/bundles/jqueryval")
 
             <script>
+                //function PerformSearch() {
+                //    var term = document.getElementById("term").value;
+                //    var medlineURL = "https://wsearch.nlm.nih.gov/ws/query?db=healthTopics&term=";
+                //    $.get("http://query.yahooapis.com/v1/public/yql",
+                //    {
+                //        q: "select * from xml where url=\"" + medlineURL + term + "\"",
+                //        format: "xml"
+                //    },
+                //    function (xml) {
+                //        console.log(xml);
+                //        //myFunction(xml);
+                //        xmlToJson(xml);
+                //        $.ajax({
+                //            url: "/Records/DisplayXMLResults/",
+                //            type: "POST",
+                //            processData: false,
+                //            contentType: "text/xml",
+                //            data: { data:xml }
+                //        });
+                //    })
+                //}
+
+                //don't erase this it works!!//
                 function PerformSearch() {
                     var term = document.getElementById("term").value;
                     var medlineURL = "https://wsearch.nlm.nih.gov/ws/query?db=healthTopics&term=";
@@ -228,8 +252,9 @@
                     },
                     function (xml) {
                         console.log(xml);
-                        //myFunction(xml);
-                        xmlToJson(xml);
+                        myFunction(xml); //this works!!!!
+                        //xmlToJson(xml);
+                        //document.getElementById("demo").innerHTML = xml;
                         $.ajax({
                             url: "/Records/DisplayXMLResults/",
                             type: "POST",
@@ -239,19 +264,21 @@
                         });
                     })
                 }
+                //don't erase this it works!!//
 
+                //11/15/2016:  this works but isn't displaying the information correctly.  Full Summary might be the third element, it might be the seventh.  Have to pull the data from the name = "FullSummary"
                 function myFunction(xml) {
                     var i;
                     var xmlDoc = xml.responseXML;
-                    var table = "<tr><th>Title</th><th>Snippet</th></tr>";
-                    var x = xmlDoc.getElementsByTagName("nlmSearchResult");
-                    for (i = 0; i < 10; i++) {
-                        table += "<tr><td>" +
-                        x[i].getElementsByTagName("title")[0].childNodes[0].nodeValue +
-                        "</td><td>" +
-                        x[i].getElementsByTagName("snippet")[0].childNodes[0].nodeValue +
-                        "</td></tr>";
-                    }
+                    var title = xml.getElementsByTagName("content")[0].childNodes[0].nodeValue;
+                    var snippet = xml.getElementsByTagName("FullSummary")[0].childNodes[0].nodeValue;
+                    table = "<tr><td>" + title + "</th><th>" + snippet + "</th></tr>";
+                        //table += "<tr><td>" +
+                        //x[i].getElementsByTagName("title")[0].childNodes[0].nodeValue +
+                        //"</td><td>" +
+                        //x[i].getElementsByTagName("snippet")[0].childNodes[0].nodeValue +
+                        //"</td></tr>";
+                    //}
                     document.getElementById("demo").innerHTML = table;
                 }
 
