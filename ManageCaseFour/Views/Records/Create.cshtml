@@ -209,6 +209,7 @@
             <br />
             <br />
                 <div id="demo"></div>
+                <div id="json demo"></div>
         }
 
         <div>
@@ -252,18 +253,17 @@
                     },
                     function (xml) {
                         console.log(xml);
-                        myFunction(xml); //this works!!!!
-                        //xmlToJson(xml);
+                        //myFunction(xml); //this works!!!!
+                        xmlToJson(xml);
                         //document.getElementById("demo").innerHTML = xml;
-                        $.ajax({
-                            url: "/Records/DisplayXMLResults/",
-                            type: "POST",
-                            processData: false,
-                            contentType: "text/xml",
-                            data: { data:xml }
+                        //$.ajax({
+                        //    url: "/Records/DisplayXMLResults/",
+                        //    type: "POST",
+                        //    processData: false,
+                        //    contentType: "text/xml",
+                        //    data: { data:xml }
                         });
-                    })
-                }
+                    }
                 //don't erase this it works!!//
 
                 //11/15/2016:  this works but isn't displaying the information correctly.  Full Summary might be the third element, it might be the seventh.  Have to pull the data from the name = "FullSummary"
@@ -273,22 +273,23 @@
                     var title = xml.getElementsByTagName("content")[0].childNodes[0].nodeValue;
                     var snippet = xml.getElementsByTagName("FullSummary")[0].childNodes[0].nodeValue;
                     table = "<tr><td>" + title + "</th><th>" + snippet + "</th></tr>";
-                        //table += "<tr><td>" +
-                        //x[i].getElementsByTagName("title")[0].childNodes[0].nodeValue +
-                        //"</td><td>" +
-                        //x[i].getElementsByTagName("snippet")[0].childNodes[0].nodeValue +
-                        //"</td></tr>";
-                    //}
-                    document.getElementById("demo").innerHTML = table;
-                }
+                        table += "<tr><td>" +
+                        x[i].getElementsByTagName("Title")[0].childNodes[0].nodeValue +
+                        "</td><td>" +
+                        x[i].getElementsByTagName("FullSummary")[0].childNodes[0].nodeValue +
+                        "</td></tr>";
+                        document.getElementById("demo").innerHTML = table;
+                    }
+
 
 
                 function xmlToJson(xml) {
-
-                    // Create the return object
                     var obj = {};
+                    table = "<tr><td>nodeName</th><th>nodeValue</th></tr>";
 
-                    if (xml.nodeType == 1) { // element
+
+                    if (xml.nodeType == 1)
+                    { // element
                         // do attributes
                         if (xml.attributes.length > 0) {
                             obj["attributes"] = {};
@@ -297,15 +298,27 @@
                                 obj["attributes"][attribute.nodeName] = attribute.nodeValue;
                             }
                         }
-                    } else if (xml.nodeType == 3) { // text
+                    }
+                    else if (xml.nodeType == 3)
+                    { // text
                         obj = xml.nodeValue;
                     }
 
                     // do children
-                    if (xml.hasChildNodes()) {
-                        for (var i = 0; i < xml.childNodes.length; i++) {
+                    if (xml.hasChildNodes())
+                    {
+                        for (var i = 0; i < xml.childNodes.length; i++)
+                        {
                             var item = xml.childNodes.item(i);
                             var nodeName = item.nodeName;
+                            var nodeValue = item.nodeValue;
+                            if (nodeName == "#text" && nodeValue.includes('span class="qt0"')==true)
+                            {
+                                table += "<tr><td>" + nodeValue + "</td></tr>";
+                                document.getElementById("json demo").innerHTML = table;
+                                console.log(nodeValue);
+                            }
+
                             if (typeof (obj[nodeName]) == "undefined") {
                                 obj[nodeName] = xmlToJson(item);
                             } else {
@@ -318,7 +331,6 @@
                             }
                         }
                     }
-                    console.log(obj);
                     return obj;
                 };
             </script>

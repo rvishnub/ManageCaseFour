@@ -20,6 +20,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using System.Xml.Linq;
+using System.Xml;
+using Newtonsoft.Json;
 
 namespace ManageCaseFour.Controllers
 {
@@ -288,18 +290,12 @@ namespace ManageCaseFour.Controllers
             return RedirectToAction("Index", "Case");
         }
 
-        public StringBuilder DisplayXMLResults(XmlDocument data)
+        public string DisplayXMLResults(XmlDocument xml)
         {
-
-            StringBuilder sb = new StringBuilder();
-            foreach (XmlNode node in data.ChildNodes)
-            {
-                sb.Append(char.ToUpper(node.Name[0]));
-                sb.Append(node.Name.Substring(1));
-                sb.Append(' ');
-                sb.AppendLine(node.InnerText);
-            }
-            return sb;
+            //XmlDocument doc = new XmlDocument();
+            //doc.LoadXml(data);
+            string json = JsonConvert.SerializeObject(xml);
+            return json;
         }
 
         public void AddDepartment(string code)
