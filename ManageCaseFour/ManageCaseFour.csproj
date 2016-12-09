@@ -722,6 +722,7 @@
     <Content Include="Views\Account\Denied.cshtml" />
     <Content Include="Views\Records\Error.cshtml" />
     <Content Include="Views\Records\Whoops.cshtml" />
+    <Content Include="Views\Account\AutoLogoff.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="obj\Debug\TempPE\" />

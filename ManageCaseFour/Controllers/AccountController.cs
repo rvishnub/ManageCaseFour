@@ -450,14 +450,14 @@ namespace ManageCaseFour.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        //public ActionResult TimeoutLogOff()
-        //{
-        //    Session["User"] = null; //it's my session variable
-        //    Session.Clear();
-        //    Session.Abandon();
-        //    AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-        //    return RedirectToAction("Login", "Account");
-        //}
+        public ActionResult TimeoutLogOff()
+        {
+            Session["User"] = null; //it's my session variable
+            Session.Clear();
+            Session.Abandon();
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            return RedirectToAction("AutoLogoff", "Account");
+        }
 
         //
         // GET: /Account/ExternalLoginFailure

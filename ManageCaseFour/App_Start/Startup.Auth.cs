@@ -22,13 +22,14 @@ namespace ManageCaseFour
             // Enable the application to use a cookie to store information for the signed in user
             // and to use a cookie to temporarily store information about a user logging in with a third party login provider
             // Configure the sign in cookie
+
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
-                //ExpireTimeSpan = TimeSpan.FromMinutes(5),
-                //AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-                //LoginPath = new PathString("/Account/Login"),
+                ExpireTimeSpan = TimeSpan.FromMinutes(10),
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-                LoginPath = new PathString("/Account/Denied"),
+                LoginPath = new PathString("/Account/Login"),
+                //AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
+                //LoginPath = new PathString("/Account/Denied"),
                 Provider = new CookieAuthenticationProvider
                 {
                     // Enables the application to validate the security stamp when the user logs in.

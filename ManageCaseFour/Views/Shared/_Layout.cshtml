@@ -52,18 +52,19 @@
     @RenderSection("scripts", required: false)
 
     @section Scripts{
-    @*<script>
+    <script>
     //this code from http://stackoverflow.com/questions/13873398/how-to-redirect-to-logon-page-when-session-state-time-out-is-completed-in-asp-net, 10/20/2016
-    //session end
+        //session end
+    Session.Timeout = 4;
     var sessionTimeoutWarning = @Session.Timeout- 1;
 
     var sTimeout = parseInt(sessionTimeoutWarning) * 60 * 1000;
     setTimeout('SessionEnd()', sTimeout);
 
     function SessionEnd() {
-        window.location = "/Account/TimeoutLogOff";
+        window.location = "/Account/AutoLogoff";
     }
-    </script>*@    
+    </script>    
     }
 </body>
 </html>

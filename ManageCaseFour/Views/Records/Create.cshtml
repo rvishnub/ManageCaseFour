@@ -4,6 +4,22 @@
     ViewBag.Title = "Create";
 }
 
+<head>
+    <script type="text/javascript">
+
+
+function stopRKey(evt) {
+  var evt = (evt) ? evt : ((event) ? event : null);
+  var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null);
+  if ((evt.keyCode == 13) && (node.type=="text"))  {return false;}
+}
+
+document.onkeypress = stopRKey;
+
+    </script>
+
+</head>
+
 <h2>CREATE NEW RECORD</h2>
 <div>
     @Html.ActionLink("Back to List", "Index") |
@@ -190,14 +206,13 @@
                     </div>
                 </div>
             </div>
-
             @*<form id="medlineFormSubmit" method="get" action="https://www.nlm.nih.gov/search/medlineplus" title="MedlinePlus Search input" target="resultwindow"> <label for="medlineplus_new_window">Search <a href="https://medlineplus.gov/">MedlinePlus</a>: </label>    <input type="text" name="query" size="20" maxlength="250" id="medlineplus_new_window" /> <input type="image" src="https://medlineplus.gov/images/search.gif" align="absmiddle" width="57" height="24" border="0" title="Search" alt="Search" /> </form>*@
+
 
             <div>
                 <form id="medlineSearch" role="form">
                     <div class="form-group">
                         <label>Search Medline</label>
-                        @*<input class="form-control" placeholder="Enter search terms" input type="text" id="term" value="" actions="/Records/PerformSearch" method="POST">*@
                         <input class="form-control" placeholder="Enter search terms" input type="text" id="term" value="">
 
                     </div>
@@ -205,10 +220,14 @@
                     <button type="button" id="medlineButton" class="btn btn-default" onclick="PerformSearch()">Send</button>
                     <button type="reset" id="medlineReset" class="btn btn-default" onclick="ReloadPage()">Reset</button>
                 </form>
+
             </div>
             <br />
             <br />
+
                 <div id="demo"></div>
+                <p>For additional information, please visit <a href="https://www.medlineplus.gov" target="_blank">MedlinePlus</a>.</p><br />
+
                 <div id="json demo"></div>
         }
 
@@ -220,28 +239,6 @@
             @Scripts.Render("~/bundles/jqueryval")
 
             <script>
-                //function PerformSearch() {
-                //    var term = document.getElementById("term").value;
-                //    var medlineURL = "https://wsearch.nlm.nih.gov/ws/query?db=healthTopics&term=";
-                //    $.get("http://query.yahooapis.com/v1/public/yql",
-                //    {
-                //        q: "select * from xml where url=\"" + medlineURL + term + "\"",
-                //        format: "xml"
-                //    },
-                //    function (xml) {
-                //        console.log(xml);
-                //        //myFunction(xml);
-                //        xmlToJson(xml);
-                //        $.ajax({
-                //            url: "/Records/DisplayXMLResults/",
-                //            type: "POST",
-                //            processData: false,
-                //            contentType: "text/xml",
-                //            data: { data:xml }
-                //        });
-                //    })
-                //}
-
                 //don't erase this it works!!//
                 function PerformSearch() {
                     var term = document.getElementById("term").value;
@@ -254,7 +251,12 @@
                     function (xml) {
                         console.log(xml);
                         //myFunction(xml); //this works!!!!
+                        table = "";
                         xmlToJson(xml);
+                        if (table == "") { table = "No results found."; }
+                        document.getElementById("demo").innerHTML = table;
+
+
                         //document.getElementById("demo").innerHTML = xml;
                         //$.ajax({
                         //    url: "/Records/DisplayXMLResults/",
@@ -268,28 +270,34 @@
 
                 //11/15/2016:  this works but isn't displaying the information correctly.  Full Summary might be the third element, it might be the seventh.  Have to pull the data from the name = "FullSummary"
                 function myFunction(xml) {
-                    var i;
-                    var xmlDoc = xml.responseXML;
-                    var title = xml.getElementsByTagName("content")[0].childNodes[0].nodeValue;
-                    var snippet = xml.getElementsByTagName("FullSummary")[0].childNodes[0].nodeValue;
-                    table = "<tr><td>" + title + "</th><th>" + snippet + "</th></tr>";
-                        table += "<tr><td>" +
-                        x[i].getElementsByTagName("Title")[0].childNodes[0].nodeValue +
-                        "</td><td>" +
-                        x[i].getElementsByTagName("FullSummary")[0].childNodes[0].nodeValue +
-                        "</td></tr>";
-                        document.getElementById("demo").innerHTML = table;
+                    document.getElementById("demo").innerHTML = obj;
                     }
 
 
 
                 function xmlToJson(xml) {
+                    // Create the return object
                     var obj = {};
-                    table = "<tr><td>nodeName</th><th>nodeValue</th></tr>";
+                    if (xml.nodeName == "content") {
+                        obj = xml.outerHTML;
+                        if (obj.indexOf("title") >= 0) {
+                            console.log("content.outerHTML:");
+                            obj = xml.textContent;
+                            console.log(obj);
+                            table += "<u>"+obj+"</u>" + "<br>";
+                        }
 
+                        if (obj.indexOf("FullSummary") >= 0) {
+                            console.log("content.outerHTML:");
+                            obj = xml.textContent;
+                            console.log(obj);
+                            table += obj+"<br><br>";
+                        }
+                        return table;
+                    }
+                    
 
-                    if (xml.nodeType == 1)
-                    { // element
+                    if (xml.nodeType == 1) { // element
                         // do attributes
                         if (xml.attributes.length > 0) {
                             obj["attributes"] = {};
@@ -298,27 +306,15 @@
                                 obj["attributes"][attribute.nodeName] = attribute.nodeValue;
                             }
                         }
-                    }
-                    else if (xml.nodeType == 3)
-                    { // text
+                    } else if (xml.nodeType == 3) { // text
                         obj = xml.nodeValue;
                     }
 
                     // do children
-                    if (xml.hasChildNodes())
-                    {
-                        for (var i = 0; i < xml.childNodes.length; i++)
-                        {
+                    if (xml.hasChildNodes()) {
+                        for (var i = 0; i < xml.childNodes.length; i++) {
                             var item = xml.childNodes.item(i);
                             var nodeName = item.nodeName;
-                            var nodeValue = item.nodeValue;
-                            if (nodeName == "#text" && nodeValue.includes('span class="qt0"')==true)
-                            {
-                                table += "<tr><td>" + nodeValue + "</td></tr>";
-                                document.getElementById("json demo").innerHTML = table;
-                                console.log(nodeValue);
-                            }
-
                             if (typeof (obj[nodeName]) == "undefined") {
                                 obj[nodeName] = xmlToJson(item);
                             } else {
@@ -331,8 +327,7 @@
                             }
                         }
                     }
-                    return obj;
-                };
+                }
             </script>
 
         }
