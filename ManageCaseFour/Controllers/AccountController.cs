@@ -456,7 +456,7 @@ namespace ManageCaseFour.Controllers
             Session.Clear();
             Session.Abandon();
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("AutoLogoff", "Account");
+            return View();
         }
 
         //

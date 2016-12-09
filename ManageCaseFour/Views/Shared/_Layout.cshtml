@@ -55,14 +55,14 @@
     <script>
     //this code from http://stackoverflow.com/questions/13873398/how-to-redirect-to-logon-page-when-session-state-time-out-is-completed-in-asp-net, 10/20/2016
         //session end
-    Session.Timeout = 4;
+    Session.Timeout = 10;
     var sessionTimeoutWarning = @Session.Timeout- 1;
 
     var sTimeout = parseInt(sessionTimeoutWarning) * 60 * 1000;
     setTimeout('SessionEnd()', sTimeout);
 
     function SessionEnd() {
-        window.location = "/Account/AutoLogoff";
+        window.location = "/Account/TimeoutLogOff";
     }
     </script>    
     }
