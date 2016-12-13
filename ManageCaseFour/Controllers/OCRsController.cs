@@ -17,6 +17,8 @@ using System.Text;
 using System.Xml;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity;
+using System.Drawing;
+using System.Security.Cryptography;
 
 namespace ManageCaseFour.Controllers
 {
@@ -160,7 +162,20 @@ namespace ManageCaseFour.Controllers
             string[] filenames = allFilenames.Split(',');
             for (int pageCount = 0; pageCount < filenames.Count(); pageCount++)
             {
-                string text = doOCR(filenames[pageCount]);
+                CryptoViewModel cryptoVM = new CryptoViewModel();
+                Crypto crypto = new Crypto();
+                Rijndael myRin = Rijndael.Create();
+
+                string filename = filenames[pageCount];
+                crypto = db.Crypto.Select(x => x).Where(y => y.filename == filename).First();
+                byte[] encryptedOriginal = crypto.encryptedOriginal;
+                ICryptoTransform decryptor = myRin.CreateDecryptor(crypto.key, crypto.IV);
+
+                byte[] decryptedOriginal = cryptoVM.DecryptBytesToArray(encryptedOriginal, decryptor, crypto.key, crypto.IV);
+                Image img = cryptoVM.ConvertByteArrayToImage(decryptedOriginal, filename+"IMAGE");
+
+
+                string text = doOCR(img);
                 pageText = pageText + " " + text;
             }
             int caseId = Convert.ToInt32(caseID);
@@ -177,24 +192,27 @@ namespace ManageCaseFour.Controllers
         //THIS CODE FROM www.dotnetfunda.com/articles/show/3220/extract-text-from-image-using-tesseract-in-csharp.  
         //DATA FILE FROM bhttps://github.com/bytedeco/sample-projects.  
         //Tesseract package from NuGet.
-        public string doOCR(string filename)
+        public string doOCR(Image image)
         {
-            var testImagePath = filename;
+            //var testImagePath = filename;
+            Bitmap bitImage = new Bitmap(image);
             var dataPath = "C:/Users/Renuka/Documents/GitHub/ManageCaseFour/ManageCaseFour/tessdata";
             //var dataPath = "./tessdata";
             using (var tEngine = new TesseractEngine(dataPath, "eng", EngineMode.Default)) //creating the tesseract OCR engine with English as the language
             {
-                using (var img = Pix.LoadFromFile(testImagePath)) // Load of the image file from the Pix object which is a wrapper for Leptonica PIX structure
+                using (var img = PixConverter.ToPix(bitImage))
+
+                //using (var img = Pix.LoadFromFile(testImagePath)) // Load of the image file from the Pix object which is a wrapper for Leptonica PIX structure
                 {
                     using (var page = tEngine.Process(img)) //process the specified image
                     {
 
                         var text = page.GetText(); //Gets the image's content as plain text.
-                                                    //OCR ocr = new OCR();
-                                                    //ocr.documentId = ParseTextIntoSubjects(pageText);
-                                                    //ocr.documentFilename = filename;
-                                                    //db.OCR.Add(ocr);
-                                                    //db.SaveChanges();
+                                                   //OCR ocr = new OCR();
+                                                   //ocr.documentId = ParseTextIntoSubjects(pageText);
+                                                   //ocr.documentFilename = filename;
+                                                   //db.OCR.Add(ocr);
+                                                   //db.SaveChanges();
                         return text;
                     }
 

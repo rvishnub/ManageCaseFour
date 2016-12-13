@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ManageCaseFour.Models;
+using System.IO;
+using System.Security.Cryptography;
 
 namespace ManageCaseFour.Controllers
 {
@@ -227,6 +229,38 @@ namespace ManageCaseFour.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        public ActionResult EncryptRecords()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EncryptRecords(string filename)
+        {
+            string byteArrayFilename = Path.ChangeExtension(filename, null) + "encrypted";
+
+            Rijndael myRin = Rijndael.Create();
+            byte[] key = myRin.Key;
+            byte[] IV = myRin.IV;
+            ICryptoTransform encryptor = myRin.CreateEncryptor(key, IV);
+            Crypto crypto = new Models.Crypto();
+            CryptoViewModel cryptoVM = new CryptoViewModel();
+            byte[] original = cryptoVM.ConvertImageToByteArray(filename);
+            byte[] encryptedOriginal = cryptoVM.EncryptArrayToBytes(original, encryptor, key, IV);
+            bool result = cryptoVM.SaveByteArray(encryptedOriginal, byteArrayFilename);
+            crypto.filename = filename;
+            crypto.key = key;
+            crypto.IV = IV;
+            crypto.encryptedOriginal = encryptedOriginal;
+            db.Crypto.Add(crypto);
+
+            byte[] decryptedOriginal = cryptoVM.DecryptBytesToArray(encryptedOriginal, encryptor, key, IV);
+            cryptoVM.ConvertByteArrayToImage(decryptedOriginal, filename + "decrypted"); 
+            return View();
+        }
+
 
         protected override void Dispose(bool disposing)
         {

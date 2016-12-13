@@ -220,6 +220,10 @@
     <Compile Include="Migrations\201611101929113_added Name to identity model.Designer.cs">
       <DependentUpon>201611101929113_added Name to identity model.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612132132023_crypto class.cs" />
+    <Compile Include="Migrations\201612132132023_crypto class.Designer.cs">
+      <DependentUpon>201612132132023_crypto class.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Audit.cs" />
@@ -227,6 +231,8 @@
     <Compile Include="Models\CaseRecordViewModel.cs" />
     <Compile Include="Models\ClassViewModel.cs" />
     <Compile Include="Models\Client.cs" />
+    <Compile Include="Models\Crypto.cs" />
+    <Compile Include="Models\CryptoViewModel.cs" />
     <Compile Include="Models\Department.cs" />
     <Compile Include="Models\Facility.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -723,6 +729,7 @@
     <Content Include="Views\Records\Error.cshtml" />
     <Content Include="Views\Records\Whoops.cshtml" />
     <Content Include="Views\Account\TimeoutLogOff.cshtml" />
+    <Content Include="Views\Case\EncryptRecords.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="obj\Debug\TempPE\" />
@@ -764,6 +771,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611101929113_added Name to identity model.resx">
       <DependentUpon>201611101929113_added Name to identity model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612132132023_crypto class.resx">
+      <DependentUpon>201612132132023_crypto class.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="obj\Debug\ManageCaseFour.Migrations.initialmigrationofOCRclass.resources" />
   </ItemGroup>

@@ -1,0 +1,78 @@
+﻿@model ManageCaseFour.Models.CryptoViewModel
+@{
+    ViewBag.Title = "EncryptRecords";
+}
+
+<h2>ENCRYPT RECORDS</h2>
+
+@using (Html.BeginForm())
+{
+    @*@Html.AntiForgeryToken()*@
+
+    @*<div class="form-horizontal">
+        <h4>OCR</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.filename, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.filename, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.filename, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+                @Html.LabelFor(model => model.byteArrayFilename, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.byteArrayFilename, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.byteArrayFilename, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.resultFilename, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.resultFilename, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.resultFilename, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" action="EncryptRecords" class="btn btn-default" />
+            </div>
+        </div>*@
+
+    @Html.AntiForgeryToken()
+
+    <div>
+        <form id="inputFilenameForm" class="well" action="/Case/EncryptRecords" method="POST">
+
+            <label>Which record would you like to encrypt/decrypt?  Enter the full filename.</label>
+            <input type="text" id="filename" name="filename"><br />
+            @*<label>Enter the full filename for the resulting encrypted byte array file.</label>
+            <input type="text" id="byteArrayFilename" name="byteArrayFilename"><br /><br />*@
+            <input type="Submit" id="encryptFileButton">
+        </form>
+    </div>
+
+    <p>The resulting encrypted byte array filename is:  </p>
+    @Html.DisplayFor(model => model.byteArrayFilename)
+
+
+
+    <div>
+        <p>The file has been encrypted:  </p>
+        @Html.DisplayFor(model => model.result)
+    </div>
+
+}
+
+<div>
+    @Html.ActionLink("Back to Case List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
