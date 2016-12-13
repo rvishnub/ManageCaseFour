@@ -55,7 +55,7 @@ namespace ManageCaseFour.Models
         {
             if (original == null || original.Length <= 0)
                 throw new ArgumentNullException("original");
-            if (key == null || Key.Length <= 0)
+            if (key == null || key.Length <= 0)
                 throw new ArgumentNullException("Key");
             if (IV == null || IV.Length <= 0)
                 throw new ArgumentNullException("IV");
@@ -64,7 +64,7 @@ namespace ManageCaseFour.Models
 
             using (MemoryStream msEncrypt = new MemoryStream())
             {
-                using (CryptoStream csEncrypt = new CryptoStream(msEncrypt, this.encryptor, CryptoStreamMode.Write))
+                using (CryptoStream csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
                 {
 
                     csEncrypt.Write(original, 0, original.Length);
@@ -80,7 +80,7 @@ namespace ManageCaseFour.Models
         {
             if (encryptedOriginal == null || encryptedOriginal.Length <= 0)
                 throw new ArgumentNullException("encryptedOriginal");
-            if (Key == null || Key.Length <= 0)
+            if (key == null || key.Length <= 0)
                 throw new ArgumentNullException("Key");
             if (IV == null || IV.Length <= 0)
                 throw new ArgumentNullException("IV");

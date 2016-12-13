@@ -255,9 +255,14 @@ namespace ManageCaseFour.Controllers
             crypto.IV = IV;
             crypto.encryptedOriginal = encryptedOriginal;
             db.Crypto.Add(crypto);
+            db.SaveChanges();
 
-            byte[] decryptedOriginal = cryptoVM.DecryptBytesToArray(encryptedOriginal, encryptor, key, IV);
-            cryptoVM.ConvertByteArrayToImage(decryptedOriginal, filename + "decrypted"); 
+            //this here for testing
+            ICryptoTransform decryptor = myRin.CreateDecryptor(key, IV);
+            byte[] decryptedOriginal = cryptoVM.DecryptBytesToArray(encryptedOriginal, decryptor, key, IV);
+            cryptoVM.ConvertByteArrayToImage(decryptedOriginal, Path.ChangeExtension(filename, null) + "decrypted"); 
+            //this here for testing
+
             return View();
         }
 

@@ -172,7 +172,7 @@ namespace ManageCaseFour.Controllers
                 ICryptoTransform decryptor = myRin.CreateDecryptor(crypto.key, crypto.IV);
 
                 byte[] decryptedOriginal = cryptoVM.DecryptBytesToArray(encryptedOriginal, decryptor, crypto.key, crypto.IV);
-                Image img = cryptoVM.ConvertByteArrayToImage(decryptedOriginal, filename+"IMAGE");
+                Image img = cryptoVM.ConvertByteArrayToImage(decryptedOriginal, Path.ChangeExtension(filename, null) + "IMAGE");
 
 
                 string text = doOCR(img);
