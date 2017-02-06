@@ -1,5 +1,4 @@
-﻿@model ManageCaseFour.Models.CryptoViewModel
-@{
+﻿@{
     ViewBag.Title = "EncryptRecords";
 }
 
@@ -48,7 +47,7 @@
     <div>
         <form id="inputFilenameForm" class="well" action="/Case/EncryptRecords" method="POST">
 
-            <label>Which record would you like to encrypt/decrypt?  Enter the full filename.</label>
+            <label>Which record would you like to encrypt?  Enter the full filename.</label>
             <input type="text" id="filename" name="filename"><br />
             @*<label>Enter the full filename for the resulting encrypted byte array file.</label>
             <input type="text" id="byteArrayFilename" name="byteArrayFilename"><br /><br />*@
@@ -56,16 +55,11 @@
         </form>
     </div>
 
-    <p>The resulting encrypted byte array filename is:  </p>
-    @Html.DisplayFor(model => model.byteArrayFilename)
-
-
 
     <div>
-        <p>The file has been encrypted:  </p>
-        @Html.DisplayFor(model => model.result)
+        @model string
+        <p>The resulting encrypted byte array filename is:  </p><p>@Model</p>
     </div>
-
 }
 
 <div>

@@ -29,7 +29,7 @@ namespace ManageCaseFour.Controllers
         OCRViewModel oVModel;
 
 
-        // GET: OCRs
+        //GET: OCRs
         public ActionResult Index(string sortOrder)
         {
             oVModel = new OCRViewModel();
@@ -46,6 +46,32 @@ namespace ManageCaseFour.Controllers
 
             oVModel.oVModelList = oVModelList;
             return View(oVModel);
+        }
+
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        public ActionResult Index(HttpPostedFileBase file)
+        {
+            if (file != null && file.ContentLength > 0)
+                try
+                {
+                    //string path = Path.Combine(Server.MapPath("~/Images"),
+                    //                           Path.GetFileName(file.FileName));
+                    //file.SaveAs(path);
+                    
+                    System.Drawing.Image img = Image.FromStream(file.InputStream);
+                    ViewBag.Message = "File uploaded successfully";
+                    string text = doOCR(img);
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = "ERROR:" + ex.Message.ToString();
+                }
+            else
+            {
+                ViewBag.Message = "You have not specified a file.";
+            }
+            return View();
         }
 
         // GET: OCRs/Details/5
@@ -85,6 +111,8 @@ namespace ManageCaseFour.Controllers
 
             return View(oCR);
         }
+
+
 
         // GET: OCRs/Edit/5
         public ActionResult Edit(int? id)
@@ -167,7 +195,8 @@ namespace ManageCaseFour.Controllers
                 Rijndael myRin = Rijndael.Create();
 
                 string filename = filenames[pageCount];
-                crypto = db.Crypto.Select(x => x).Where(y => y.filename == filename).First();
+                //code is not recognizing the filename of the encrypted document.
+                crypto = db.Crypto.Select(x => x).Where(y => y.filename == (filename.Remove(filename.Length-10,9).ToString())).First();
                 byte[] encryptedOriginal = crypto.encryptedOriginal;
                 ICryptoTransform decryptor = myRin.CreateDecryptor(crypto.key, crypto.IV);
 

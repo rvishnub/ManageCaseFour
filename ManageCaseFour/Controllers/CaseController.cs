@@ -263,7 +263,7 @@ namespace ManageCaseFour.Controllers
             cryptoVM.ConvertByteArrayToImage(decryptedOriginal, Path.ChangeExtension(filename, null) + "decrypted"); 
             //this here for testing
 
-            return View();
+            return View((object)byteArrayFilename);
         }
 
 

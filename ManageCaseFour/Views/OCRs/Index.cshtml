@@ -39,10 +39,22 @@
 
             <label>For which case would you like to enter a record?  Enter the Case ID.</label>
             <input type="text" id="caseID" name="caseID"><br />
-            <label>Enter the group of files that you would like to scan for OCR, </label><p style="font-style: italic">in the order in which you would like to compile the text.</p>
+            @*<label>Enter the group of files that you would like to scan for OCR, </label><p style="font-style: italic">in the order in which you would like to compile the text.</p>
             <input type="text" id="allFilenames" name="allFilenames" AllowMultiple="true"><br /><br/>
-            <input type="Submit" id="uploadFileButton">
+            <input type="Submit" id="uploadFileButton">*@
         </form>
+
+        <h2>Basic File Upload</h2>
+        @using (Html.BeginForm("Index", "OCRs", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <label for="file">Upload Image:</label>
+            <input type="file" name="file" id="file" /><br><br>
+            <input type="submit" value="Upload Image" />
+            <br><br>
+        @ViewBag.Message
+        }
+
+
 
 <div>
     <h3>List of Scanned Document Records</h3>

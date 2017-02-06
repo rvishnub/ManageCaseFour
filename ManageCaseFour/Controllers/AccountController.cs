@@ -128,7 +128,7 @@ namespace ManageCaseFour.Controllers
                 case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("", "Invalid login attempt.");
-                    return View(model);
+                    return RedirectToAction("Denied");
             }
         }
 
@@ -470,6 +470,7 @@ namespace ManageCaseFour.Controllers
         public ActionResult Denied()
         {
             return View();
+                
         }
 
         protected override void Dispose(bool disposing)
